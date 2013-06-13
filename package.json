@@ -1,0 +1,29 @@
+{
+  "name": "luc",
+  "version": "0.0.0",
+  "description": "a small javascript framework",
+  "main": "lib/luc.js",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-exec": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-mocha-test": "0.2.0",
+    "browserify": "2.10.2",
+    "expect.js": "0.2.0",
+    "mocha": "~1.11.0"
+  },
+  "testling": {
+    "browsers": [
+      "ie6",
+      "ie7",
+      "ie8",
+      "ie9",
+      "firefox/15",
+      "chrome/22",
+      "opera/12",
+      "safari/5.1"
+    ],
+    "harness": "mocha",
+    "files": "test/*.js"
+  }
+}
