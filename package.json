@@ -1,5 +1,10 @@
 {
+  "author": "Patrick Lee <pllee.github@gmail.com>",
   "name": "luc",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pllee/luc.git"
+  },
   "version": "0.0.0",
   "description": "a small javascript framework",
   "main": "lib/luc.js",
