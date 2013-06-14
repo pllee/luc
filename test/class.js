@@ -5,12 +5,15 @@ var Luc = require('../lib/luc-es5-shim'),
 describe('Luc Class', function() {
     it('Base', function() {
         var b = new Luc.Base({
-            a: 1
+            a: 1,
+            init: function() {
+                this.a++;
+            }
         });
-        expect(b.a).to.eql(1);
+        expect(b.a).to.be(2);
     });
 
-    it('define', function() {
+    it('simple define', function() {
         var C = Luc.define({
             b: '2'
         });
@@ -21,20 +24,35 @@ describe('Luc Class', function() {
         expect(b.b).to.eql('2');
     });
 
-    it('mixins', function() {
+    it('single mixin', function() {
         var C = Luc.define({
-            $mixins: {
-                emitter: Luc.EventEmitter
-            }
+            $mixins: Luc.EventEmitter
         });
 
         var b = new C({
             a: 1
         });
+
         emitterTest(b);
     });
 
-    it('static', function() {
+    it('multiple mixins', function() {
+        var mixinObj = {
+            a: function() {
+
+            },
+            prop: {}
+        }, C = Luc.define({
+            $mixins: [Luc.EventEmitter, mixinObj]
+        }),
+        c = new C();
+
+        expect(c.a).to.be(mixinObj.a);
+        expect(c.prop).to.be(mixinObj.prop);
+        expect(c.emit).to.be(Luc.EventEmitter.prototype.emit);
+    });
+
+    it('statics', function() {
         var C = Luc.define({
             $statics: {
                 b: 1
@@ -44,42 +62,11 @@ describe('Luc Class', function() {
         expect(C.b).to.eql(1);
     });
 
-    it('emitter mix', function() {
-        var C = Luc.define({
-            $emitterMix: true
-        });
-        var c = new C();
-        expect(c instanceof Luc.EventEmitter).to.be(false);
-        emitterTest(c);
-    });
-
-    it('$className', function() {
-        var C = Luc.define({
-            $className: 'Patrick'
-        });
-
-        var D = Luc.define({});
-
-        var c = new C(),
-            d = new D();
-        expect(c.$className).to.eql('Patrick');
-        expect(d.$className).to.eql(undefined);
-    });
-
     it('$class', function() {
-        var C = Luc.define({
-            $emitterMix: true
-        });
-        var i;
-        var c = new C({
-            emit: function() {
-                i = 0;
-                this.$class.prototype.emit.apply(this, arguments);
-            }
-        });
+        var C = Luc.define({}),
+            c = new C();
 
-        emitterTest(c);
-        expect(i).to.be(0);
+        expect(c.$class).to.be(C);
     });
 
     it('super', function() {
@@ -88,7 +75,7 @@ describe('Luc Class', function() {
             $super: Luc.EventEmitter,
             emit: function() {
                 i = 0;
-                this.$superClass.emit.apply(this, arguments);
+                this.$superclass.emit.apply(this, arguments);
             }
         });
 
@@ -110,27 +97,56 @@ describe('Luc Class', function() {
         expect(base.events).to.be(undefined);
     });
 
-    it('composition and superclass and super', function() {
-        var ArrayEmitter = Luc.define({
-            $super: Array,
-            $compositions: [{Constructor: Luc.EventEmitter, name: 'emitter'}],
-            pop: function() {
-                var popped = this.$superClass.pop.call(this);
-                this.emit('pop', popped);
-            }
-        }), emitPopped = [];
+    it('composition, superclass, mixins and statics', function() {
+        function Adder() {
 
-        var arr = new ArrayEmitter();
-        arr.on('pop', function(value) {
-            emitPopped.push(value);
+        }
+        Adder.prototype.add = function(a, b) {
+            return a + b;
+        };
+
+        var AdderEmitter = Luc.define({
+            $super: Adder,
+            $statics: {
+                total: 0
+            },
+            $mixins: {
+                makeString: function(value) {
+                    return value + '';
+                }
+            },
+            $compositions: {
+                Constructor: Luc.EventEmitter,
+                name: 'emitter'
+            },
+            add: function(a, b, c) {
+                var two = this.$superclass.add.call(this, a, b),
+                    ret = two + c;
+
+                this.emit('toString', this.makeString(ret));
+
+                this.$class.total += ret;
+
+                return ret;
+            }
+        }), stringValue;
+
+        var adderEmit = new AdderEmitter();
+
+        adderEmit.on('toString', function(value) {
+            stringValue = value;
         });
 
-        arr.push(1,2,3);
-        arr.pop();arr.pop();arr.pop();
-        arr.push(5);
-        arr.shift();
+        var result = adderEmit.add(1, 2, 3);
 
-        expect(emitPopped).to.eql([3,2,1]);
+        expect(result).to.be(6);
+        expect(stringValue).to.be('6');
+
+        adderEmit.add(3, 3, 3);
+
+        expect(stringValue).to.be('9');
+
+        expect(AdderEmitter.total).to.be(15);
     });
 });
 

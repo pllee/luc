@@ -48,7 +48,6 @@ describe('Luc Object functions', function() {
         }(a,b));
     });
 
-    //TODO
     it('filter', function() {
         var obj = Object.create({a: 1, b:2}),
             filtered;
