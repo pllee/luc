@@ -43,6 +43,6 @@
     "files": "test/*.js"
   },
   "scripts": {
-    "test": "grunt tests"
+    "test": "npm install && grunt tests"
   }
 }
