@@ -10,7 +10,7 @@ describe('Luc Object functions', function() {
 
         Luc.Object.each(t, function(key, value) {
             this.str += key + value;
-        }, obj)
+        }, obj);
         expect(obj.str).to.eql('aabbzz');
     });
 
@@ -30,4 +30,21 @@ describe('Luc Object functions', function() {
         Luc.mix(a, {a: 1, b:2});
         expect(a).to.eql({a: 1, b:3});
     });
-})
+
+    it('toObject', function() {
+        var a = {},
+            b = [],
+            toObjectArgs,
+            toObjectArray;
+
+        toObjectArray = Luc.Object.toObject(['name1', 'name2'], [a,b]);
+        expect(toObjectArray.name1).to.eql(a);
+        expect(toObjectArray.name2).to.eql(b);
+
+        (function(c,d){
+            toObjectArgs = Luc.Object.toObject(['name1', 'name2'], arguments);
+            expect(toObjectArgs.name1).to.eql(a);
+            expect(toObjectArgs.name2).to.eql(b);
+        }(a,b));
+    });
+});
