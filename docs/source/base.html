@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var emptyFn = require('../function').emptyFn,
+    apply = require('../object').apply;
+
+<span id='Luc-Base'>/**
+</span> * @class Luc.Base
+ * Simple class that by default applies the 
+ * first argument to the instance and then calls
+ * Luc.Base.init.
+ *
+    var b = new Luc.Base({
+        a: 1,
+        init: function() {
+            console.log('hey')
+        }
+    })
+    b.a
+    &gt;hey
+    &gt;1
+ */
+function Base() {
+    this.beforeInit.apply(this, arguments);
+    this.init();
+}
+
+Base.prototype = {
+<span id='Luc-Base-method-beforeInit'>    /**
+</span>     * By default apply the config to the 
+     * instance.
+     */
+    beforeInit: function(config) {
+        apply(this, config);
+    },
+<span id='Luc-Base-method-init'>    /**
+</span>     * @method
+     * Simple hook to initialize
+     * the class.
+     */
+    init: emptyFn
+};
+
+module.exports = Base;</pre>
+</body>
+</html>

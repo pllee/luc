@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var EventEmitter = require('events').EventEmitter;
+
+EventEmitter.prototype.once = function(type, listener) {
+    //put in fix for IE 9 and below
+    var self = this,
+        g = function() {
+            self.removeListener(type, g);
+            listener.apply(this, arguments);
+        };
+
+    self.on(type, g);
+
+    return this;
+};
+
+module.exports = EventEmitter;</pre>
+</body>
+</html>

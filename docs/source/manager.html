@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var Base = require('./base'),
+    EventEmitter = require('../events/eventEmitter'),
+    obj = require('../object'),
+    apply = obj.apply,
+    oEach = obj.each,
+    oFilter = obj.filter,
+    mix = obj.mix;
+
+function ClassManager() {}
+
+ClassManager.prototype = {
+    defaultType: Base,
+
+    define: function(opts) {
+        var options = opts || {},
+        Super = options.$super || this.defaultType,
+        Constructor;
+
+        options.$super = Super;
+
+        Constructor = this._createConstructor(options);
+
+        this._processAfterCreate(Constructor, options);
+
+        return Constructor;
+    },
+
+    _createConstructor: function(options) {
+        var superclass = options.$super,
+            Constructor = this._createConstructorFn(options);
+
+        Constructor.prototype = Object.create(superclass.prototype);
+        
+        return Constructor;
+    },
+
+    _createConstructorFn: function(options) {
+        var superclass = options.$super,
+            me = this, initClassOptions;
+
+        if(this._hasConstructorModifyingOptions(options)) {
+
+            initClassOptions = this._createInitClassOptionsFn();
+            
+            return function() {
+                initClassOptions.call(this, options);
+                superclass.apply(this, arguments);
+            };
+        }
+
+        return function() {
+            superclass.apply(this, arguments);
+        };
+    },
+
+    _createInitClassOptionsFn: function() {
+        var me = this;
+
+        return function(options) {
+            if(options.$compositions) {
+                me._initCompositions.call(this, options);
+            }
+        };
+    },
+
+    _initCompositions: function(options) {
+        var compositions = options.$compositions;
+        this.compositions = {};
+        compositions.forEach(function(composition){
+            this.compositions[composition.name] = new composition.Constructor();
+        }, this);
+    },
+
+    _hasConstructorModifyingOptions: function(options) {
+        return options.$compositions;
+    },
+
+    postProcessorKeys: {
+        $mixins: '_applyMixins',
+        $statics: '_applyStatics',
+        $emitterMix: '_mixEmitter',
+        $compositions: '_compose'
+    },
+
+    _getProcessorKey: function(key) {
+        return this.postProcessorKeys[key];
+    },
+
+    _processAfterCreate: function($class, options) {
+        this._applyValuesToProto($class, options);
+        this._handlePostProcessors($class, options);
+    },
+
+    _applyValuesToProto: function($class, options) {
+        var proto = $class.prototype,
+            Super = options.$super,
+            values = apply({
+                $superClass: Super.prototype,
+                $class: $class
+            }, options);
+
+        oEach(values, function(key, value) {
+            if (!this._getProcessorKey(key)) {
+                proto[key] = value;
+            }
+        }, this);
+    },
+
+    _handlePostProcessors: function($class, options) {
+        oEach(options, function(key, value) {
+            var method = this._getProcessorKey(key);
+            if (method) {
+                this[method].call(this, $class, options[key]);
+            }
+        }, this);
+    },
+
+    _applyMixins: function($class, mixins) {
+         var proto = $class.prototype;
+         oEach(mixins, function(key, value) { 
+            mix(proto, value.prototype);
+         });
+    },
+
+    _applyStatics: function($class, statics) {
+        apply($class, statics);
+    },
+
+    _mixEmitter: function($class) {
+        this._applyMixins($class, {emitter: EventEmitter});
+    },
+
+    _compose: function($class, compositions) {
+        var prototype = $class.prototype,
+            methodsToCompose;
+
+        compositions.forEach(function(composition) {
+            var name = composition.name;
+
+            methodsToCompose = oFilter(composition.Constructor.prototype, function(key, value) {
+                return typeof value === 'function';
+            });
+
+            methodsToCompose.forEach(function(keyValue) {
+                prototype[keyValue.key] = this._createComposerProtoFn(keyValue.key, name);
+            }, this);
+        }, this);
+    },
+
+    _createComposerProtoFn: function(methodName, compositionName) {
+        return function() {
+            var comp = this.compositions[compositionName];
+            return comp[methodName].apply(comp, arguments);
+        };
+    }
+};
+
+var Manager = new ClassManager();
+
+exports.define = function() {
+    return Manager.define.apply(Manager, arguments);
+};
+
+//expose ClassManager for potential customization
+exports.ClassManager = ClassManager;</pre>
+</body>
+</html>
