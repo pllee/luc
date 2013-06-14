@@ -47,4 +47,16 @@ describe('Luc Object functions', function() {
             expect(toObjectArgs.name2).to.eql(b);
         }(a,b));
     });
+
+    //TODO
+    it('filter', function() {
+        var obj = Object.create({a: 1, b:2}),
+            filtered;
+
+        filtered = Luc.Object.filter(obj, function(key, value) {
+            return key === 'a';
+        });
+
+        expect(filtered).to.eql([{key: 'a', value: 1}]);
+    });
 });
