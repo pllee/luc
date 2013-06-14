@@ -41,5 +41,8 @@
     ],
     "harness": "mocha",
     "files": "test/*.js"
+  },
+  "scripts": {
+    "test": "grunt tests"
   }
 }
