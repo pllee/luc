@@ -160,11 +160,33 @@ describe('Luc Class', function() {
     it('class options do not get applied to the instance', function() {
         var AdderEmitter = defineClassWithAllOptions(),
             adderEmit = new AdderEmitter(),
-            allOptions = Luc.ClassDefiner.postProcessorKeys;
+            allOptions = Luc.ClassDefiner.processorKeys;
 
         Object.keys(allOptions).forEach(function(option) {
             expect(adderEmit[option]).to.be(undefined);
         });
+    });
+
+    it('get composition', function() {
+        var Comps = Luc.define({
+            $compositions: [{
+                    Constructor: String,
+                    name: 'string'
+                }, {
+                    Constructor: Date,
+                    name: 'date'
+                }, {
+                    Constructor: Array,
+                    name: 'array'
+                }
+            ]
+        });
+
+        var c = new Comps();
+
+        expect(c.getComposition('string')).to.be.a(String);
+        expect(c.getComposition('date')).to.be.a(Date);
+        expect(c.getComposition('array')).to.be.a(Array);
     });
 });
 
