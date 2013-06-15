@@ -18,7 +18,11 @@ module.exports = function(grunt) {
           'build/luc-es5-shim.min.js': ['build/luc-es5-shim.js']
         },
         options: {
-          mangle: false
+          mangle: false,
+          preserveComments: 'some',
+          banner:  '/**\n' +
+                   ' * @license https://github.com/pllee/luc/blob/master/LICENSE\n' +
+                   ' */\n'
         }
       }
     },
