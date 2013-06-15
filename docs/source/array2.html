@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Luc-Array'>/**
+</span> * @class Luc.Array
+ * Package for Array methods.
+ */
+
+<span id='Luc-Array-method-toArray'>/**
+</span> * Turn the passed in item into an array if it
+ * isn't one already, if the item is an array just return it.  
+ * It returns an empty array if item is null or undefined.
+ * If it is just a single item return an array containing the item.
+ * 
+    Luc.Array.toArray()
+    &gt;[]
+    Luc.Array.toArray(null)
+    &gt;[]
+    Luc.Array.toArray(1)
+    &gt;[1]
+    Luc.Array.toArray([1,2])
+    &gt;[1, 2]
+ *
+ * @param  {Object} item item to turn into an array.
+ * @return the array
+ */
+function toArray(item) {
+    if (Array.isArray(item)) {
+        return item;
+    }
+    return (item === null || item === undefined) ? [] : [item];
+}
+
+<span id='Luc-Array-method-each'>/**
+</span> * Runs an array.forEach after calling Luc.Array.toArray on the item.
+ * @param  {Object}   item
+ * @param  {Function} fn        
+ * @param  {Object}   context   
+ */
+function each(item, fn, context) {
+    var arr = toArray(item);
+    return arr.forEach.call(arr, fn, context);
+}
+
+exports.toArray = toArray;
+exports.each = each;</pre>
+</body>
+</html>

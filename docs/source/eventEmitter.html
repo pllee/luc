@@ -15,8 +15,20 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js">var EventEmitter = require('events').EventEmitter;
+  <pre class="prettyprint lang-js"><span id='EventEmitter'>/**
+</span> * @license https://raw.github.com/joyent/node/v0.10.11/LICENSE
+ * Node js licence. EventEmitter will be in the client
+ * only code.
+ */
 
+var EventEmitter = require('events').EventEmitter;
+
+<span id='Luc-EventEmitter'>/**
+</span> * @class Luc.EventEmitter
+ * The wonderful event emmiter that comes with node,
+ * that works in the supported browsers.
+ * [http://nodejs.org/api/events.html](http://nodejs.org/api/events.html)
+ */
 EventEmitter.prototype.once = function(type, listener) {
     //put in fix for IE 9 and below
     var self = this,
