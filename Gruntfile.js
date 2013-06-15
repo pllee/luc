@@ -26,11 +26,11 @@ module.exports = function(grunt) {
       }
     },
     mochaTest: {
-      files: ['test/*.js']
-    },
-    mochaTestConfig: {
-      options: {
-        reporter: 'list'
+      test: {
+        options: {
+          reporter: 'list'
+        },
+        src: ['test/*.js']
       }
     }
   });
