@@ -1,0 +1,10 @@
+{
+    "--title": "Luc",
+    "--builtin-classes": true,
+    "--": [
+        "lib"
+    ],
+    "--head-html": "<script src= 'http://pllee.github.io/luc/build/luc-es5-shim.js'></script>",
+    "--welcome": "README.md",
+    "--output" : "docs"
+}

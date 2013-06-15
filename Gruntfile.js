@@ -9,9 +9,6 @@ module.exports = function(grunt) {
       },
       buildTest: {
         cmd: 'node_modules/.bin/browserify --debug test/lib/luc.js > testRunner/build/tests.js'
-      },
-      buildDocs: {
-        cmd: 'jsduck lib --ignore-global --output docs'
       }
     },
     uglify: {
