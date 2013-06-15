@@ -21,7 +21,8 @@ function defineClassWithAllOptions() {
         },
         $compositions: {
             Constructor: Luc.EventEmitter,
-            name: 'emitter'
+            name: 'emitter',
+            filterKeys: 'allMethods'
         },
         add: function(a, b, c) {
             var two = this.$superclass.add.call(this, a, b),
@@ -126,7 +127,7 @@ describe('Luc Class', function() {
         });
 
         var BaseEmitter = Luc.define({
-            $compositions: [{Constructor: EmitterParent, name: 'emitter'}]
+            $compositions: [{Constructor: EmitterParent, name: 'emitter', filterKeys: 'allMethods'}]
         });
 
 
@@ -187,6 +188,47 @@ describe('Luc Class', function() {
         expect(c.getComposition('string')).to.be.a(String);
         expect(c.getComposition('date')).to.be.a(Date);
         expect(c.getComposition('array')).to.be.a(Array);
+    });
+
+    it('test default plugin composition', function() {
+        var testIntance,
+            ClassWithPlugins = Luc.define({
+                $compositions: Luc.getPluginCompostion()
+            });
+
+        var c = new ClassWithPlugins({
+            plugins: [{
+                    init: function(instance) {
+                        testInstance = instance;
+                    }
+                }
+            ]
+        });
+
+        expect(testInstance).to.be(c);
+        expect(c.getComposition('plugins')[0]).to.be.a(Luc.Plugin);
+    });
+
+    it('test configured plugin constructors', function() {
+        var testIntance,
+            ConfiguredPlugin = function(config) {
+                this.myOwner = config.owner;
+            },
+            ClassWithPlugins = Luc.define({
+                $compositions: Luc.getPluginCompostion()
+            });
+
+        var c = new ClassWithPlugins({
+            plugins: [{}, {
+                    Constructor: ConfiguredPlugin
+                }
+            ]
+        });
+
+        expect(c.getComposition('plugins')[0]).to.be.a(Luc.Plugin);
+        var configedPlugin = c.getComposition('plugins')[1];
+        expect(configedPlugin).to.be.a(ConfiguredPlugin);
+        expect(configedPlugin.myOwner).to.be(c);
     });
 });
 
