@@ -33,6 +33,6 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.registerTask('default', ['exec', 'uglify', 'mochaTest']);
+  grunt.registerTask('default', ['exec', 'uglify']);
 
 };
