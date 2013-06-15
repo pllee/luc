@@ -9,6 +9,9 @@ module.exports = function(grunt) {
       },
       buildTest: {
         cmd: 'node_modules/.bin/browserify --debug test/lib/luc.js > testRunner/build/tests.js'
+      },
+      runTest: {
+        cmd: 'mocha -R list'
       }
     },
     uglify: {
@@ -25,21 +28,11 @@ module.exports = function(grunt) {
                    ' */\n'
         }
       }
-    },
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'list'
-        },
-        src: ['test/*.js']
-      }
     }
   });
 
-  grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.registerTask('tests', ['mochaTest']);
   grunt.registerTask('default', ['exec', 'uglify', 'mochaTest']);
 
 };
