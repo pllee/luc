@@ -87,9 +87,14 @@ describe('Luc Class', function() {
     });
 
     it('composition', function() {
-        var BaseEmitter = Luc.define({
-            $compositions: [{Constructor: Luc.EventEmitter, name: 'emitter'}]
+        var EmitterParent =  Luc.define({
+            $super: Luc.EventEmitter
         });
+
+        var BaseEmitter = Luc.define({
+            $compositions: [{Constructor: EmitterParent, name: 'emitter'}]
+        });
+
 
         var base = new BaseEmitter({});
         emitterTest(base);

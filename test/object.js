@@ -48,14 +48,39 @@ describe('Luc Object functions', function() {
         }(a,b));
     });
 
-    it('filter', function() {
+    it('filter non ownProperties', function() {
         var obj = Object.create({a: 1, b:2}),
             filtered;
 
         filtered = Luc.Object.filter(obj, function(key, value) {
             return key === 'a';
+        }, undefined, {
+            ownProperties: false
         });
 
         expect(filtered).to.eql([{key: 'a', value: 1}]);
+    });
+
+    it('filter ownProperties', function() {
+        var obj = Object.create({a: 1, b:2}),
+            filtered;
+
+        obj.c = 3;
+
+        filtered = Luc.Object.filter(obj, function(key, value) {
+            return key === 'a';
+        }, undefined, {
+            ownProperties: true
+        });
+
+        expect(filtered).to.eql([]);
+
+        filtered = Luc.Object.filter(obj, function(key, value) {
+            return key === 'c';
+        }, undefined, {
+            ownProperties: true
+        });
+
+        expect(filtered).to.eql([{key: 'c', value: 3}]);
     });
 });
