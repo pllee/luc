@@ -169,25 +169,28 @@ describe('Luc Class', function() {
     });
 
     it('get composition', function() {
+        function A() {}
+        function B(){}
+        function C(){}
         var Comps = Luc.define({
             $compositions: [{
-                    Constructor: String,
-                    name: 'string'
+                    Constructor: A,
+                    name: 'a'
                 }, {
-                    Constructor: Date,
-                    name: 'date'
+                    Constructor: B,
+                    name: 'b'
                 }, {
-                    Constructor: Array,
-                    name: 'array'
+                    Constructor: C,
+                    name: 'c'
                 }
             ]
         });
 
         var c = new Comps();
 
-        expect(c.getComposition('string')).to.be.a(String);
-        expect(c.getComposition('date')).to.be.a(Date);
-        expect(c.getComposition('array')).to.be.a(Array);
+        expect(c.getComposition('a')).to.be.a(A);
+        expect(c.getComposition('b')).to.be.a(B);
+        expect(c.getComposition('c')).to.be.a(C);
     });
 
     it('test default plugin composition', function() {
