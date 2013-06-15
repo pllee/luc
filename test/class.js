@@ -2,6 +2,40 @@ var emitterTest = require('./common').testEmitter;
 var Luc = require('../lib/luc-es5-shim'),
     expect = require('expect.js');
 
+
+function defineClassWithAllOptions() {
+    function Adder() {}
+
+    Adder.prototype.add = function(a, b) {
+        return a + b;
+    };
+    return Luc.define({
+        $super: Adder,
+        $statics: {
+            total: 0
+        },
+        $mixins: {
+            makeString: function(value) {
+                return value + '';
+            }
+        },
+        $compositions: {
+            Constructor: Luc.EventEmitter,
+            name: 'emitter'
+        },
+        add: function(a, b, c) {
+            var two = this.$superclass.add.call(this, a, b),
+                ret = two + c;
+
+            this.emit('toString', this.makeString(ret));
+
+            this.$class.total += ret;
+
+            return ret;
+        }
+    });
+}
+
 describe('Luc Class', function() {
     it('Base', function() {
         var b = new Luc.Base({
@@ -102,47 +136,16 @@ describe('Luc Class', function() {
         expect(base.events).to.be(undefined);
     });
 
-    it('composition, superclass, mixins and statics', function() {
-        function Adder() {
-
-        }
-        Adder.prototype.add = function(a, b) {
-            return a + b;
-        };
-
-        var AdderEmitter = Luc.define({
-            $super: Adder,
-            $statics: {
-                total: 0
-            },
-            $mixins: {
-                makeString: function(value) {
-                    return value + '';
-                }
-            },
-            $compositions: {
-                Constructor: Luc.EventEmitter,
-                name: 'emitter'
-            },
-            add: function(a, b, c) {
-                var two = this.$superclass.add.call(this, a, b),
-                    ret = two + c;
-
-                this.emit('toString', this.makeString(ret));
-
-                this.$class.total += ret;
-
-                return ret;
-            }
-        }), stringValue;
-
-        var adderEmit = new AdderEmitter();
+    it('all class options together', function() {
+        var AdderEmitter = defineClassWithAllOptions(),
+            stringValue, result,
+            adderEmit = new AdderEmitter();
 
         adderEmit.on('toString', function(value) {
             stringValue = value;
         });
 
-        var result = adderEmit.add(1, 2, 3);
+        result = adderEmit.add(1, 2, 3);
 
         expect(result).to.be(6);
         expect(stringValue).to.be('6');
@@ -152,6 +155,16 @@ describe('Luc Class', function() {
         expect(stringValue).to.be('9');
 
         expect(AdderEmitter.total).to.be(15);
+    });
+
+    it('class options do not get applied to the instance', function() {
+        var AdderEmitter = defineClassWithAllOptions(),
+            adderEmit = new AdderEmitter(),
+            allOptions = Luc.ClassDefiner.postProcessorKeys;
+
+        Object.keys(allOptions).forEach(function(option) {
+            expect(adderEmit[option]).to.be(undefined);
+        });
     });
 });
 
