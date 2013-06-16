@@ -193,6 +193,41 @@ describe('Luc Class', function() {
         expect(c.getComposition('c')).to.be.a(C);
     });
 
+    it('initComposition before and after', function() {
+        var hasABeenInited = false,
+            hasBBeenInited = false,
+            hasCBeenInited = false;
+        function A() {
+            hasABeenInited = true;
+        }
+        function B(){
+            hasBBeenInited = true;
+        }
+        function C(){
+            hasCBeenInited = true;
+            expect(hasABeenInited).to.be(false);
+            expect(hasBBeenInited).to.be(true);
+        }
+        var Comps = Luc.define({
+            $compositions: [{
+                    Constructor: A,
+                    name: 'a',
+                    initAfter: true
+                }, {
+                    Constructor: B,
+                    name: 'b',
+                    initAfter: false
+                }, {
+                    Constructor: C,
+                    name: 'c'
+                }
+            ]
+        });
+
+        var c = new Comps();
+        expect(hasCBeenInited).to.be(true);
+    });
+
     it('test default plugin composition', function() {
         var testIntance,
             ClassWithPlugins = Luc.define({
