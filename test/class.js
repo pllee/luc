@@ -1,5 +1,5 @@
 var emitterTest = require('./common').testEmitter;
-var Luc = require('../lib/luc-es5-shim'),
+var Luc = require('./lucTestLib'),
     expect = require('expect.js');
 
 

@@ -1,4 +1,4 @@
-var Luc = require('../lib/luc-es5-shim'),
+var Luc = require('./lucTestLib'),
     expect = require('expect.js');
 var emitterTest = require('./common').testEmitter;
 //Sanity check to make sure node components work on the browser.
