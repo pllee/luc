@@ -1,0 +1,3996 @@
+{
+  "instrumentation": "node-jscoverage",
+  "sloc": 226,
+  "hits": 218,
+  "misses": 8,
+  "coverage": 96.46017699115043,
+  "files": [
+    {
+      "filename": "array.js",
+      "coverage": 100,
+      "hits": 9,
+      "misses": 0,
+      "sloc": 9,
+      "source": {
+        "1": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "2": {
+          "source": " * @class Luc.Array",
+          "coverage": ""
+        },
+        "3": {
+          "source": " * Package for Array methods.",
+          "coverage": ""
+        },
+        "4": {
+          "source": " */",
+          "coverage": ""
+        },
+        "5": {
+          "source": "",
+          "coverage": ""
+        },
+        "6": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "7": {
+          "source": " * Turn the passed in item into an array if it",
+          "coverage": ""
+        },
+        "8": {
+          "source": " * isn't one already, if the item is an array just return it.  ",
+          "coverage": ""
+        },
+        "9": {
+          "source": " * It returns an empty array if item is null or undefined.",
+          "coverage": ""
+        },
+        "10": {
+          "source": " * If it is just a single item return an array containing the item.",
+          "coverage": ""
+        },
+        "11": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "12": {
+          "source": "    Luc.Array.toArray()",
+          "coverage": ""
+        },
+        "13": {
+          "source": "    &gt;[]",
+          "coverage": ""
+        },
+        "14": {
+          "source": "    Luc.Array.toArray(null)",
+          "coverage": ""
+        },
+        "15": {
+          "source": "    &gt;[]",
+          "coverage": ""
+        },
+        "16": {
+          "source": "    Luc.Array.toArray(1)",
+          "coverage": ""
+        },
+        "17": {
+          "source": "    &gt;[1]",
+          "coverage": ""
+        },
+        "18": {
+          "source": "    Luc.Array.toArray([1,2])",
+          "coverage": ""
+        },
+        "19": {
+          "source": "    &gt;[1, 2]",
+          "coverage": ""
+        },
+        "20": {
+          "source": " *",
+          "coverage": ""
+        },
+        "21": {
+          "source": " * @param  {Object} item item to turn into an array.",
+          "coverage": ""
+        },
+        "22": {
+          "source": " * @return the array",
+          "coverage": ""
+        },
+        "23": {
+          "source": " */",
+          "coverage": ""
+        },
+        "24": {
+          "source": "function toArray(item) {",
+          "coverage": 1
+        },
+        "25": {
+          "source": "    if (Array.isArray(item)) {",
+          "coverage": 46
+        },
+        "26": {
+          "source": "        return item;",
+          "coverage": 25
+        },
+        "27": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "28": {
+          "source": "    return (item === null || item === undefined) ? [] : [item];",
+          "coverage": 21
+        },
+        "29": {
+          "source": "}",
+          "coverage": ""
+        },
+        "30": {
+          "source": "",
+          "coverage": ""
+        },
+        "31": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "32": {
+          "source": " * Runs an array.forEach after calling Luc.Array.toArray on the item.",
+          "coverage": ""
+        },
+        "33": {
+          "source": " * @param  {Object}   item",
+          "coverage": ""
+        },
+        "34": {
+          "source": " * @param  {Function} fn        ",
+          "coverage": ""
+        },
+        "35": {
+          "source": " * @param  {Object}   context   ",
+          "coverage": ""
+        },
+        "36": {
+          "source": " */",
+          "coverage": ""
+        },
+        "37": {
+          "source": "function each(item, fn, context) {",
+          "coverage": 1
+        },
+        "38": {
+          "source": "    var arr = toArray(item);",
+          "coverage": 41
+        },
+        "39": {
+          "source": "    return arr.forEach.call(arr, fn, context);",
+          "coverage": 41
+        },
+        "40": {
+          "source": "}",
+          "coverage": ""
+        },
+        "41": {
+          "source": "",
+          "coverage": ""
+        },
+        "42": {
+          "source": "exports.toArray = toArray;",
+          "coverage": 1
+        },
+        "43": {
+          "source": "exports.each = each;",
+          "coverage": 1
+        }
+      }
+    },
+    {
+      "filename": "class/base.js",
+      "coverage": 100,
+      "hits": 7,
+      "misses": 0,
+      "sloc": 7,
+      "source": {
+        "1": {
+          "source": "var emptyFn = require('../function').emptyFn,",
+          "coverage": 1
+        },
+        "2": {
+          "source": "    apply = require('../object').apply;",
+          "coverage": ""
+        },
+        "3": {
+          "source": "",
+          "coverage": ""
+        },
+        "4": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "5": {
+          "source": " * @class Luc.Base",
+          "coverage": ""
+        },
+        "6": {
+          "source": " * Simple class that by default applies the ",
+          "coverage": ""
+        },
+        "7": {
+          "source": " * first argument to the instance and then calls",
+          "coverage": ""
+        },
+        "8": {
+          "source": " * Luc.Base.init.",
+          "coverage": ""
+        },
+        "9": {
+          "source": " *",
+          "coverage": ""
+        },
+        "10": {
+          "source": "    var b = new Luc.Base({",
+          "coverage": ""
+        },
+        "11": {
+          "source": "        a: 1,",
+          "coverage": ""
+        },
+        "12": {
+          "source": "        init: function() {",
+          "coverage": ""
+        },
+        "13": {
+          "source": "            console.log('hey')",
+          "coverage": ""
+        },
+        "14": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "15": {
+          "source": "    })",
+          "coverage": ""
+        },
+        "16": {
+          "source": "    b.a",
+          "coverage": ""
+        },
+        "17": {
+          "source": "    &gt;hey",
+          "coverage": ""
+        },
+        "18": {
+          "source": "    &gt;1",
+          "coverage": ""
+        },
+        "19": {
+          "source": " */",
+          "coverage": ""
+        },
+        "20": {
+          "source": "function Base() {",
+          "coverage": 1
+        },
+        "21": {
+          "source": "    this.beforeInit.apply(this, arguments);",
+          "coverage": 11
+        },
+        "22": {
+          "source": "    this.init();",
+          "coverage": 11
+        },
+        "23": {
+          "source": "}",
+          "coverage": ""
+        },
+        "24": {
+          "source": "",
+          "coverage": ""
+        },
+        "25": {
+          "source": "Base.prototype = {",
+          "coverage": 1
+        },
+        "26": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "27": {
+          "source": "     * By default apply the config to the ",
+          "coverage": ""
+        },
+        "28": {
+          "source": "     * instance.",
+          "coverage": ""
+        },
+        "29": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "30": {
+          "source": "    beforeInit: function(config) {",
+          "coverage": ""
+        },
+        "31": {
+          "source": "        apply(this, config);",
+          "coverage": 11
+        },
+        "32": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "33": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "34": {
+          "source": "     * @method",
+          "coverage": ""
+        },
+        "35": {
+          "source": "     * Simple hook to initialize",
+          "coverage": ""
+        },
+        "36": {
+          "source": "     * the class.",
+          "coverage": ""
+        },
+        "37": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "38": {
+          "source": "    init: emptyFn",
+          "coverage": ""
+        },
+        "39": {
+          "source": "};",
+          "coverage": ""
+        },
+        "40": {
+          "source": "",
+          "coverage": ""
+        },
+        "41": {
+          "source": "module.exports = Base;",
+          "coverage": 1
+        }
+      }
+    },
+    {
+      "filename": "class/composition.js",
+      "coverage": 89.47368421052632,
+      "hits": 17,
+      "misses": 2,
+      "sloc": 19,
+      "source": {
+        "1": {
+          "source": "var obj = require('../object'),",
+          "coverage": 1
+        },
+        "2": {
+          "source": "    apply = obj.apply,",
+          "coverage": ""
+        },
+        "3": {
+          "source": "    oFilter = obj.filter,",
+          "coverage": ""
+        },
+        "4": {
+          "source": "    emptyFn = ('../function').emptyFn;",
+          "coverage": ""
+        },
+        "5": {
+          "source": "",
+          "coverage": ""
+        },
+        "6": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "7": {
+          "source": " * @class  Luc.Composition",
+          "coverage": ""
+        },
+        "8": {
+          "source": " * @private",
+          "coverage": ""
+        },
+        "9": {
+          "source": " * class that wraps $composition config objects",
+          "coverage": ""
+        },
+        "10": {
+          "source": " * to conform to an api. The config object",
+          "coverage": ""
+        },
+        "11": {
+          "source": " * will override any protected methods and default configs.",
+          "coverage": ""
+        },
+        "12": {
+          "source": " */",
+          "coverage": ""
+        },
+        "13": {
+          "source": "function Composition(config) {",
+          "coverage": 1
+        },
+        "14": {
+          "source": "    apply(this, config);",
+          "coverage": 24
+        },
+        "15": {
+          "source": "}",
+          "coverage": ""
+        },
+        "16": {
+          "source": "",
+          "coverage": ""
+        },
+        "17": {
+          "source": "Composition.prototype = {",
+          "coverage": 1
+        },
+        "18": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "19": {
+          "source": "     * @cfg {String} name (required) the name",
+          "coverage": ""
+        },
+        "20": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "21": {
+          "source": "    ",
+          "coverage": ""
+        },
+        "22": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "23": {
+          "source": "     * @cfg {Function} Constructor (required) the Constructor",
+          "coverage": ""
+        },
+        "24": {
+          "source": "     * to use when creating the composition instance.  This",
+          "coverage": ""
+        },
+        "25": {
+          "source": "     * is required if Luc.Composition.create is not overrwitten by",
+          "coverage": ""
+        },
+        "26": {
+          "source": "     * the passed in composition config object.",
+          "coverage": ""
+        },
+        "27": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "28": {
+          "source": "    ",
+          "coverage": ""
+        },
+        "29": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "30": {
+          "source": "     * @protected",
+          "coverage": ""
+        },
+        "31": {
+          "source": "     * By default just return a newly created Constructor instance.",
+          "coverage": ""
+        },
+        "32": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "33": {
+          "source": "     * When create is called the following properties can be used :",
+          "coverage": ""
+        },
+        "34": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "35": {
+          "source": "     * this.instance The instance that is creating",
+          "coverage": ""
+        },
+        "36": {
+          "source": "     * the composition.",
+          "coverage": ""
+        },
+        "37": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "38": {
+          "source": "     * this.Constructor the constructor that is passed in from",
+          "coverage": ""
+        },
+        "39": {
+          "source": "     * the composition config. ",
+          "coverage": ""
+        },
+        "40": {
+          "source": "     *",
+          "coverage": ""
+        },
+        "41": {
+          "source": "     * this.instanceArgs the arguments passed into the instance when it ",
+          "coverage": ""
+        },
+        "42": {
+          "source": "     * is being created.  For example",
+          "coverage": ""
+        },
+        "43": {
+          "source": "",
+          "coverage": ""
+        },
+        "44": {
+          "source": "        new MyClassWithAComposition({plugins: []})",
+          "coverage": ""
+        },
+        "45": {
+          "source": "        //inside of the create method",
+          "coverage": ""
+        },
+        "46": {
+          "source": "        this.instanceArgs",
+          "coverage": ""
+        },
+        "47": {
+          "source": "        &gt;[{plugins: []}]",
+          "coverage": ""
+        },
+        "48": {
+          "source": "",
+          "coverage": ""
+        },
+        "49": {
+          "source": "     * @return {Object} ",
+          "coverage": ""
+        },
+        "50": {
+          "source": "     * the composition instance.",
+          "coverage": ""
+        },
+        "51": {
+          "source": "     *",
+          "coverage": ""
+        },
+        "52": {
+          "source": "     * For example set the emitters maxListeners",
+          "coverage": ""
+        },
+        "53": {
+          "source": "     * to what the instance has configed.",
+          "coverage": ""
+        },
+        "54": {
+          "source": "      ",
+          "coverage": ""
+        },
+        "55": {
+          "source": "        maxListeners: 100,",
+          "coverage": ""
+        },
+        "56": {
+          "source": "        $compositions: {",
+          "coverage": ""
+        },
+        "57": {
+          "source": "            Constructor: Luc.EventEmitter,",
+          "coverage": ""
+        },
+        "58": {
+          "source": "            create: function() {",
+          "coverage": ""
+        },
+        "59": {
+          "source": "                var emitter = new this.Constructor();",
+          "coverage": ""
+        },
+        "60": {
+          "source": "                emitter.setMaxListeners(this.instance.maxListeners);",
+          "coverage": ""
+        },
+        "61": {
+          "source": "                return emitter;",
+          "coverage": ""
+        },
+        "62": {
+          "source": "            },",
+          "coverage": ""
+        },
+        "63": {
+          "source": "            name: 'emitter'",
+          "coverage": ""
+        },
+        "64": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "65": {
+          "source": "",
+          "coverage": ""
+        },
+        "66": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "67": {
+          "source": "    create: function() {",
+          "coverage": ""
+        },
+        "68": {
+          "source": "        var Constructor = this.Constructor;",
+          "coverage": 9
+        },
+        "69": {
+          "source": "        return new Constructor();",
+          "coverage": 9
+        },
+        "70": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "71": {
+          "source": "",
+          "coverage": ""
+        },
+        "72": {
+          "source": "    getInstance: function() {",
+          "coverage": ""
+        },
+        "73": {
+          "source": "        return this.create();",
+          "coverage": 12
+        },
+        "74": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "75": {
+          "source": "",
+          "coverage": ""
+        },
+        "76": {
+          "source": "    validate: function() {",
+          "coverage": ""
+        },
+        "77": {
+          "source": "        if(this.name  === undefined) {",
+          "coverage": 12
+        },
+        "78": {
+          "source": "            throw new Error('A name must be defined');",
+          "coverage": 0
+        },
+        "79": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "80": {
+          "source": "        if(typeof this.Constructor !== 'function' &amp;&amp; this.create === Composition.prototype.create) {",
+          "coverage": 12
+        },
+        "81": {
+          "source": "            throw new Error('The Constructor must be function if create is not overriden');",
+          "coverage": 0
+        },
+        "82": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "83": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "84": {
+          "source": "",
+          "coverage": ""
+        },
+        "85": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "86": {
+          "source": "     * @property filterFns",
+          "coverage": ""
+        },
+        "87": {
+          "source": "     * @type {Object}",
+          "coverage": ""
+        },
+        "88": {
+          "source": "     * @property filterFns.allMethods return all methods from the",
+          "coverage": ""
+        },
+        "89": {
+          "source": "     * constructors prototype",
+          "coverage": ""
+        },
+        "90": {
+          "source": "     * @type {Function}",
+          "coverage": ""
+        },
+        "91": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "92": {
+          "source": "    filterFns: {",
+          "coverage": ""
+        },
+        "93": {
+          "source": "        allMethods: function(key, value) {",
+          "coverage": ""
+        },
+        "94": {
+          "source": "            return typeof value === 'function';",
+          "coverage": 26
+        },
+        "95": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "96": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "97": {
+          "source": "",
+          "coverage": ""
+        },
+        "98": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "99": {
+          "source": "     * @cfg {Function/String} filterKeys",
+          "coverage": ""
+        },
+        "100": {
+          "source": "     * Defaults to Luc.emptyFn. ",
+          "coverage": ""
+        },
+        "101": {
+          "source": "     *",
+          "coverage": ""
+        },
+        "102": {
+          "source": "     * If a string is passed and matches a method from ",
+          "coverage": ""
+        },
+        "103": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "104": {
+          "source": "     * Luc.Composition.filterFns it will call that instead.",
+          "coverage": ""
+        },
+        "105": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "106": {
+          "source": "     * If a function is defined it",
+          "coverage": ""
+        },
+        "107": {
+          "source": "     * will get called while iterating over each key value pair of the ",
+          "coverage": ""
+        },
+        "108": {
+          "source": "     * Constructor's prototype, if a truthy value is ",
+          "coverage": ""
+        },
+        "109": {
+          "source": "     * returned the property will be added to the defining",
+          "coverage": ""
+        },
+        "110": {
+          "source": "     * classes prototype.",
+          "coverage": ""
+        },
+        "111": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "112": {
+          "source": "     * For example this config will only expose the emit method ",
+          "coverage": ""
+        },
+        "113": {
+          "source": "     * to the defining class",
+          "coverage": ""
+        },
+        "114": {
+          "source": "     ",
+          "coverage": ""
+        },
+        "115": {
+          "source": "        $compositions: {",
+          "coverage": ""
+        },
+        "116": {
+          "source": "            Constructor: Luc.EventEmitter,",
+          "coverage": ""
+        },
+        "117": {
+          "source": "            filterKeys: function(key, value) {",
+          "coverage": ""
+        },
+        "118": {
+          "source": "                return key === 'emit';",
+          "coverage": ""
+        },
+        "119": {
+          "source": "            },",
+          "coverage": ""
+        },
+        "120": {
+          "source": "            name: 'emitter'",
+          "coverage": ""
+        },
+        "121": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "122": {
+          "source": "     *",
+          "coverage": ""
+        },
+        "123": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "124": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "125": {
+          "source": "    filterKeys: emptyFn,",
+          "coverage": ""
+        },
+        "126": {
+          "source": "",
+          "coverage": ""
+        },
+        "127": {
+          "source": "    getMethodsToCompose: function() {",
+          "coverage": ""
+        },
+        "128": {
+          "source": "        var filterFn = this.filterKeys, ",
+          "coverage": 12
+        },
+        "129": {
+          "source": "            pairsToAdd;",
+          "coverage": ""
+        },
+        "130": {
+          "source": "        ",
+          "coverage": ""
+        },
+        "131": {
+          "source": "        if(this.filterFns[this.filterKeys]) {",
+          "coverage": 12
+        },
+        "132": {
+          "source": "            filterFn = this.filterFns[this.filterKeys];",
+          "coverage": 3
+        },
+        "133": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "134": {
+          "source": "",
+          "coverage": ""
+        },
+        "135": {
+          "source": "        //Constructors are not needed if create is overwritten",
+          "coverage": ""
+        },
+        "136": {
+          "source": "        pairsToAdd = oFilter(this.Constructor &amp;&amp; this.Constructor.prototype, filterFn, this, {",
+          "coverage": 12
+        },
+        "137": {
+          "source": "            ownProperties: false",
+          "coverage": ""
+        },
+        "138": {
+          "source": "        });",
+          "coverage": ""
+        },
+        "139": {
+          "source": "",
+          "coverage": ""
+        },
+        "140": {
+          "source": "        return pairsToAdd.map(function(pair) {",
+          "coverage": 12
+        },
+        "141": {
+          "source": "            return pair.key;",
+          "coverage": 25
+        },
+        "142": {
+          "source": "        });",
+          "coverage": ""
+        },
+        "143": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "144": {
+          "source": "};",
+          "coverage": ""
+        },
+        "145": {
+          "source": "",
+          "coverage": ""
+        },
+        "146": {
+          "source": "module.exports = Composition;",
+          "coverage": 1
+        }
+      }
+    },
+    {
+      "filename": "class/definer.js",
+      "coverage": 100,
+      "hits": 72,
+      "misses": 0,
+      "sloc": 72,
+      "source": {
+        "1": {
+          "source": "var Base = require('./base'),",
+          "coverage": 1
+        },
+        "2": {
+          "source": "    Composition = require('./composition'),",
+          "coverage": ""
+        },
+        "3": {
+          "source": "    obj = require('../object'),",
+          "coverage": ""
+        },
+        "4": {
+          "source": "    arrayFns = require('../array'),",
+          "coverage": ""
+        },
+        "5": {
+          "source": "    emptyFn = require('../function').emptyFn,",
+          "coverage": ""
+        },
+        "6": {
+          "source": "    aEach = arrayFns.each,",
+          "coverage": ""
+        },
+        "7": {
+          "source": "    apply = obj.apply,",
+          "coverage": ""
+        },
+        "8": {
+          "source": "    oEach = obj.each,",
+          "coverage": ""
+        },
+        "9": {
+          "source": "    oFilter = obj.filter,",
+          "coverage": ""
+        },
+        "10": {
+          "source": "    mix = obj.mix,",
+          "coverage": ""
+        },
+        "11": {
+          "source": "    arraySlice = Array.prototype.slice;",
+          "coverage": ""
+        },
+        "12": {
+          "source": "",
+          "coverage": ""
+        },
+        "13": {
+          "source": "function ClassDefiner() {}",
+          "coverage": 1
+        },
+        "14": {
+          "source": "",
+          "coverage": ""
+        },
+        "15": {
+          "source": "ClassDefiner.COMPOSITIONS_NAME = 'compositions';",
+          "coverage": 1
+        },
+        "16": {
+          "source": "",
+          "coverage": ""
+        },
+        "17": {
+          "source": "ClassDefiner.prototype = {",
+          "coverage": 1
+        },
+        "18": {
+          "source": "    defaultType: Base,",
+          "coverage": ""
+        },
+        "19": {
+          "source": "",
+          "coverage": ""
+        },
+        "20": {
+          "source": "    processorKeys: {",
+          "coverage": ""
+        },
+        "21": {
+          "source": "        $mixins: '_applyMixins',",
+          "coverage": ""
+        },
+        "22": {
+          "source": "        $statics: '_applyStatics',",
+          "coverage": ""
+        },
+        "23": {
+          "source": "        $compositions: '_compose',",
+          "coverage": ""
+        },
+        "24": {
+          "source": "        $super: true",
+          "coverage": ""
+        },
+        "25": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "26": {
+          "source": "",
+          "coverage": ""
+        },
+        "27": {
+          "source": "    define: function(opts) {",
+          "coverage": ""
+        },
+        "28": {
+          "source": "        var options = opts || {},",
+          "coverage": 15
+        },
+        "29": {
+          "source": "            Super = options.$super || this.defaultType,",
+          "coverage": ""
+        },
+        "30": {
+          "source": "            Constructor;",
+          "coverage": ""
+        },
+        "31": {
+          "source": "",
+          "coverage": ""
+        },
+        "32": {
+          "source": "        options.$super = Super;",
+          "coverage": 15
+        },
+        "33": {
+          "source": "",
+          "coverage": ""
+        },
+        "34": {
+          "source": "        Constructor = this._createConstructor(options);",
+          "coverage": 15
+        },
+        "35": {
+          "source": "",
+          "coverage": ""
+        },
+        "36": {
+          "source": "        this._processAfterCreate(Constructor, options);",
+          "coverage": 15
+        },
+        "37": {
+          "source": "",
+          "coverage": ""
+        },
+        "38": {
+          "source": "        return Constructor;",
+          "coverage": 15
+        },
+        "39": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "40": {
+          "source": "",
+          "coverage": ""
+        },
+        "41": {
+          "source": "    _createConstructor: function(options) {",
+          "coverage": ""
+        },
+        "42": {
+          "source": "        var superclass = options.$super,",
+          "coverage": 15
+        },
+        "43": {
+          "source": "            Constructor = this._createConstructorFn(options);",
+          "coverage": ""
+        },
+        "44": {
+          "source": "",
+          "coverage": ""
+        },
+        "45": {
+          "source": "        Constructor.prototype = Object.create(superclass.prototype);",
+          "coverage": 15
+        },
+        "46": {
+          "source": "",
+          "coverage": ""
+        },
+        "47": {
+          "source": "        return Constructor;",
+          "coverage": 15
+        },
+        "48": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "49": {
+          "source": "",
+          "coverage": ""
+        },
+        "50": {
+          "source": "    _createConstructorFn: function(options) {",
+          "coverage": ""
+        },
+        "51": {
+          "source": "        var superclass = options.$super,",
+          "coverage": 15
+        },
+        "52": {
+          "source": "            me = this,",
+          "coverage": ""
+        },
+        "53": {
+          "source": "            initBeforeSuperclass,",
+          "coverage": ""
+        },
+        "54": {
+          "source": "            initAfterSuperclass;",
+          "coverage": ""
+        },
+        "55": {
+          "source": "",
+          "coverage": ""
+        },
+        "56": {
+          "source": "        if (this._hasConstructorModifyingOptions(options)) {",
+          "coverage": 15
+        },
+        "57": {
+          "source": "",
+          "coverage": ""
+        },
+        "58": {
+          "source": "            initBeforeSuperclass = this._createInitClassOptionsFn(options, {",
+          "coverage": 8
+        },
+        "59": {
+          "source": "                before: true",
+          "coverage": ""
+        },
+        "60": {
+          "source": "            });",
+          "coverage": ""
+        },
+        "61": {
+          "source": "",
+          "coverage": ""
+        },
+        "62": {
+          "source": "            initAfterSuperclass = this._createInitClassOptionsFn(options, {",
+          "coverage": 8
+        },
+        "63": {
+          "source": "                before: false",
+          "coverage": ""
+        },
+        "64": {
+          "source": "            });",
+          "coverage": ""
+        },
+        "65": {
+          "source": "",
+          "coverage": ""
+        },
+        "66": {
+          "source": "            return function() {",
+          "coverage": 8
+        },
+        "67": {
+          "source": "                var args = arraySlice.call(arguments);",
+          "coverage": 8
+        },
+        "68": {
+          "source": "",
+          "coverage": ""
+        },
+        "69": {
+          "source": "                initBeforeSuperclass.call(this, options, args);",
+          "coverage": 8
+        },
+        "70": {
+          "source": "                superclass.apply(this, arguments);",
+          "coverage": 8
+        },
+        "71": {
+          "source": "                initAfterSuperclass.call(this, options, args);",
+          "coverage": 8
+        },
+        "72": {
+          "source": "            };",
+          "coverage": ""
+        },
+        "73": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "74": {
+          "source": "",
+          "coverage": ""
+        },
+        "75": {
+          "source": "        return function() {",
+          "coverage": 7
+        },
+        "76": {
+          "source": "            superclass.apply(this, arguments);",
+          "coverage": 6
+        },
+        "77": {
+          "source": "        };",
+          "coverage": ""
+        },
+        "78": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "79": {
+          "source": "",
+          "coverage": ""
+        },
+        "80": {
+          "source": "    _createInitClassOptionsFn: function(options, config) {",
+          "coverage": ""
+        },
+        "81": {
+          "source": "        var me = this,",
+          "coverage": 16
+        },
+        "82": {
+          "source": "            compositions = this._filterCompositions(config, options.$compositions);",
+          "coverage": ""
+        },
+        "83": {
+          "source": "",
+          "coverage": ""
+        },
+        "84": {
+          "source": "        if(compositions.length === 0) {",
+          "coverage": 16
+        },
+        "85": {
+          "source": "            return emptyFn;",
+          "coverage": 7
+        },
+        "86": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "87": {
+          "source": "        ",
+          "coverage": ""
+        },
+        "88": {
+          "source": "        return function(options, instanceArgs) {",
+          "coverage": 9
+        },
+        "89": {
+          "source": "            me._initCompositions.call(this, compositions, instanceArgs);",
+          "coverage": 9
+        },
+        "90": {
+          "source": "        };",
+          "coverage": ""
+        },
+        "91": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "92": {
+          "source": "",
+          "coverage": ""
+        },
+        "93": {
+          "source": "    _filterCompositions: function(config, compositions) {",
+          "coverage": ""
+        },
+        "94": {
+          "source": "        var before = config.before, ",
+          "coverage": 16
+        },
+        "95": {
+          "source": "            filtered = [];",
+          "coverage": ""
+        },
+        "96": {
+          "source": "",
+          "coverage": ""
+        },
+        "97": {
+          "source": "        aEach(compositions, function(composition) {",
+          "coverage": 16
+        },
+        "98": {
+          "source": "            if(before &amp;&amp; composition.initAfter !== true || (!before &amp;&amp; composition.initAfter === true)) {",
+          "coverage": 24
+        },
+        "99": {
+          "source": "                    filtered.push(composition);",
+          "coverage": 12
+        },
+        "100": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "101": {
+          "source": "        });",
+          "coverage": ""
+        },
+        "102": {
+          "source": "",
+          "coverage": ""
+        },
+        "103": {
+          "source": "        return filtered;",
+          "coverage": 16
+        },
+        "104": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "105": {
+          "source": "",
+          "coverage": ""
+        },
+        "106": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "107": {
+          "source": "     * @private",
+          "coverage": ""
+        },
+        "108": {
+          "source": "     * options {Object} the composition config object",
+          "coverage": ""
+        },
+        "109": {
+          "source": "     * instanceArgs {Array} the arguments passed to the instance's",
+          "coverage": ""
+        },
+        "110": {
+          "source": "     * constructor.",
+          "coverage": ""
+        },
+        "111": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "112": {
+          "source": "    _initCompositions: function(compositions, instanceArgs) {",
+          "coverage": ""
+        },
+        "113": {
+          "source": "        if(!this[ClassDefiner.COMPOSITIONS_NAME]) {",
+          "coverage": 9
+        },
+        "114": {
+          "source": "            this[ClassDefiner.COMPOSITIONS_NAME] = {};",
+          "coverage": 8
+        },
+        "115": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "116": {
+          "source": "",
+          "coverage": ""
+        },
+        "117": {
+          "source": "        aEach(compositions, function(compositionConfig) {",
+          "coverage": 9
+        },
+        "118": {
+          "source": "            var config = apply({",
+          "coverage": 12
+        },
+        "119": {
+          "source": "                instance: this,",
+          "coverage": ""
+        },
+        "120": {
+          "source": "                instanceArgs: instanceArgs",
+          "coverage": ""
+        },
+        "121": {
+          "source": "            }, compositionConfig), ",
+          "coverage": ""
+        },
+        "122": {
+          "source": "            composition;",
+          "coverage": ""
+        },
+        "123": {
+          "source": "",
+          "coverage": ""
+        },
+        "124": {
+          "source": "            composition = new Composition(config);",
+          "coverage": 12
+        },
+        "125": {
+          "source": "",
+          "coverage": ""
+        },
+        "126": {
+          "source": "            this[ClassDefiner.COMPOSITIONS_NAME][composition.name] = composition.getInstance();",
+          "coverage": 12
+        },
+        "127": {
+          "source": "        }, this);",
+          "coverage": ""
+        },
+        "128": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "129": {
+          "source": "",
+          "coverage": ""
+        },
+        "130": {
+          "source": "    _hasConstructorModifyingOptions: function(options) {",
+          "coverage": ""
+        },
+        "131": {
+          "source": "        return options.$compositions;",
+          "coverage": 15
+        },
+        "132": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "133": {
+          "source": "",
+          "coverage": ""
+        },
+        "134": {
+          "source": "    _getProcessorKey: function(key) {",
+          "coverage": ""
+        },
+        "135": {
+          "source": "        return this.processorKeys[key];",
+          "coverage": 98
+        },
+        "136": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "137": {
+          "source": "",
+          "coverage": ""
+        },
+        "138": {
+          "source": "    _processAfterCreate: function($class, options) {",
+          "coverage": ""
+        },
+        "139": {
+          "source": "        this._applyValuesToProto($class, options);",
+          "coverage": 15
+        },
+        "140": {
+          "source": "        this._handlePostProcessors($class, options);",
+          "coverage": 15
+        },
+        "141": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "142": {
+          "source": "",
+          "coverage": ""
+        },
+        "143": {
+          "source": "    _applyValuesToProto: function($class, options) {",
+          "coverage": ""
+        },
+        "144": {
+          "source": "        var proto = $class.prototype,",
+          "coverage": 15
+        },
+        "145": {
+          "source": "            Super = options.$super,",
+          "coverage": ""
+        },
+        "146": {
+          "source": "            values = apply({",
+          "coverage": ""
+        },
+        "147": {
+          "source": "                $superclass: Super.prototype,",
+          "coverage": ""
+        },
+        "148": {
+          "source": "                $class: $class",
+          "coverage": ""
+        },
+        "149": {
+          "source": "            }, options);",
+          "coverage": ""
+        },
+        "150": {
+          "source": "",
+          "coverage": ""
+        },
+        "151": {
+          "source": "        //Don't put the define specific properties",
+          "coverage": ""
+        },
+        "152": {
+          "source": "        //on the prototype",
+          "coverage": ""
+        },
+        "153": {
+          "source": "        oEach(values, function(key, value) {",
+          "coverage": 15
+        },
+        "154": {
+          "source": "            if (!this._getProcessorKey(key)) {",
+          "coverage": 64
+        },
+        "155": {
+          "source": "                proto[key] = value;",
+          "coverage": 34
+        },
+        "156": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "157": {
+          "source": "        }, this);",
+          "coverage": ""
+        },
+        "158": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "159": {
+          "source": "",
+          "coverage": ""
+        },
+        "160": {
+          "source": "    _handlePostProcessors: function($class, options) {",
+          "coverage": ""
+        },
+        "161": {
+          "source": "        oEach(options, function(key, value) {",
+          "coverage": 15
+        },
+        "162": {
+          "source": "            var method = this._getProcessorKey(key);",
+          "coverage": 34
+        },
+        "163": {
+          "source": "",
+          "coverage": ""
+        },
+        "164": {
+          "source": "            if (typeof this[method] === 'function') {",
+          "coverage": 34
+        },
+        "165": {
+          "source": "                this[method].call(this, $class, options[key]);",
+          "coverage": 15
+        },
+        "166": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "167": {
+          "source": "        }, this);",
+          "coverage": ""
+        },
+        "168": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "169": {
+          "source": "",
+          "coverage": ""
+        },
+        "170": {
+          "source": "    _applyMixins: function($class, mixins) {",
+          "coverage": ""
+        },
+        "171": {
+          "source": "        var proto = $class.prototype;",
+          "coverage": 4
+        },
+        "172": {
+          "source": "        aEach(mixins, function(mixin) {",
+          "coverage": 4
+        },
+        "173": {
+          "source": "            //accept Constructors or Objects",
+          "coverage": ""
+        },
+        "174": {
+          "source": "            var toMix = mixin.prototype || mixin;",
+          "coverage": 5
+        },
+        "175": {
+          "source": "            mix(proto, toMix);",
+          "coverage": 5
+        },
+        "176": {
+          "source": "        });",
+          "coverage": ""
+        },
+        "177": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "178": {
+          "source": "",
+          "coverage": ""
+        },
+        "179": {
+          "source": "    _applyStatics: function($class, statics) {",
+          "coverage": ""
+        },
+        "180": {
+          "source": "        apply($class, statics);",
+          "coverage": 3
+        },
+        "181": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "182": {
+          "source": "",
+          "coverage": ""
+        },
+        "183": {
+          "source": "    _compose: function($class, compositions) {",
+          "coverage": ""
+        },
+        "184": {
+          "source": "        var prototype = $class.prototype,",
+          "coverage": 8
+        },
+        "185": {
+          "source": "            methodsToCompose;",
+          "coverage": ""
+        },
+        "186": {
+          "source": "",
+          "coverage": ""
+        },
+        "187": {
+          "source": "        aEach(compositions, function(compositionConfig) {",
+          "coverage": 8
+        },
+        "188": {
+          "source": "            var composition = new Composition(compositionConfig),",
+          "coverage": 12
+        },
+        "189": {
+          "source": "                name = composition.name,",
+          "coverage": ""
+        },
+        "190": {
+          "source": "                Constructor = composition.Constructor;",
+          "coverage": ""
+        },
+        "191": {
+          "source": "",
+          "coverage": ""
+        },
+        "192": {
+          "source": "            composition.validate();",
+          "coverage": 12
+        },
+        "193": {
+          "source": "",
+          "coverage": ""
+        },
+        "194": {
+          "source": "            methodsToCompose = composition.getMethodsToCompose();",
+          "coverage": 12
+        },
+        "195": {
+          "source": "",
+          "coverage": ""
+        },
+        "196": {
+          "source": "            methodsToCompose.forEach(function(key) {",
+          "coverage": 12
+        },
+        "197": {
+          "source": "                if (prototype[key] === undefined) {",
+          "coverage": 25
+        },
+        "198": {
+          "source": "                    prototype[key] = this._createComposerProtoFn(key, name);",
+          "coverage": 24
+        },
+        "199": {
+          "source": "                }",
+          "coverage": ""
+        },
+        "200": {
+          "source": "            }, this);",
+          "coverage": ""
+        },
+        "201": {
+          "source": "",
+          "coverage": ""
+        },
+        "202": {
+          "source": "            prototype.getComposition = this.__getComposition;",
+          "coverage": 12
+        },
+        "203": {
+          "source": "",
+          "coverage": ""
+        },
+        "204": {
+          "source": "        }, this);",
+          "coverage": ""
+        },
+        "205": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "206": {
+          "source": "",
+          "coverage": ""
+        },
+        "207": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "208": {
+          "source": "     * @private",
+          "coverage": ""
+        },
+        "209": {
+          "source": "     * Getter for composition instance that gets put on",
+          "coverage": ""
+        },
+        "210": {
+          "source": "     * the defined class.",
+          "coverage": ""
+        },
+        "211": {
+          "source": "     * @param  {String} key",
+          "coverage": ""
+        },
+        "212": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "213": {
+          "source": "    __getComposition: function(key) {",
+          "coverage": ""
+        },
+        "214": {
+          "source": "        return this[ClassDefiner.COMPOSITIONS_NAME][key];",
+          "coverage": 7
+        },
+        "215": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "216": {
+          "source": "",
+          "coverage": ""
+        },
+        "217": {
+          "source": "    _createComposerProtoFn: function(methodName, compositionName) {",
+          "coverage": ""
+        },
+        "218": {
+          "source": "        return function() {",
+          "coverage": 24
+        },
+        "219": {
+          "source": "            var comp = this[ClassDefiner.COMPOSITIONS_NAME][compositionName];",
+          "coverage": 11
+        },
+        "220": {
+          "source": "            return comp[methodName].apply(comp, arguments);",
+          "coverage": 11
+        },
+        "221": {
+          "source": "        };",
+          "coverage": ""
+        },
+        "222": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "223": {
+          "source": "};",
+          "coverage": ""
+        },
+        "224": {
+          "source": "",
+          "coverage": ""
+        },
+        "225": {
+          "source": "var Definer = new ClassDefiner();",
+          "coverage": 1
+        },
+        "226": {
+          "source": "//make Luc.define happy",
+          "coverage": ""
+        },
+        "227": {
+          "source": "Definer.define = Definer.define.bind(Definer);",
+          "coverage": 1
+        },
+        "228": {
+          "source": "",
+          "coverage": ""
+        },
+        "229": {
+          "source": "module.exports = Definer;",
+          "coverage": 1
+        }
+      }
+    },
+    {
+      "filename": "class/plugin.js",
+      "coverage": 100,
+      "hits": 20,
+      "misses": 0,
+      "sloc": 20,
+      "source": {
+        "1": {
+          "source": "var aEach = require('../array').each,",
+          "coverage": 1
+        },
+        "2": {
+          "source": "    obj = require('../object'),",
+          "coverage": ""
+        },
+        "3": {
+          "source": "    mix = obj.mix,",
+          "coverage": ""
+        },
+        "4": {
+          "source": "    apply = obj.apply;",
+          "coverage": ""
+        },
+        "5": {
+          "source": "",
+          "coverage": ""
+        },
+        "6": {
+          "source": "",
+          "coverage": ""
+        },
+        "7": {
+          "source": "function Plugin(config) {",
+          "coverage": 1
+        },
+        "8": {
+          "source": "    apply(this, config);",
+          "coverage": 2
+        },
+        "9": {
+          "source": "}",
+          "coverage": ""
+        },
+        "10": {
+          "source": "",
+          "coverage": ""
+        },
+        "11": {
+          "source": "Plugin.prototype = {",
+          "coverage": 1
+        },
+        "12": {
+          "source": "    init: function(owner) {}",
+          "coverage": ""
+        },
+        "13": {
+          "source": "};",
+          "coverage": ""
+        },
+        "14": {
+          "source": "",
+          "coverage": ""
+        },
+        "15": {
+          "source": "var PluginCompositionConfig = {",
+          "coverage": 1
+        },
+        "16": {
+          "source": "    name: 'plugins',",
+          "coverage": ""
+        },
+        "17": {
+          "source": "    defaultPlugin: Plugin,",
+          "coverage": ""
+        },
+        "18": {
+          "source": "",
+          "coverage": ""
+        },
+        "19": {
+          "source": "    create: function() {",
+          "coverage": ""
+        },
+        "20": {
+          "source": "        var config = this.instanceArgs[0],",
+          "coverage": 3
+        },
+        "21": {
+          "source": "            pluginInstances = [];",
+          "coverage": ""
+        },
+        "22": {
+          "source": "",
+          "coverage": ""
+        },
+        "23": {
+          "source": "        aEach(config.plugins, function(pluginConfig) {",
+          "coverage": 3
+        },
+        "24": {
+          "source": "            pluginConfig.owner = this.instance;",
+          "coverage": 4
+        },
+        "25": {
+          "source": "            var pluginInstance = this.createPlugin(pluginConfig);",
+          "coverage": 4
+        },
+        "26": {
+          "source": "",
+          "coverage": ""
+        },
+        "27": {
+          "source": "            this.initPlugin(pluginInstance);",
+          "coverage": 4
+        },
+        "28": {
+          "source": "",
+          "coverage": ""
+        },
+        "29": {
+          "source": "            pluginInstances.push(pluginInstance);",
+          "coverage": 4
+        },
+        "30": {
+          "source": "        }, this);",
+          "coverage": ""
+        },
+        "31": {
+          "source": "",
+          "coverage": ""
+        },
+        "32": {
+          "source": "        return pluginInstances;",
+          "coverage": 3
+        },
+        "33": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "34": {
+          "source": "",
+          "coverage": ""
+        },
+        "35": {
+          "source": "    createPlugin: function(config) {",
+          "coverage": ""
+        },
+        "36": {
+          "source": "",
+          "coverage": ""
+        },
+        "37": {
+          "source": "        if (config.Constructor) {",
+          "coverage": 4
+        },
+        "38": {
+          "source": "            //call the configed Constructor with the ",
+          "coverage": ""
+        },
+        "39": {
+          "source": "            //passed in config but take off the Constructor",
+          "coverage": ""
+        },
+        "40": {
+          "source": "            //config.",
+          "coverage": ""
+        },
+        "41": {
+          "source": "             ",
+          "coverage": ""
+        },
+        "42": {
+          "source": "            //The plugin Constructor ",
+          "coverage": ""
+        },
+        "43": {
+          "source": "            //should not need to know about itself",
+          "coverage": ""
+        },
+        "44": {
+          "source": "            return new config.Constructor(apply(config, {",
+          "coverage": 1
+        },
+        "45": {
+          "source": "                Constructor: undefined",
+          "coverage": ""
+        },
+        "46": {
+          "source": "            }));",
+          "coverage": ""
+        },
+        "47": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "48": {
+          "source": "",
+          "coverage": ""
+        },
+        "49": {
+          "source": "        //if Constructor property is not on",
+          "coverage": ""
+        },
+        "50": {
+          "source": "        //the config just use the default Plugin",
+          "coverage": ""
+        },
+        "51": {
+          "source": "        return new this.defaultPlugin(config);",
+          "coverage": 3
+        },
+        "52": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "53": {
+          "source": "",
+          "coverage": ""
+        },
+        "54": {
+          "source": "    initPlugin: function(plugin) {",
+          "coverage": ""
+        },
+        "55": {
+          "source": "        if (typeof plugin.init === 'function') {",
+          "coverage": 3
+        },
+        "56": {
+          "source": "            plugin.init(this.instance);",
+          "coverage": 2
+        },
+        "57": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "58": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "59": {
+          "source": "};",
+          "coverage": ""
+        },
+        "60": {
+          "source": "",
+          "coverage": ""
+        },
+        "61": {
+          "source": "module.exports.getPluginCompostion = function(config) {",
+          "coverage": 1
+        },
+        "62": {
+          "source": "    return mix(config, PluginCompositionConfig);",
+          "coverage": 3
+        },
+        "63": {
+          "source": "};",
+          "coverage": ""
+        },
+        "64": {
+          "source": "",
+          "coverage": ""
+        },
+        "65": {
+          "source": "module.exports.Plugin = Plugin;",
+          "coverage": 1
+        }
+      }
+    },
+    {
+      "filename": "events/eventEmitter.js",
+      "coverage": 100,
+      "hits": 8,
+      "misses": 0,
+      "sloc": 8,
+      "source": {
+        "1": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "2": {
+          "source": " * @license https://raw.github.com/joyent/node/v0.10.11/LICENSE",
+          "coverage": ""
+        },
+        "3": {
+          "source": " * Node js licence. EventEmitter will be in the client",
+          "coverage": ""
+        },
+        "4": {
+          "source": " * only code.",
+          "coverage": ""
+        },
+        "5": {
+          "source": " */",
+          "coverage": ""
+        },
+        "6": {
+          "source": "",
+          "coverage": ""
+        },
+        "7": {
+          "source": "var EventEmitter = require('events').EventEmitter;",
+          "coverage": 1
+        },
+        "8": {
+          "source": "",
+          "coverage": ""
+        },
+        "9": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "10": {
+          "source": " * @class Luc.EventEmitter",
+          "coverage": ""
+        },
+        "11": {
+          "source": " * The wonderful event emmiter that comes with node,",
+          "coverage": ""
+        },
+        "12": {
+          "source": " * that works in the supported browsers.",
+          "coverage": ""
+        },
+        "13": {
+          "source": " * [http://nodejs.org/api/events.html](http://nodejs.org/api/events.html)",
+          "coverage": ""
+        },
+        "14": {
+          "source": " */",
+          "coverage": ""
+        },
+        "15": {
+          "source": "EventEmitter.prototype.once = function(type, listener) {",
+          "coverage": 1
+        },
+        "16": {
+          "source": "    //put in fix for IE 9 and below",
+          "coverage": ""
+        },
+        "17": {
+          "source": "    var self = this,",
+          "coverage": 4
+        },
+        "18": {
+          "source": "        g = function() {",
+          "coverage": ""
+        },
+        "19": {
+          "source": "            self.removeListener(type, g);",
+          "coverage": 4
+        },
+        "20": {
+          "source": "            listener.apply(this, arguments);",
+          "coverage": 4
+        },
+        "21": {
+          "source": "        };",
+          "coverage": ""
+        },
+        "22": {
+          "source": "",
+          "coverage": ""
+        },
+        "23": {
+          "source": "    self.on(type, g);",
+          "coverage": 4
+        },
+        "24": {
+          "source": "",
+          "coverage": ""
+        },
+        "25": {
+          "source": "    return this;",
+          "coverage": 4
+        },
+        "26": {
+          "source": "};",
+          "coverage": ""
+        },
+        "27": {
+          "source": "",
+          "coverage": ""
+        },
+        "28": {
+          "source": "module.exports = EventEmitter;",
+          "coverage": 1
+        }
+      }
+    },
+    {
+      "filename": "function.js",
+      "coverage": 37.5,
+      "hits": 3,
+      "misses": 5,
+      "sloc": 8,
+      "source": {
+        "1": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "2": {
+          "source": " * @class Luc.Function",
+          "coverage": ""
+        },
+        "3": {
+          "source": " * Package for function methods.",
+          "coverage": ""
+        },
+        "4": {
+          "source": " */",
+          "coverage": ""
+        },
+        "5": {
+          "source": "",
+          "coverage": ""
+        },
+        "6": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "7": {
+          "source": " * A reusable empty function",
+          "coverage": ""
+        },
+        "8": {
+          "source": " * @return {Function}",
+          "coverage": ""
+        },
+        "9": {
+          "source": " */",
+          "coverage": ""
+        },
+        "10": {
+          "source": "exports.emptyFn = function() {};",
+          "coverage": 1
+        },
+        "11": {
+          "source": "",
+          "coverage": ""
+        },
+        "12": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "13": {
+          "source": " * A function that throws an error when called.",
+          "coverage": ""
+        },
+        "14": {
+          "source": " * Useful when defining abstract like classes",
+          "coverage": ""
+        },
+        "15": {
+          "source": " * @return {Function}",
+          "coverage": ""
+        },
+        "16": {
+          "source": " */",
+          "coverage": ""
+        },
+        "17": {
+          "source": "exports.abstractFn = function() {",
+          "coverage": 1
+        },
+        "18": {
+          "source": "    throw new Error('abstractFn must be implemented');",
+          "coverage": 0
+        },
+        "19": {
+          "source": "};",
+          "coverage": ""
+        },
+        "20": {
+          "source": "",
+          "coverage": ""
+        },
+        "21": {
+          "source": "exports.createRelayer = function(obj) {",
+          "coverage": 1
+        },
+        "22": {
+          "source": "    var before = obj.before || exports.emptyFn,",
+          "coverage": 0
+        },
+        "23": {
+          "source": "        after = obj.after || exports.emptyFn,",
+          "coverage": ""
+        },
+        "24": {
+          "source": "        context = obj.context || this;",
+          "coverage": ""
+        },
+        "25": {
+          "source": "",
+          "coverage": ""
+        },
+        "26": {
+          "source": "    return function() {",
+          "coverage": 0
+        },
+        "27": {
+          "source": "        before.apply(context, arguments);",
+          "coverage": 0
+        },
+        "28": {
+          "source": "        after.apply(context, arguments);",
+          "coverage": 0
+        },
+        "29": {
+          "source": "    };",
+          "coverage": ""
+        },
+        "30": {
+          "source": "};",
+          "coverage": ""
+        }
+      }
+    },
+    {
+      "filename": "is.js",
+      "coverage": 100,
+      "hits": 26,
+      "misses": 0,
+      "sloc": 26,
+      "source": {
+        "1": {
+          "source": "var oToString = Object.prototype.toString;",
+          "coverage": 1
+        },
+        "2": {
+          "source": "",
+          "coverage": ""
+        },
+        "3": {
+          "source": "module.exports.isArray = function(obj) {",
+          "coverage": 1
+        },
+        "4": {
+          "source": "    return Array.isArray(obj);",
+          "coverage": 7
+        },
+        "5": {
+          "source": "}",
+          "coverage": ""
+        },
+        "6": {
+          "source": "",
+          "coverage": ""
+        },
+        "7": {
+          "source": "module.exports.isObject = function(obj) {",
+          "coverage": 1
+        },
+        "8": {
+          "source": "    return oToString.call(obj) === '[object Object]';",
+          "coverage": 5
+        },
+        "9": {
+          "source": "}",
+          "coverage": ""
+        },
+        "10": {
+          "source": "",
+          "coverage": ""
+        },
+        "11": {
+          "source": "module.exports.isFunction = function(obj) {",
+          "coverage": 1
+        },
+        "12": {
+          "source": "    return oToString.call(obj) === '[object Function]';",
+          "coverage": 3
+        },
+        "13": {
+          "source": "}",
+          "coverage": ""
+        },
+        "14": {
+          "source": "",
+          "coverage": ""
+        },
+        "15": {
+          "source": "module.exports.isDate = function(obj) {",
+          "coverage": 1
+        },
+        "16": {
+          "source": "    return oToString.call(obj) === '[object Date]';",
+          "coverage": 2
+        },
+        "17": {
+          "source": "}",
+          "coverage": ""
+        },
+        "18": {
+          "source": "",
+          "coverage": ""
+        },
+        "19": {
+          "source": "module.exports.isRegExp = function(obj) {",
+          "coverage": 1
+        },
+        "20": {
+          "source": "    return oToString.call(obj) === '[object RegExp]';",
+          "coverage": 2
+        },
+        "21": {
+          "source": "}",
+          "coverage": ""
+        },
+        "22": {
+          "source": "",
+          "coverage": ""
+        },
+        "23": {
+          "source": "module.exports.isNumber = function(obj) {",
+          "coverage": 1
+        },
+        "24": {
+          "source": "    return oToString.call(obj) === '[object Number]';",
+          "coverage": 2
+        },
+        "25": {
+          "source": "}",
+          "coverage": ""
+        },
+        "26": {
+          "source": "",
+          "coverage": ""
+        },
+        "27": {
+          "source": "module.exports.isString = function(obj) {",
+          "coverage": 1
+        },
+        "28": {
+          "source": "    return oToString.call(obj) === '[object String]';",
+          "coverage": 3
+        },
+        "29": {
+          "source": "}",
+          "coverage": ""
+        },
+        "30": {
+          "source": "",
+          "coverage": ""
+        },
+        "31": {
+          "source": "module.exports.isFalsy = function(obj) {",
+          "coverage": 1
+        },
+        "32": {
+          "source": "    return (obj === false || obj === null || obj === undefined || obj === '');",
+          "coverage": 14
+        },
+        "33": {
+          "source": "}",
+          "coverage": ""
+        },
+        "34": {
+          "source": "",
+          "coverage": ""
+        },
+        "35": {
+          "source": "module.exports.isEmpty = function(obj) {",
+          "coverage": 1
+        },
+        "36": {
+          "source": "    var isEmpty = false;",
+          "coverage": 9
+        },
+        "37": {
+          "source": "",
+          "coverage": ""
+        },
+        "38": {
+          "source": "    if (module.exports.isFalsy(obj)) {",
+          "coverage": 9
+        },
+        "39": {
+          "source": "        isEmpty = true;",
+          "coverage": 4
+        },
+        "40": {
+          "source": "    } else if (module.exports.isArray(obj)) {",
+          "coverage": 5
+        },
+        "41": {
+          "source": "        isEmpty = obj.length === 0;",
+          "coverage": 2
+        },
+        "42": {
+          "source": "    } else if (module.exports.isObject(obj)) {",
+          "coverage": 3
+        },
+        "43": {
+          "source": "        isEmpty = Object.keys(obj).length === 0;",
+          "coverage": 2
+        },
+        "44": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "45": {
+          "source": "",
+          "coverage": ""
+        },
+        "46": {
+          "source": "    return isEmpty;",
+          "coverage": 9
+        },
+        "47": {
+          "source": "}",
+          "coverage": ""
+        }
+      }
+    },
+    {
+      "filename": "luc.js",
+      "coverage": 96.15384615384616,
+      "hits": 25,
+      "misses": 1,
+      "sloc": 26,
+      "source": {
+        "1": {
+          "source": "var Luc = {};",
+          "coverage": 1
+        },
+        "2": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "3": {
+          "source": " * @class Luc",
+          "coverage": ""
+        },
+        "4": {
+          "source": " * Luc namespace that contains the entire Luc library.",
+          "coverage": ""
+        },
+        "5": {
+          "source": " */",
+          "coverage": ""
+        },
+        "6": {
+          "source": "module.exports = Luc;",
+          "coverage": 1
+        },
+        "7": {
+          "source": "",
+          "coverage": ""
+        },
+        "8": {
+          "source": "var object = require('./object');",
+          "coverage": 1
+        },
+        "9": {
+          "source": "Luc.Object = object;",
+          "coverage": 1
+        },
+        "10": {
+          "source": "",
+          "coverage": ""
+        },
+        "11": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "12": {
+          "source": " * @member Luc",
+          "coverage": ""
+        },
+        "13": {
+          "source": " * @method apply",
+          "coverage": ""
+        },
+        "14": {
+          "source": " * @inheritdoc Luc.Object#apply",
+          "coverage": ""
+        },
+        "15": {
+          "source": " */",
+          "coverage": ""
+        },
+        "16": {
+          "source": "Luc.apply = Luc.Object.apply;",
+          "coverage": 1
+        },
+        "17": {
+          "source": "",
+          "coverage": ""
+        },
+        "18": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "19": {
+          "source": " * @member Luc",
+          "coverage": ""
+        },
+        "20": {
+          "source": " * @method mix",
+          "coverage": ""
+        },
+        "21": {
+          "source": " * @inheritdoc Luc.Object#mix",
+          "coverage": ""
+        },
+        "22": {
+          "source": " */",
+          "coverage": ""
+        },
+        "23": {
+          "source": "Luc.mix = Luc.Object.mix;",
+          "coverage": 1
+        },
+        "24": {
+          "source": "",
+          "coverage": ""
+        },
+        "25": {
+          "source": "",
+          "coverage": ""
+        },
+        "26": {
+          "source": "var fun = require('./function');",
+          "coverage": 1
+        },
+        "27": {
+          "source": "Luc.Function = fun;",
+          "coverage": 1
+        },
+        "28": {
+          "source": "",
+          "coverage": ""
+        },
+        "29": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "30": {
+          "source": " * @member Luc",
+          "coverage": ""
+        },
+        "31": {
+          "source": " * @method emptyFn",
+          "coverage": ""
+        },
+        "32": {
+          "source": " * @inheritdoc Luc.Function#emptyFn",
+          "coverage": ""
+        },
+        "33": {
+          "source": " */",
+          "coverage": ""
+        },
+        "34": {
+          "source": "Luc.emptyFn = Luc.Function.emptyFn;",
+          "coverage": 1
+        },
+        "35": {
+          "source": "",
+          "coverage": ""
+        },
+        "36": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "37": {
+          "source": " * @member Luc",
+          "coverage": ""
+        },
+        "38": {
+          "source": " * @method abstractFn",
+          "coverage": ""
+        },
+        "39": {
+          "source": " * @inheritdoc Luc.Function#abstractFn",
+          "coverage": ""
+        },
+        "40": {
+          "source": " */",
+          "coverage": ""
+        },
+        "41": {
+          "source": "Luc.abstractFn = Luc.Function.abstractFn;",
+          "coverage": 1
+        },
+        "42": {
+          "source": "",
+          "coverage": ""
+        },
+        "43": {
+          "source": "var array = require('./array');",
+          "coverage": 1
+        },
+        "44": {
+          "source": "Luc.Array = array;",
+          "coverage": 1
+        },
+        "45": {
+          "source": "",
+          "coverage": ""
+        },
+        "46": {
+          "source": "Luc.apply(Luc, require('./is'));",
+          "coverage": 1
+        },
+        "47": {
+          "source": "",
+          "coverage": ""
+        },
+        "48": {
+          "source": "var EventEmitter = require('./events/eventEmitter');",
+          "coverage": 1
+        },
+        "49": {
+          "source": "",
+          "coverage": ""
+        },
+        "50": {
+          "source": "Luc.EventEmitter = EventEmitter;",
+          "coverage": 1
+        },
+        "51": {
+          "source": "",
+          "coverage": ""
+        },
+        "52": {
+          "source": "var Base = require('./class/base');",
+          "coverage": 1
+        },
+        "53": {
+          "source": "",
+          "coverage": ""
+        },
+        "54": {
+          "source": "Luc.Base = Base;",
+          "coverage": 1
+        },
+        "55": {
+          "source": "",
+          "coverage": ""
+        },
+        "56": {
+          "source": "var Definer = require('./class/definer');",
+          "coverage": 1
+        },
+        "57": {
+          "source": "",
+          "coverage": ""
+        },
+        "58": {
+          "source": "Luc.ClassDefiner = Definer;",
+          "coverage": 1
+        },
+        "59": {
+          "source": "",
+          "coverage": ""
+        },
+        "60": {
+          "source": "Luc.define = Definer.define;",
+          "coverage": 1
+        },
+        "61": {
+          "source": "",
+          "coverage": ""
+        },
+        "62": {
+          "source": "var plugin = require('./class/plugin');",
+          "coverage": 1
+        },
+        "63": {
+          "source": "",
+          "coverage": ""
+        },
+        "64": {
+          "source": "Luc.Plugin = plugin.Plugin;",
+          "coverage": 1
+        },
+        "65": {
+          "source": "",
+          "coverage": ""
+        },
+        "66": {
+          "source": "Luc.compositions = {};",
+          "coverage": 1
+        },
+        "67": {
+          "source": "",
+          "coverage": ""
+        },
+        "68": {
+          "source": "Luc.compositions.createPlugin = plugin.getPluginCompostion;",
+          "coverage": 1
+        },
+        "69": {
+          "source": "",
+          "coverage": ""
+        },
+        "70": {
+          "source": "if(typeof window !== 'undefined') {",
+          "coverage": 1
+        },
+        "71": {
+          "source": "    window.Luc = Luc;",
+          "coverage": 0
+        },
+        "72": {
+          "source": "}",
+          "coverage": ""
+        }
+      }
+    },
+    {
+      "filename": "object.js",
+      "coverage": 100,
+      "hits": 31,
+      "misses": 0,
+      "sloc": 31,
+      "source": {
+        "1": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "2": {
+          "source": " * @class Luc.Object",
+          "coverage": ""
+        },
+        "3": {
+          "source": " * Package for Object methods",
+          "coverage": ""
+        },
+        "4": {
+          "source": " */",
+          "coverage": ""
+        },
+        "5": {
+          "source": "",
+          "coverage": ""
+        },
+        "6": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "7": {
+          "source": " * Apply the properties from fromObject to the toObject.  fromObject will",
+          "coverage": ""
+        },
+        "8": {
+          "source": " * overwrite any shared keys.  It can also be used as a simple shallow clone.",
+          "coverage": ""
+        },
+        "9": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "10": {
+          "source": "    var to = {a:1, c:1}, from = {a:2, b:2}",
+          "coverage": ""
+        },
+        "11": {
+          "source": "    Luc.Object.apply(to, from)",
+          "coverage": ""
+        },
+        "12": {
+          "source": "    &gt;Object {a: 2, c: 1, b: 2}",
+          "coverage": ""
+        },
+        "13": {
+          "source": "    to === to",
+          "coverage": ""
+        },
+        "14": {
+          "source": "    &gt;true",
+          "coverage": ""
+        },
+        "15": {
+          "source": "    var clone = Luc.Object.apply({}, from)",
+          "coverage": ""
+        },
+        "16": {
+          "source": "    &gt;undefined",
+          "coverage": ""
+        },
+        "17": {
+          "source": "    clone",
+          "coverage": ""
+        },
+        "18": {
+          "source": "    &gt;Object {a: 2, b: 2}",
+          "coverage": ""
+        },
+        "19": {
+          "source": "    clone === from",
+          "coverage": ""
+        },
+        "20": {
+          "source": "    &gt;false",
+          "coverage": ""
+        },
+        "21": {
+          "source": " *",
+          "coverage": ""
+        },
+        "22": {
+          "source": " * @param  {Object|undefined} toObject Object to put the properties fromObject on.",
+          "coverage": ""
+        },
+        "23": {
+          "source": " * @param  {Object|undefined} fromObject Object to put the properties on the toObject",
+          "coverage": ""
+        },
+        "24": {
+          "source": " * @return {Object} the toObject",
+          "coverage": ""
+        },
+        "25": {
+          "source": " */",
+          "coverage": ""
+        },
+        "26": {
+          "source": "exports.apply = function(toObject, fromObject) {",
+          "coverage": 1
+        },
+        "27": {
+          "source": "    var to = toObject || {},",
+          "coverage": 73
+        },
+        "28": {
+          "source": "        from = fromObject || {},",
+          "coverage": ""
+        },
+        "29": {
+          "source": "        prop;",
+          "coverage": ""
+        },
+        "30": {
+          "source": "",
+          "coverage": ""
+        },
+        "31": {
+          "source": "    for (prop in from) {",
+          "coverage": 73
+        },
+        "32": {
+          "source": "        if (from.hasOwnProperty(prop)) {",
+          "coverage": 198
+        },
+        "33": {
+          "source": "            to[prop] = from[prop];",
+          "coverage": 198
+        },
+        "34": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "35": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "36": {
+          "source": "",
+          "coverage": ""
+        },
+        "37": {
+          "source": "    return to;",
+          "coverage": 73
+        },
+        "38": {
+          "source": "};",
+          "coverage": ""
+        },
+        "39": {
+          "source": "",
+          "coverage": ""
+        },
+        "40": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "41": {
+          "source": " * Similar to Luc.Object.apply except that the fromObject will ",
+          "coverage": ""
+        },
+        "42": {
+          "source": " * NOT overwrite the keys of the toObject if they are defined.",
+          "coverage": ""
+        },
+        "43": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "44": {
+          "source": " * @param  {Object|undefined} toObject Object to put the properties fromObject on.",
+          "coverage": ""
+        },
+        "45": {
+          "source": " * @param  {Object|undefined} fromObject Object to put the properties on the toObject",
+          "coverage": ""
+        },
+        "46": {
+          "source": " * @return {Object} the toObject",
+          "coverage": ""
+        },
+        "47": {
+          "source": " */",
+          "coverage": ""
+        },
+        "48": {
+          "source": "exports.mix = function(toObject, fromObject) {",
+          "coverage": 1
+        },
+        "49": {
+          "source": "    var to = toObject || {},",
+          "coverage": 9
+        },
+        "50": {
+          "source": "        from = fromObject || {},",
+          "coverage": ""
+        },
+        "51": {
+          "source": "        prop;",
+          "coverage": ""
+        },
+        "52": {
+          "source": "",
+          "coverage": ""
+        },
+        "53": {
+          "source": "    for (prop in from) {",
+          "coverage": 9
+        },
+        "54": {
+          "source": "        if (from.hasOwnProperty(prop) &amp;&amp; to[prop] === undefined) {",
+          "coverage": 37
+        },
+        "55": {
+          "source": "            to[prop] = from[prop];",
+          "coverage": 34
+        },
+        "56": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "57": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "58": {
+          "source": "",
+          "coverage": ""
+        },
+        "59": {
+          "source": "    return to;",
+          "coverage": 9
+        },
+        "60": {
+          "source": "};",
+          "coverage": ""
+        },
+        "61": {
+          "source": "",
+          "coverage": ""
+        },
+        "62": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "63": {
+          "source": " * Iterate over an objects properties",
+          "coverage": ""
+        },
+        "64": {
+          "source": " * as key value \"pairs\" with the passed in function.",
+          "coverage": ""
+        },
+        "65": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "66": {
+          "source": "    var context = {val:1};",
+          "coverage": ""
+        },
+        "67": {
+          "source": "    Luc.Object.each({",
+          "coverage": ""
+        },
+        "68": {
+          "source": "        key: 1",
+          "coverage": ""
+        },
+        "69": {
+          "source": "    }, function(key, value) {",
+          "coverage": ""
+        },
+        "70": {
+          "source": "        console.log(value + key + this.val)",
+          "coverage": ""
+        },
+        "71": {
+          "source": "    }, context)",
+          "coverage": ""
+        },
+        "72": {
+          "source": "    ",
+          "coverage": ""
+        },
+        "73": {
+          "source": "    &gt;1key1 ",
+          "coverage": ""
+        },
+        "74": {
+          "source": " ",
+          "coverage": ""
+        },
+        "75": {
+          "source": " * @param  {Object}   obj  the object to iterate over",
+          "coverage": ""
+        },
+        "76": {
+          "source": " * @param  {Function} fn   the function to call",
+          "coverage": ""
+        },
+        "77": {
+          "source": " * @param  {String} fn.key   the object key",
+          "coverage": ""
+        },
+        "78": {
+          "source": " * @param  {Object} fn.value   the object value",
+          "coverage": ""
+        },
+        "79": {
+          "source": " * @param  {Object}   [thisArg] ",
+          "coverage": ""
+        },
+        "80": {
+          "source": " * @param {Object}  [config]",
+          "coverage": ""
+        },
+        "81": {
+          "source": " * @param {Boolean}  config.ownProperties set to false",
+          "coverage": ""
+        },
+        "82": {
+          "source": " * to iterate over all of the objects enumerable properties.",
+          "coverage": ""
+        },
+        "83": {
+          "source": " */",
+          "coverage": ""
+        },
+        "84": {
+          "source": "exports.each = function(obj, fn, thisArg, config) {",
+          "coverage": 1
+        },
+        "85": {
+          "source": "    var key, value,",
+          "coverage": 46
+        },
+        "86": {
+          "source": "        allProperties = config &amp;&amp; config.ownProperties === false;",
+          "coverage": ""
+        },
+        "87": {
+          "source": "",
+          "coverage": ""
+        },
+        "88": {
+          "source": "    if (allProperties) {",
+          "coverage": 46
+        },
+        "89": {
+          "source": "        for (key in obj) {",
+          "coverage": 13
+        },
+        "90": {
+          "source": "            fn.call(thisArg, key, obj[key]);",
+          "coverage": 28
+        },
+        "91": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "92": {
+          "source": "    } else {",
+          "coverage": ""
+        },
+        "93": {
+          "source": "        for (key in obj) {",
+          "coverage": 33
+        },
+        "94": {
+          "source": "            if (obj.hasOwnProperty(key)) {",
+          "coverage": 107
+        },
+        "95": {
+          "source": "                fn.call(thisArg, key, obj[key]);",
+          "coverage": 103
+        },
+        "96": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "97": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "98": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "99": {
+          "source": "};",
+          "coverage": ""
+        },
+        "100": {
+          "source": "",
+          "coverage": ""
+        },
+        "101": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "102": {
+          "source": " * Take an array of strings and an array/arguments of",
+          "coverage": ""
+        },
+        "103": {
+          "source": " * values and return an object of key value pairs",
+          "coverage": ""
+        },
+        "104": {
+          "source": " * based off each arrays index.  It is useful for taking",
+          "coverage": ""
+        },
+        "105": {
+          "source": " * a long list of arguments and creating an object that can",
+          "coverage": ""
+        },
+        "106": {
+          "source": " * be passed to other methods.",
+          "coverage": ""
+        },
+        "107": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "108": {
+          "source": "    function longArgs(a,b,c,d,e,f) {",
+          "coverage": ""
+        },
+        "109": {
+          "source": "        return Luc.Object.toObject(['a','b', 'c', 'd', 'e', 'f'], arguments)",
+          "coverage": ""
+        },
+        "110": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "111": {
+          "source": "",
+          "coverage": ""
+        },
+        "112": {
+          "source": "    longArgs(1,2,3,4,5,6,7,8,9)",
+          "coverage": ""
+        },
+        "113": {
+          "source": "",
+          "coverage": ""
+        },
+        "114": {
+          "source": "    &gt;Object {a: 1, b: 2, c: 3, d: 4, e: 5&#226;&#128;&#166;}",
+          "coverage": ""
+        },
+        "115": {
+          "source": "    a: 1",
+          "coverage": ""
+        },
+        "116": {
+          "source": "    b: 2",
+          "coverage": ""
+        },
+        "117": {
+          "source": "    c: 3",
+          "coverage": ""
+        },
+        "118": {
+          "source": "    d: 4",
+          "coverage": ""
+        },
+        "119": {
+          "source": "    e: 5",
+          "coverage": ""
+        },
+        "120": {
+          "source": "    f: 6",
+          "coverage": ""
+        },
+        "121": {
+          "source": "",
+          "coverage": ""
+        },
+        "122": {
+          "source": "    longArgs(1,2,3)",
+          "coverage": ""
+        },
+        "123": {
+          "source": "",
+          "coverage": ""
+        },
+        "124": {
+          "source": "    &gt;Object {a: 1, b: 2, c: 3, d: undefined, e: undefined&#226;&#128;&#166;}",
+          "coverage": ""
+        },
+        "125": {
+          "source": "    a: 1",
+          "coverage": ""
+        },
+        "126": {
+          "source": "    b: 2",
+          "coverage": ""
+        },
+        "127": {
+          "source": "    c: 3",
+          "coverage": ""
+        },
+        "128": {
+          "source": "    d: undefined",
+          "coverage": ""
+        },
+        "129": {
+          "source": "    e: undefined",
+          "coverage": ""
+        },
+        "130": {
+          "source": "    f: undefined",
+          "coverage": ""
+        },
+        "131": {
+          "source": "",
+          "coverage": ""
+        },
+        "132": {
+          "source": " * @param  {String[]} strings",
+          "coverage": ""
+        },
+        "133": {
+          "source": " * @param  {Array/arguments} values",
+          "coverage": ""
+        },
+        "134": {
+          "source": " * @return {Object}",
+          "coverage": ""
+        },
+        "135": {
+          "source": " */",
+          "coverage": ""
+        },
+        "136": {
+          "source": "exports.toObject = function(strings, values) {",
+          "coverage": 1
+        },
+        "137": {
+          "source": "    var obj = {},",
+          "coverage": 2
+        },
+        "138": {
+          "source": "        i = 0,",
+          "coverage": ""
+        },
+        "139": {
+          "source": "        len = strings.length;",
+          "coverage": ""
+        },
+        "140": {
+          "source": "    for (; i &lt; len; ++i) {",
+          "coverage": 2
+        },
+        "141": {
+          "source": "        obj[strings[i]] = values[i];",
+          "coverage": 4
+        },
+        "142": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "143": {
+          "source": "",
+          "coverage": ""
+        },
+        "144": {
+          "source": "    return obj;",
+          "coverage": 2
+        },
+        "145": {
+          "source": "};",
+          "coverage": ""
+        },
+        "146": {
+          "source": "",
+          "coverage": ""
+        },
+        "147": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "148": {
+          "source": " * Return key value pairs from the object if the",
+          "coverage": ""
+        },
+        "149": {
+          "source": " * filterFn returns a truthy value.",
+          "coverage": ""
+        },
+        "150": {
+          "source": " *",
+          "coverage": ""
+        },
+        "151": {
+          "source": "    Luc.Object.filter({",
+          "coverage": ""
+        },
+        "152": {
+          "source": "        a: false,",
+          "coverage": ""
+        },
+        "153": {
+          "source": "        b: true,",
+          "coverage": ""
+        },
+        "154": {
+          "source": "        c: false",
+          "coverage": ""
+        },
+        "155": {
+          "source": "    }, function(key, value) {",
+          "coverage": ""
+        },
+        "156": {
+          "source": "        return key === 'a' || value",
+          "coverage": ""
+        },
+        "157": {
+          "source": "    })",
+          "coverage": ""
+        },
+        "158": {
+          "source": "    &gt;[{key: 'a', value: false}, {key: 'b', value: true}]",
+          "coverage": ""
+        },
+        "159": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "160": {
+          "source": " * @param  {Object}   obj  the object to iterate over",
+          "coverage": ""
+        },
+        "161": {
+          "source": " * @param  {Function} filterFn   the function to call, return a truthy value",
+          "coverage": ""
+        },
+        "162": {
+          "source": " * to add the key value pair",
+          "coverage": ""
+        },
+        "163": {
+          "source": " * @param  {String} filterFn.key   the object key",
+          "coverage": ""
+        },
+        "164": {
+          "source": " * @param  {Object} filterFn.value   the object value",
+          "coverage": ""
+        },
+        "165": {
+          "source": " * @param  {Object}   [thisArg] ",
+          "coverage": ""
+        },
+        "166": {
+          "source": " * @param {Object}  [config]",
+          "coverage": ""
+        },
+        "167": {
+          "source": " * @param {Boolean}  config.ownProperties set to false",
+          "coverage": ""
+        },
+        "168": {
+          "source": " * to iterate over all of the objects enumerable properties.",
+          "coverage": ""
+        },
+        "169": {
+          "source": " *",
+          "coverage": ""
+        },
+        "170": {
+          "source": " * @return {Object[]} Array of key value pairs in the form",
+          "coverage": ""
+        },
+        "171": {
+          "source": " * of {key: 'key', value: value}",
+          "coverage": ""
+        },
+        "172": {
+          "source": " *",
+          "coverage": ""
+        },
+        "173": {
+          "source": " */",
+          "coverage": ""
+        },
+        "174": {
+          "source": "exports.filter = function(obj, filterFn, thisArg, config) {",
+          "coverage": 1
+        },
+        "175": {
+          "source": "    var values = [];",
+          "coverage": 15
+        },
+        "176": {
+          "source": "",
+          "coverage": ""
+        },
+        "177": {
+          "source": "    exports.each(obj, function(key, value) {",
+          "coverage": 15
+        },
+        "178": {
+          "source": "        if (filterFn.call(thisArg, key, value)) {",
+          "coverage": 30
+        },
+        "179": {
+          "source": "            values.push({",
+          "coverage": 27
+        },
+        "180": {
+          "source": "                value: value,",
+          "coverage": ""
+        },
+        "181": {
+          "source": "                key: key",
+          "coverage": ""
+        },
+        "182": {
+          "source": "            });",
+          "coverage": ""
+        },
+        "183": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "184": {
+          "source": "    }, thisArg, config);",
+          "coverage": ""
+        },
+        "185": {
+          "source": "",
+          "coverage": ""
+        },
+        "186": {
+          "source": "    return values;",
+          "coverage": 15
+        },
+        "187": {
+          "source": "};",
+          "coverage": ""
+        }
+      }
+    }
+  ],
+  "stats": {
+    "suites": 5,
+    "tests": 33,
+    "passes": 33,
+    "pending": 0,
+    "failures": 0,
+    "start": "2013-06-17T23:11:18.686Z",
+    "end": "2013-06-17T23:11:18.793Z",
+    "duration": 107
+  },
+  "tests": [
+    {
+      "title": "each",
+      "fullTitle": "Luc Array functions each",
+      "duration": 2
+    },
+    {
+      "title": "toArray",
+      "fullTitle": "Luc Array functions toArray",
+      "duration": 4
+    },
+    {
+      "title": "Base",
+      "fullTitle": "Luc Class Base",
+      "duration": 1
+    },
+    {
+      "title": "simple define",
+      "fullTitle": "Luc Class simple define",
+      "duration": 3
+    },
+    {
+      "title": "single mixin",
+      "fullTitle": "Luc Class single mixin",
+      "duration": 5
+    },
+    {
+      "title": "multiple mixins",
+      "fullTitle": "Luc Class multiple mixins",
+      "duration": 2
+    },
+    {
+      "title": "statics",
+      "fullTitle": "Luc Class statics",
+      "duration": 2
+    },
+    {
+      "title": "$class",
+      "fullTitle": "Luc Class $class",
+      "duration": 0
+    },
+    {
+      "title": "super",
+      "fullTitle": "Luc Class super",
+      "duration": 3
+    },
+    {
+      "title": "composition",
+      "fullTitle": "Luc Class composition",
+      "duration": 8
+    },
+    {
+      "title": "all class options together",
+      "fullTitle": "Luc Class all class options together",
+      "duration": 3
+    },
+    {
+      "title": "class options do not get applied to the instance",
+      "fullTitle": "Luc Class class options do not get applied to the instance",
+      "duration": 5
+    },
+    {
+      "title": "get composition",
+      "fullTitle": "Luc Class get composition",
+      "duration": 2
+    },
+    {
+      "title": "initComposition before and after",
+      "fullTitle": "Luc Class initComposition before and after",
+      "duration": 4
+    },
+    {
+      "title": "test default plugin composition",
+      "fullTitle": "Luc Class test default plugin composition",
+      "duration": 2
+    },
+    {
+      "title": "test configured plugin constructors",
+      "fullTitle": "Luc Class test configured plugin constructors",
+      "duration": 3
+    },
+    {
+      "title": "test configured create plugin",
+      "fullTitle": "Luc Class test configured create plugin",
+      "duration": 4
+    },
+    {
+      "title": "isArray",
+      "fullTitle": "Luc is isArray",
+      "duration": 9
+    },
+    {
+      "title": "isRegExp",
+      "fullTitle": "Luc is isRegExp",
+      "duration": 1
+    },
+    {
+      "title": "isDate",
+      "fullTitle": "Luc is isDate",
+      "duration": 2
+    },
+    {
+      "title": "isString",
+      "fullTitle": "Luc is isString",
+      "duration": 2
+    },
+    {
+      "title": "isObject",
+      "fullTitle": "Luc is isObject",
+      "duration": 1
+    },
+    {
+      "title": "isNumber",
+      "fullTitle": "Luc is isNumber",
+      "duration": 1
+    },
+    {
+      "title": "isFunction",
+      "fullTitle": "Luc is isFunction",
+      "duration": 2
+    },
+    {
+      "title": "isFalsy",
+      "fullTitle": "Luc is isFalsy",
+      "duration": 3
+    },
+    {
+      "title": "isEmpty",
+      "fullTitle": "Luc is isEmpty",
+      "duration": 6
+    },
+    {
+      "title": "Emitter",
+      "fullTitle": "Luc Node functions Emitter",
+      "duration": 2
+    },
+    {
+      "title": "each",
+      "fullTitle": "Luc Object functions each",
+      "duration": 1
+    },
+    {
+      "title": "apply",
+      "fullTitle": "Luc Object functions apply",
+      "duration": 11
+    },
+    {
+      "title": "mix",
+      "fullTitle": "Luc Object functions mix",
+      "duration": 0
+    },
+    {
+      "title": "toObject",
+      "fullTitle": "Luc Object functions toObject",
+      "duration": 3
+    },
+    {
+      "title": "filter non ownProperties",
+      "fullTitle": "Luc Object functions filter non ownProperties",
+      "duration": 1
+    },
+    {
+      "title": "filter ownProperties",
+      "fullTitle": "Luc Object functions filter ownProperties",
+      "duration": 2
+    }
+  ],
+  "failures": [],
+  "passes": [
+    {
+      "title": "each",
+      "fullTitle": "Luc Array functions each",
+      "duration": 2
+    },
+    {
+      "title": "toArray",
+      "fullTitle": "Luc Array functions toArray",
+      "duration": 4
+    },
+    {
+      "title": "Base",
+      "fullTitle": "Luc Class Base",
+      "duration": 1
+    },
+    {
+      "title": "simple define",
+      "fullTitle": "Luc Class simple define",
+      "duration": 3
+    },
+    {
+      "title": "single mixin",
+      "fullTitle": "Luc Class single mixin",
+      "duration": 5
+    },
+    {
+      "title": "multiple mixins",
+      "fullTitle": "Luc Class multiple mixins",
+      "duration": 2
+    },
+    {
+      "title": "statics",
+      "fullTitle": "Luc Class statics",
+      "duration": 2
+    },
+    {
+      "title": "$class",
+      "fullTitle": "Luc Class $class",
+      "duration": 0
+    },
+    {
+      "title": "super",
+      "fullTitle": "Luc Class super",
+      "duration": 3
+    },
+    {
+      "title": "composition",
+      "fullTitle": "Luc Class composition",
+      "duration": 8
+    },
+    {
+      "title": "all class options together",
+      "fullTitle": "Luc Class all class options together",
+      "duration": 3
+    },
+    {
+      "title": "class options do not get applied to the instance",
+      "fullTitle": "Luc Class class options do not get applied to the instance",
+      "duration": 5
+    },
+    {
+      "title": "get composition",
+      "fullTitle": "Luc Class get composition",
+      "duration": 2
+    },
+    {
+      "title": "initComposition before and after",
+      "fullTitle": "Luc Class initComposition before and after",
+      "duration": 4
+    },
+    {
+      "title": "test default plugin composition",
+      "fullTitle": "Luc Class test default plugin composition",
+      "duration": 2
+    },
+    {
+      "title": "test configured plugin constructors",
+      "fullTitle": "Luc Class test configured plugin constructors",
+      "duration": 3
+    },
+    {
+      "title": "test configured create plugin",
+      "fullTitle": "Luc Class test configured create plugin",
+      "duration": 4
+    },
+    {
+      "title": "isArray",
+      "fullTitle": "Luc is isArray",
+      "duration": 9
+    },
+    {
+      "title": "isRegExp",
+      "fullTitle": "Luc is isRegExp",
+      "duration": 1
+    },
+    {
+      "title": "isDate",
+      "fullTitle": "Luc is isDate",
+      "duration": 2
+    },
+    {
+      "title": "isString",
+      "fullTitle": "Luc is isString",
+      "duration": 2
+    },
+    {
+      "title": "isObject",
+      "fullTitle": "Luc is isObject",
+      "duration": 1
+    },
+    {
+      "title": "isNumber",
+      "fullTitle": "Luc is isNumber",
+      "duration": 1
+    },
+    {
+      "title": "isFunction",
+      "fullTitle": "Luc is isFunction",
+      "duration": 2
+    },
+    {
+      "title": "isFalsy",
+      "fullTitle": "Luc is isFalsy",
+      "duration": 3
+    },
+    {
+      "title": "isEmpty",
+      "fullTitle": "Luc is isEmpty",
+      "duration": 6
+    },
+    {
+      "title": "Emitter",
+      "fullTitle": "Luc Node functions Emitter",
+      "duration": 2
+    },
+    {
+      "title": "each",
+      "fullTitle": "Luc Object functions each",
+      "duration": 1
+    },
+    {
+      "title": "apply",
+      "fullTitle": "Luc Object functions apply",
+      "duration": 11
+    },
+    {
+      "title": "mix",
+      "fullTitle": "Luc Object functions mix",
+      "duration": 0
+    },
+    {
+      "title": "toObject",
+      "fullTitle": "Luc Object functions toObject",
+      "duration": 3
+    },
+    {
+      "title": "filter non ownProperties",
+      "fullTitle": "Luc Object functions filter non ownProperties",
+      "duration": 1
+    },
+    {
+      "title": "filter ownProperties",
+      "fullTitle": "Luc Object functions filter ownProperties",
+      "duration": 2
+    }
+  ]
+}

@@ -60,6 +60,8 @@ Luc.abstractFn = Luc.Function.abstractFn;
 var array = require('./array');
 Luc.Array = array;
 
+Luc.apply(Luc, require('./is'));
+
 var EventEmitter = require('./events/eventEmitter');
 
 Luc.EventEmitter = EventEmitter;
@@ -78,7 +80,9 @@ var plugin = require('./class/plugin');
 
 Luc.Plugin = plugin.Plugin;
 
-Luc.getPluginCompostion = plugin.getPluginCompostion;
+Luc.compositions = {};
+
+Luc.compositions.createPlugin = plugin.getPluginCompostion;
 
 if(typeof window !== 'undefined') {
     window.Luc = Luc;

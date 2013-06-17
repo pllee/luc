@@ -31,6 +31,7 @@ Plugin.prototype = {
 
 var PluginCompositionConfig = {
     name: 'plugins',
+    defaultPlugin: Plugin,
 
     create: function() {
         var config = this.instanceArgs[0],
@@ -39,11 +40,8 @@ var PluginCompositionConfig = {
         aEach(config.plugins, function(pluginConfig) {
             pluginConfig.owner = this.instance;
             var pluginInstance = this.createPlugin(pluginConfig);
-            
-            if(typeof pluginInstance.init === 'function') {
-                pluginInstance.init(this.instance);
-                
-            }
+
+            this.initPlugin(pluginInstance);
 
             pluginInstances.push(pluginInstance);
         }, this);
@@ -67,7 +65,13 @@ var PluginCompositionConfig = {
 
         //if Constructor property is not on
         //the config just use the default Plugin
-        return new Plugin(config);
+        return new this.defaultPlugin(config);
+    },
+
+    initPlugin: function(plugin) {
+        if (typeof plugin.init === 'function') {
+            plugin.init(this.instance);
+        }
     }
 };
 
