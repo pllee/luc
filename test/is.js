@@ -46,6 +46,8 @@ describe('Luc is', function() {
         expect(Luc.isFalsy(undefined)).to.be(true);
         expect(Luc.isFalsy(null)).to.be(true);
         expect(Luc.isFalsy(false)).to.be(true);
+        expect(Luc.isFalsy(NaN)).to.be(true);
+        expect(Luc.isFalsy({})).to.be(false);
     });
 
     it('isEmpty', function() {
