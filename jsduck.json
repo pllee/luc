@@ -6,5 +6,5 @@
     ],
     "--head-html": "<script src= 'http://pllee.github.io/luc/build/luc-es5-shim.js'></script>",
     "--welcome": "README.md",
-    "--output" : "docs"
+    "--output" : "pages/docs"
 }

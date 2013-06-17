@@ -1,4 +1,17 @@
+var tasks = require('./gruntTasks');
+
 module.exports = function(grunt) {
+
+  grunt.registerTask('coverage', 'build coverage', function(){
+    var done = this.async();
+    tasks.buildCoverage(done);
+  });
+
+  grunt.registerTask('docs', 'build docs', function(){
+    var done = this.async();
+    tasks.buildDocs(done);
+  });
+
   grunt.initConfig({ 
     exec: {
       buildSrc: {
@@ -8,7 +21,7 @@ module.exports = function(grunt) {
         cmd: 'node_modules/.bin/browserify --debug lib/luc-es5-shim.js > build/luc-es5-shim.js'
       },
       buildTest: {
-        cmd: 'node_modules/.bin/browserify --debug test/lib/luc.js > testRunner/build/tests.js'
+        cmd: 'node_modules/.bin/browserify --debug test/lib/luc.js > pages/testRunner/build/tests.js'
       },
       runTest: {
         cmd: 'mocha -R list'
