@@ -296,6 +296,9 @@ describe('Luc Class', function() {
             plugins: [{
                     init: function(instance) {
                         testInstance = instance;
+                    },
+                    destroy: function(){
+
                     }
                 }
             ]
@@ -327,6 +330,28 @@ describe('Luc Class', function() {
         var configedPlugin = c.getComposition('plugins').plugins[1];
         expect(configedPlugin).to.be.a(ConfiguredPlugin);
         expect(configedPlugin.myOwner).to.be(c);
+    });
+
+    it('test default plugin destroy', function() {
+        var testValue = false,
+        ClassWithPlugins = Luc.define({
+            $compositions: {
+                defaults: Luc.compositionEnumns.PluginManager
+            }
+        });
+
+        var c = new ClassWithPlugins({
+            plugins: [{
+                    destroy: function() {
+                        testValue = true;
+                    }
+                }, {}
+            ]
+        });
+
+        expect(testValue).to.be(false);
+        c.destroyPlugins();
+        expect(testValue).to.be(true);
     });
 });
 
