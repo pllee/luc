@@ -1,4 +1,4 @@
 node_modules/
 lib-cov/
 pages/docs/
-pages/coverage/
+pages/coverage/*
