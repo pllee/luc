@@ -228,6 +228,31 @@ describe('Luc Class', function() {
         expect(hasCBeenInited).to.be(true);
     });
 
+    it('test no superclass', function() {
+        var NoSuper = Luc.define({
+            $super: false,
+            $statics: {
+                total: 0
+            },
+            $mixins: {
+                makeString: function(value) {
+                    return value + '';
+                }
+            },
+            $compositions: {
+                Constructor: Luc.EventEmitter,
+                name: 'emitter',
+                filterKeys: 'allMethods'
+            }
+        });
+
+        var noSuper = new NoSuper();
+        expect(noSuper.makeString(noSuper.$class.total)).to.be('0');
+        emitterTest(noSuper);
+        expect(noSuper).to.not.be.a(Luc.Base);
+        expect(noSuper.$superclass).to.be(undefined);
+    });
+
     it('test default plugin composition', function() {
         var testIntance,
             ClassWithPlugins = Luc.define({
