@@ -246,11 +246,44 @@ describe('Luc Class', function() {
             }
         });
 
+        var NoSuperNoComp = Luc.define({
+            $super: false,
+            $statics: {
+                total: 0
+            },
+            $mixins: {
+                makeString: function(value) {
+                    return value + '';
+                }
+            }
+        });
+
         var noSuper = new NoSuper();
+        expect(new  NoSuperNoComp().makeString(noSuper.$class.total)).to.be('0');
         expect(noSuper.makeString(noSuper.$class.total)).to.be('0');
         emitterTest(noSuper);
         expect(noSuper).to.not.be.a(Luc.Base);
         expect(noSuper.$superclass).to.be(undefined);
+    });
+
+    it('test composition validation', function() {
+        function defineNoName() {
+            Luc.define({
+                $compositions: {
+                    Constructor: Luc.EventEmitter
+                }
+            });
+        }
+        function defineNoConstructor() {
+            Luc.define({
+                $compositions: {
+                    name: 'a'
+                }
+            });
+        }
+        expect(defineNoName).to.throwException();
+
+        expect(defineNoConstructor).to.throwException();
     });
 
     it('test default plugin composition', function() {
