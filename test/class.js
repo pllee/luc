@@ -240,9 +240,7 @@ describe('Luc Class', function() {
                 }
             },
             $compositions: {
-                Constructor: Luc.EventEmitter,
-                name: 'emitter',
-                filterKeys: 'allMethods'
+                defaults : Luc.compositionEnumns.EventEmitter
             }
         });
 
@@ -288,9 +286,11 @@ describe('Luc Class', function() {
 
     it('test default plugin composition', function() {
         var testIntance,
-            ClassWithPlugins = Luc.define({
-                $compositions: Luc.compositions.createPlugin()
-            });
+        ClassWithPlugins = Luc.define({
+            $compositions: {
+                defaults: Luc.compositionEnumns.PluginManager
+            }
+        });
 
         var c = new ClassWithPlugins({
             plugins: [{
@@ -302,7 +302,7 @@ describe('Luc Class', function() {
         });
 
         expect(testInstance).to.be(c);
-        expect(c.getComposition('plugins')[0]).to.be.a(Luc.Plugin);
+        expect(c.getComposition('plugins').plugins[0]).to.be.a(Luc.Plugin);
     });
 
     it('test configured plugin constructors', function() {
@@ -311,7 +311,9 @@ describe('Luc Class', function() {
                 this.myOwner = config.owner;
             },
             ClassWithPlugins = Luc.define({
-                $compositions: Luc.compositions.createPlugin()
+                $compositions: {
+                    defaults: Luc.compositionEnumns.PluginManager
+                }
             });
 
         var c = new ClassWithPlugins({
@@ -321,37 +323,8 @@ describe('Luc Class', function() {
             ]
         });
 
-        expect(c.getComposition('plugins')[0]).to.be.a(Luc.Plugin);
-        var configedPlugin = c.getComposition('plugins')[1];
-        expect(configedPlugin).to.be.a(ConfiguredPlugin);
-        expect(configedPlugin.myOwner).to.be(c);
-    });
-
-    it('test configured create plugin', function() {
-        var testIntance,
-            ConfiguredPlugin = function(config) {
-                this.myOwner = config.owner;
-            },
-            ClassWithPlugins = Luc.define({
-                $compositions: Luc.compositions.createPlugin({
-                    defaultPlugin: ConfiguredPlugin,
-                    initPlugin: function(plugin) {
-                        plugin.doMyInit(this.instance);
-                    }
-                })
-            });
-
-            ConfiguredPlugin.prototype.doMyInit = function(instance) {
-                testInstance = instance;
-            };
-
-        var c = new ClassWithPlugins({
-            plugins: [{}]
-        });
-
-        var configedPlugin = c.getComposition('plugins')[0];
-
-        expect(testInstance).to.be(c);
+        expect(c.getComposition('plugins').plugins[0]).to.be.a(Luc.Plugin);
+        var configedPlugin = c.getComposition('plugins').plugins[1];
         expect(configedPlugin).to.be.a(ConfiguredPlugin);
         expect(configedPlugin.myOwner).to.be(c);
     });
