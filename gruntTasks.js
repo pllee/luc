@@ -1,6 +1,12 @@
 var exec = require('child_process').exec;
 
-module.exports.buildCoverage = function(done) {
+function clean(dirs, callback) {
+    var removeDirs = dirs.join(' ');
+    exec('rm -r ' + removeDirs, callback);
+    callback();
+}
+
+function buildCoverage(done) {
     exec('jscoverage lib lib-cov', function(error, stdout, stderr) {
         exec('mocha -R html-cov > pages/coverage/index.html', {
             env: {
@@ -15,6 +21,12 @@ module.exports.buildCoverage = function(done) {
                 done();
             });
         });
+    });
+}
+
+module.exports.buildCoverage = function(done) {
+    clean(['lib-cov', 'pages/coverage/*'], function(){
+        buildCoverage(done);
     });
 };
 
