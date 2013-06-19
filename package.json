@@ -12,7 +12,7 @@
     "grunt": "~0.4.1",
     "grunt-exec": "*",
     "grunt-contrib-uglify": "*",
-    "browserify": "2.10.2",
+    "browserify": "2.18.1",
     "expect.js": "0.2.0",
     "mocha": "~1.11.0",
     "es5-shim-sham": "0.0.0"
