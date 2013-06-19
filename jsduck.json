@@ -4,6 +4,7 @@
     "--": [
         "lib"
     ],
+    "--ignore-global": true,
     "--head-html": "<script src= 'http://pllee.github.io/luc/build/luc-es5-shim.js'></script>",
     "--welcome": "README.md",
     "--output" : "pages/docs"
