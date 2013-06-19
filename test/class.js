@@ -160,11 +160,10 @@ describe('Luc Class', function() {
 
     it('class options do not get applied to the instance', function() {
         var AdderEmitter = defineClassWithAllOptions(),
-            adderEmit = new AdderEmitter(),
             allOptions = Luc.ClassDefiner.processorKeys;
 
         Object.keys(allOptions).forEach(function(option) {
-            expect(adderEmit[option]).to.be(undefined);
+            expect(AdderEmitter.prototype[option]).to.be(undefined);
         });
     });
 
