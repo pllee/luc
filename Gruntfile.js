@@ -35,6 +35,7 @@ module.exports = function(grunt) {
         },
         options: {
           mangle: false,
+          report: 'gzip',
           preserveComments: 'some',
           banner:  '/**\n' +
                    ' * @license https://github.com/pllee/luc/blob/master/LICENSE\n' +
