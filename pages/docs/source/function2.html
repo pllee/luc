@@ -15,10 +15,33 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Luc-Function'>/**
+  <pre class="prettyprint lang-js">var is = require('./is'),
+    aInsert = require('./array').insert;
+    aEach = require('./array').each;
+
+<span id='Luc-Function'>/**
 </span> * @class Luc.Function
  * Package for function methods.
  */
+
+function augmentArgs(config, callArgs) {
+    var configArgs = config.args,
+        index = config.index,
+        argsArray;
+
+    if (!configArgs) {
+        return callArgs;
+    }
+
+    if(index === true || is.isNumber(index)) {
+        if(config.argumentsFirst === false) {
+            return aInsert(configArgs, callArgs, index);
+        }
+        return aInsert(callArgs, configArgs, index);
+    }
+
+    return configArgs;
+}
 
 <span id='Luc-Function-method-emptyFn'>/**
 </span> * A reusable empty function
@@ -35,14 +58,296 @@ exports.abstractFn = function() {
     throw new Error('abstractFn must be implemented');
 };
 
-exports.createRelayer = function(obj) {
-    var before = obj.before || exports.emptyFn,
-        after = obj.after || exports.emptyFn,
-        context = obj.context || this;
+<span id='Luc-Function-method-createAugmentor'>/**
+</span> * Agument the passed in function's thisArg and or aguments object 
+ * based on the passed in config.
+ * 
+ * @param  {Function} fn the function to call
+ * @param  {Object} config
+ * 
+ * @param {Object} [config.thisArg] the thisArg for the funciton being executed.
+ * If this is the only property on your config object the prefered way would
+ * be just to use Function.bind
+ * 
+ * @param {Array} [config.args] the arguments used for the function being executed.
+ * This will replace the functions call args if index is not a number or 
+ * true.
+ * 
+ * @param {Number/True} [config.index] By defualt the the configured arguments
+ * will be inserted into the functions passed in call arguments.  If index is true
+ * append the args together if it is a number insert it at the passed in index.
+ * 
+ * @param {Array} [config.argumentsFirst] pass in false to 
+ * agument the configured args first with Luc.Array.insert.  Defaults
+ * to true
+     
+     function fn() {
+        console.log(this)
+        console.log(arguments)
+    }
+
+    Luc.Function.createAugmentor(fn, {
+        thisArg: {configedThisArg: true},
+        args: [1,2,3],
+        index:0
+    })(4)
+
+    &gt;Object {configedThisArg: true}
+    &gt;[1, 2, 3, 4]
+
+    Luc.Function.createAugmentor(fn, {
+        thisArg: {configedThisArg: true},
+        args: [1,2,3],
+        index:0,
+        argumentsFirst:false
+    })(4)
+
+    &gt;Object {configedThisArg: true}
+    &gt;[4, 1, 2, 3]
+
+
+    var f = Luc.Function.createAugmentor(fn, {
+        args: [1,2,3],
+        index: true
+    });
+
+    f.apply({config: false}, [4])
+
+    &gt;Object {config: false}
+    &gt;[4, 1, 2, 3]
+
+ * @return {Function} the augmented function.
+ */
+exports.createAugmentor = function(fn, config) {
+    var thisArg = config.thisArg;
 
     return function() {
-        before.apply(context, arguments);
-        after.apply(context, arguments);
+        return fn.apply(thisArg || this, augmentArgs(config, arguments));
+    };
+};
+
+function initSequenceFunctions(fns, config) {
+    var toRun = [];
+    aEach(fns, function(f) {
+        var fn = f;
+
+        if (config) {
+            fn = exports.createAugmentor(f, config);
+        }
+
+        toRun.push(fn);
+    });
+
+    return toRun;
+}
+
+<span id='Luc-Function-method-createSequence'>/**
+</span> * Return a function that runs the passed in functions
+ * and returns the result of the last function called.
+ * 
+ * @param  {Function/Function[]} fns 
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmentor.  If defined all of the functions
+ * will get created with the passed in config;
+ *
+    Luc.Function.createSequence([
+        function() {
+            console.log(1)
+        },
+        function() {
+            console.log(2)
+        },
+        function() {
+            console.log(3)
+            console.log('finished logging')
+            return 4;
+        }
+    ])()
+    &gt;1
+    &gt;2
+    &gt;3
+    &gt;finished logging
+    &gt;4
+ * 
+ * @return {Function}
+ */
+exports.createSequence = function(fns, config) {
+    var functions = initSequenceFunctions(fns, config);
+
+    return function() {
+        var i = 0,
+            len = functions.length;
+
+        for(;i &lt; len -1; ++i) {
+            functions[i].apply(this, arguments);
+        }
+
+        return functions[len -1 ].apply(this, arguments);
+    };
+};
+
+<span id='Luc-Function-method-createSequenceIf'>/**
+</span> * Return a function that runs the passed in functions
+ * if one of the functions results false the rest of the 
+ * functions won't run and false will be returned.
+ *
+ * If no false is returned the value of the last function return will be returned
+ * 
+ * @param  {Function/Function[]} fns 
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmentor.  If defined all of the functions
+ * will get created with the passed in config;
+
+    Luc.Function.createSequenceIf([
+        function() {
+            console.log(1)
+        },
+        function() {
+            console.log(2)
+        },
+        function() {
+            console.log(3)
+            console.log('finished logging')
+            return 4;
+        }, function() {
+            return false;
+        }, function() {
+            console.log('i cant log')
+        }
+    ])()
+
+    &gt;1
+    &gt;2
+    &gt;3
+    &gt;finished logging
+    &gt;false
+ * @return {Function}
+ */
+exports.createSequenceIf = function(fns, config) {
+    var functions = initSequenceFunctions(fns, config);
+
+    return function() {
+        var value,
+            args = arguments;
+
+        functions.some(function(fn){
+            value = fn.apply(this, args);
+
+            return value === false;
+        }, this);
+
+        return value;
+    };
+};
+
+<span id='Luc-Function-method-createRelayer'>/**
+</span> * Return a functions that runs the passed in functions
+ * the result of each function will be the the call args 
+ * for the next function.  The value of the last function 
+ * return will be returned.
+ * 
+ * @param  {Function/Function[]} fns 
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmentor.  If defined all of the functions
+ * will get created with the passed in config;
+     
+     Luc.Function.createRelayer([
+        function(str) {
+            return str + 'b'
+        },
+        function(str) {
+            return str + 'c'
+        },
+        function(str) {
+            return str + 'd'
+        }
+    ])('a')
+
+    &gt;&quot;abcd&quot;
+
+ * @return {Function}
+ */
+exports.createRelayer = function(fns, config) {
+    var functions = initSequenceFunctions(fns, config);
+
+    return function() {
+        var value,
+            args = arguments;
+
+        functions.forEach(function(fn, index) {
+            if (index === 0) {
+                value = fn.apply(this, args);
+            } else {
+                value = fn.apply(this, [value]);
+            }
+        }, this);
+
+        return value;
+    };
+};
+
+<span id='Luc-Function-method-createThrotteled'>/**
+</span> * Create a throttled function that the passed in funciton
+ * only gets evoked once even it is called many times
+ *
+ * 
+ * @param  {Function} fn
+ * @param  {Number} [millis] Number of milliseconds to
+ * throttle the function.
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmentor.  If defined all of the functions
+ * will get created with the passed in config;
+ * 
+ * @return {Function}
+ */
+exports.createThrotteled = function(f, millis, config) {
+    var fn = config ? exports.createAugmentor(f, config) : f,
+        timeOutId = false;
+
+    if(!millis) {
+        return fn;
+    }
+
+    return function() {
+        var args = arguments;
+
+        if(timeOutId) {
+            clearTimeout(timeOutId);
+        }
+
+        timeOutId = setTimeout(function() {
+            timeOutId = false;
+            fn.apply(this, args);
+        }, millis);
+    };
+};
+
+<span id='Luc-Function-method-createDeferred'>/**
+</span> * Defer a function's execution for the passed in
+ * milliseconds.
+ * 
+ * @param  {Function} fn
+ * @param  {Number} [millis] Number of milliseconds to
+ * defer
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmentor.  If defined all of the functions
+ * will get created with the passed in config;
+ * 
+ * @return {Function}
+ */
+exports.createDeferred = function(f, millis, config) {
+    var fn = config ? exports.createAugmentor(f, config) : f;
+
+    if(!millis) {
+        return fn;
+    }
+
+    return function() {
+        var args = arguments;
+
+        setTimeout(function() {
+            fn.apply(this, args);
+        }, millis);
     };
 };</pre>
 </body>

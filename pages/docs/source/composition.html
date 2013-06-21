@@ -17,17 +17,27 @@
 <body onload="prettyPrint(); highlight();">
   <pre class="prettyprint lang-js">var obj = require('../object'),
     apply = obj.apply,
+    mix = obj.mix,
     oFilter = obj.filter,
-    emptyFn = ('../function').emptyFn;
+    emptyFn = ('../function').emptyFn,
+    is = require('../is');
 
 <span id='Luc-Composition'>/**
 </span> * @class  Luc.Composition
- * @private
+ * @protected
  * class that wraps $composition config objects
  * to conform to an api. The config object
  * will override any protected methods and default configs.
  */
-function Composition(config) {
+function Composition(c) {
+    var defaults = c.defaults,
+        config = c;
+
+    if(defaults) {
+        mix(config, config.defaults);
+        delete config.defaults;
+    }
+
     apply(this, config);
 }
 
@@ -94,7 +104,7 @@ Composition.prototype = {
         if(this.name  === undefined) {
             throw new Error('A name must be defined');
         }
-        if(typeof this.Constructor !== 'function' &amp;&amp; this.create === Composition.prototype.create) {
+        if(!is.isFunction(this.Constructor) &amp;&amp; this.create === Composition.prototype.create) {
             throw new Error('The Constructor must be function if create is not overriden');
         }
     },
@@ -108,16 +118,19 @@ Composition.prototype = {
      */
     filterFns: {
         allMethods: function(key, value) {
-            return typeof value === 'function';
+            return is.isFunction(value);
         }
     },
 
 <span id='Luc-Composition-cfg-filterKeys'>    /**
-</span>     * @cfg {Function/String} filterKeys
-     * Defaults to Luc.emptyFn. 
-     *
-     * If a string is passed and matches a method from 
+</span>     * @cfg {Function/String/Array[]} filterKeys
+     * The keys to add to the definers prototype that will in turn call
+     * the compositions method.
      * 
+     * Defaults to Luc.emptyFn. 
+     * If an array is passed it will just use that Array.
+     * 
+     * If a string is passed and matches a method from 
      * Luc.Composition.filterFns it will call that instead.
      * 
      * If a function is defined it
@@ -136,27 +149,40 @@ Composition.prototype = {
             },
             name: 'emitter'
         }
-     *
+     * this is also a valid config
+     * 
+        $compositions: {
+            Constructor: Luc.EventEmitter,
+            filterKeys: ['emitter'],
+            name: 'emitter'
+        }
      * 
      */
     filterKeys: emptyFn,
 
     getMethodsToCompose: function() {
-        var filterFn = this.filterKeys, 
-            pairsToAdd;
-        
-        if(this.filterFns[this.filterKeys]) {
-            filterFn = this.filterFns[this.filterKeys];
+        var filterKeys = this.filterKeys,
+            pairsToAdd,
+            filterFn;
+
+
+        if (is.isArray(filterKeys)) {
+            pairsToAdd = filterKeys;
+        } else {
+            filterFn = filterKeys;
+
+            if (is.isString(filterKeys)) {
+                filterFn = this.filterFns[filterKeys];
+            }
+
+            //Constructors are not needed if create is overwritten
+            pairsToAdd = oFilter(this.Constructor &amp;&amp; this.Constructor.prototype, filterFn, this, {
+                ownProperties: false,
+                keys: true
+            });
         }
 
-        //Constructors are not needed if create is overwritten
-        pairsToAdd = oFilter(this.Constructor &amp;&amp; this.Constructor.prototype, filterFn, this, {
-            ownProperties: false
-        });
-
-        return pairsToAdd.map(function(pair) {
-            return pair.key;
-        });
+        return pairsToAdd;
     }
 };
 

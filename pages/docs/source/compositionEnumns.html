@@ -15,22 +15,31 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js">var aEach = require('../array').each,
-    obj = require('../object'),
-    emptyFn = require('../function').emptyFn,
-    apply = obj.apply;
+  <pre class="prettyprint lang-js">var EventEmitter = require('../events/eventEmitter'),
+    PluginManager = require('./pluginManager');
 
-
-function Plugin(config) {
-    apply(this, config);
-}
-
-Plugin.prototype = {
-    init: emptyFn,
-    destroy: emptyFn
+module.exports.EventEmitter = {
+    Constructor: EventEmitter,
+    name: 'emitter',
+    filterKeys: 'allMethods'
 };
 
-module.exports = Plugin;
-</pre>
+
+
+module.exports.PluginManager = {
+    name: 'plugins',
+    initAfter: true,
+    Constructor: PluginManager,
+    create: function() {
+        var manager = new this.Constructor();
+        manager.init({
+            instance: this.instance,
+            instanceArgs: this.instanceArgs
+        });
+
+        return manager;
+    },
+    filterKeys: ['destroyPlugins']
+};</pre>
 </body>
 </html>

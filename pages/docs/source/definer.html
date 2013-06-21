@@ -29,7 +29,7 @@
 
 function ClassDefiner() {}
 
-ClassDefiner.COMPOSITIONS_NAME = 'compositions';
+ClassDefiner.COMPOSITIONS_NAME = '$compositions';
 
 ClassDefiner.prototype = {
     defaultType: Base,
@@ -43,7 +43,8 @@ ClassDefiner.prototype = {
 
     define: function(opts) {
         var options = opts || {},
-            Super = options.$super || this.defaultType,
+            //if super is a falsy value besides undefined that means no superclass
+            Super = options.$super || (options.$super === undefined ? this.defaultType : false),
             Constructor;
 
         options.$super = Super;
@@ -59,38 +60,64 @@ ClassDefiner.prototype = {
         var superclass = options.$super,
             Constructor = this._createConstructorFn(options);
 
-        Constructor.prototype = Object.create(superclass.prototype);
-
+        if(superclass) {
+            Constructor.prototype = Object.create(superclass.prototype);
+        }
+        
         return Constructor;
     },
 
     _createConstructorFn: function(options) {
         var superclass = options.$super,
-            me = this,
-            initBeforeSuperclass,
-            initAfterSuperclass;
+            Constructor;
 
         if (this._hasConstructorModifyingOptions(options)) {
+            Constructor = this._createConstructorWithModifiyingOptions(options);
+        }
+        else if(!superclass) {
+            Constructor = function() {};
+        }
+        else {
+            Constructor = function() {
+                superclass.apply(this, arguments);
+            };
+        }
 
-            initBeforeSuperclass = this._createInitClassOptionsFn(options, {
-                before: true
-            });
+        return Constructor;
+    },
 
-            initAfterSuperclass = this._createInitClassOptionsFn(options, {
-                before: false
+    _createConstructorWithModifiyingOptions: function(options) {
+        var superclass = options.$super,
+            me = this,
+            initBeforeSuperclass,
+            initAfterSuperclass,
+            init;
+
+        if (!superclass) {
+            init = this._createInitClassOptionsFn(options, {
+                all: true
             });
 
             return function() {
                 var args = arraySlice.call(arguments);
-
-                initBeforeSuperclass.call(this, options, args);
-                superclass.apply(this, arguments);
-                initAfterSuperclass.call(this, options, args);
+                init.call(this, options, args);
             };
         }
 
+        initBeforeSuperclass = this._createInitClassOptionsFn(options, {
+            before: true
+        });
+
+        initAfterSuperclass = this._createInitClassOptionsFn(options, {
+            before: false
+        });
+
         return function() {
+            var args = arraySlice.call(arguments);
+
+            initBeforeSuperclass.call(this, options, args);
             superclass.apply(this, arguments);
+            initAfterSuperclass.call(this, options, args);
         };
     },
 
@@ -110,6 +137,10 @@ ClassDefiner.prototype = {
     _filterCompositions: function(config, compositions) {
         var before = config.before, 
             filtered = [];
+
+        if(config.all) {
+            return compositions;
+        }
 
         aEach(compositions, function(composition) {
             if(before &amp;&amp; composition.initAfter !== true || (!before &amp;&amp; composition.initAfter === true)) {

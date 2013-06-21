@@ -18,12 +18,19 @@
   <pre class="prettyprint lang-js">var Luc = {};
 <span id='Luc'>/**
 </span> * @class Luc
- * Luc namespace that contains the entire Luc library.
+ * Aliases for common Luc methods and packages.
  */
 module.exports = Luc;
 
 var object = require('./object');
 Luc.Object = object;
+<span id='Luc-property-O'>/**
+</span> * @member Luc
+ * @property O Luc.O
+ * Alias for Luc.Object
+ */
+Luc.O = object;
+
 
 <span id='Luc-method-apply'>/**
 </span> * @member Luc
@@ -43,6 +50,13 @@ Luc.mix = Luc.Object.mix;
 var fun = require('./function');
 Luc.Function = fun;
 
+<span id='Luc-property-F'>/**
+</span> * @member Luc
+ * @property F Luc.F
+ * Alias for Luc.Function
+ */
+Luc.F = fun;
+
 <span id='Luc-method-emptyFn'>/**
 </span> * @member Luc
  * @method emptyFn
@@ -60,6 +74,13 @@ Luc.abstractFn = Luc.Function.abstractFn;
 var array = require('./array');
 Luc.Array = array;
 
+<span id='Luc-property-A'>/**
+</span> * @member Luc
+ * @property A Luc.A
+ * Alias for Luc.Array
+ */
+Luc.A = array;
+
 Luc.apply(Luc, require('./is'));
 
 var EventEmitter = require('./events/eventEmitter');
@@ -76,13 +97,14 @@ Luc.ClassDefiner = Definer;
 
 Luc.define = Definer.define;
 
-var plugin = require('./class/plugin');
+Luc.Plugin = require('./class/plugin');
 
-Luc.Plugin = plugin.Plugin;
+Luc.apply(Luc, {
+    compositionEnumns: require('./class/compositionEnumns')
+});
 
-Luc.compositions = {};
+Luc.compare = require('./compare').compare;
 
-Luc.compositions.createPlugin = plugin.getPluginCompostion;
 
 if(typeof window !== 'undefined') {
     window.Luc = Luc;

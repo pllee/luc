@@ -16,51 +16,135 @@
 </head>
 <body onload="prettyPrint(); highlight();">
   <pre class="prettyprint lang-js">var oToString = Object.prototype.toString;
+<span id='Luc-is'>/**
+</span> * @class Luc.is 
+ * Package for determining the types of objects
+ * it also has an Luc.is.isEmpty and Luc.is.isFalsy 
+ * functions.
+ */
 
-module.exports.isArray = function(obj) {
+
+<span id='Luc-is-method-isArray'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link Array Array}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isArray(obj) {
     return Array.isArray(obj);
 }
 
-module.exports.isObject = function(obj) {
+<span id='Luc-is-method-isObject'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link Object Object}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isObject(obj) {
     return oToString.call(obj) === '[object Object]';
 }
 
-module.exports.isFunction = function(obj) {
+<span id='Luc-is-method-isFunction'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link Function Function}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isFunction(obj) {
     return oToString.call(obj) === '[object Function]';
 }
 
-module.exports.isDate = function(obj) {
+<span id='Luc-is-method-isDate'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link Date Date}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isDate(obj) {
     return oToString.call(obj) === '[object Date]';
 }
 
-module.exports.isRegExp = function(obj) {
+<span id='Luc-is-method-isRegExp'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link RegExp RegExp}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isRegExp(obj) {
     return oToString.call(obj) === '[object RegExp]';
 }
 
-module.exports.isNumber = function(obj) {
+<span id='Luc-is-method-isNumber'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link Number Number}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isNumber(obj) {
     return oToString.call(obj) === '[object Number]';
 }
 
-module.exports.isString = function(obj) {
+<span id='Luc-is-method-isString'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link String String}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isString(obj) {
     return oToString.call(obj) === '[object String]';
 }
 
-module.exports.isFalsy = function(obj) {
-    return (obj === false || obj === null || obj === undefined || obj === '');
+<span id='Luc-is-method-isBoolean'>/**
+</span> * Return true if the passed in object is of
+ * the type {@link Boolean Boolean}
+ * @param  {Object}  obj 
+ * @return {Boolean}
+ */
+function isBoolean(obj) {
+    return oToString.call(obj) === '[object Boolean]';
 }
 
-module.exports.isEmpty = function(obj) {
-    var isEmpty = false;
+<span id='Luc-is-method-isFalsy'>/**
+</span> * Return true if the object is falsy but not 0.
+ * @param  {Object}  obj
+ * @return {Boolean}     
+ */
+function isFalsy(obj) {
+    return (!obj &amp;&amp; obj !== 0);
+}
 
-    if (module.exports.isFalsy(obj)) {
-        isEmpty = true;
-    } else if (module.exports.isArray(obj)) {
-        isEmpty = obj.length === 0;
-    } else if (module.exports.isObject(obj)) {
-        isEmpty = Object.keys(obj).length === 0;
+<span id='Luc-is-method-isEmpty'>/**
+</span> * Return true if the object is empty.
+ * {}, [], '',false, null, undefined, NaN 
+ * Are all treated as empty.
+ * @param  {Object}  obj
+ * @return {Boolean}
+ */
+function isEmpty(obj) {
+    var empty = false;
+
+    if (isFalsy(obj)) {
+        empty = true;
+    } else if (isArray(obj)) {
+        empty = obj.length === 0;
+    } else if (isObject(obj)) {
+        empty = Object.keys(obj).length === 0;
     }
 
-    return isEmpty;
-}</pre>
+    return empty;
+}
+
+module.exports = {
+    isArray: isArray,
+    isObject: isObject,
+    isFunction: isFunction,
+    isDate: isDate,
+    isString: isString,
+    isNumber: isNumber,
+    isRegExp: isRegExp,
+    isBoolean: isBoolean,
+    isFalsy: isFalsy,
+    isEmpty: isEmpty
+};</pre>
 </body>
 </html>
