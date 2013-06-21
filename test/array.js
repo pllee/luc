@@ -99,12 +99,12 @@ describe('Luc Array functions', function() {
         expect(Luc.Array.removeFirst(arr, [1,2])).to.be.eql([1,2]);
 
         arr = [[], [], []];
-        ret = Luc.Array.removeFirst(arr, [], {shallow: false});
+        ret = Luc.Array.removeFirst(arr, [], {type: 'strict'});
         expect(arr).to.be.eql([[],[],[]]);
         expect(ret).to.be.eql(false);
 
         arr = [[], [], []];
-        ret = Luc.Array.removeFirst(arr, [], {shallow: true});
+        ret = Luc.Array.removeFirst(arr, [], {type: 'shallow'});
         expect(arr).to.be.eql([[],[]]);
         expect(ret).to.be.eql([]);
     });
@@ -130,12 +130,12 @@ describe('Luc Array functions', function() {
         var a = {a: 1};
         arr = [{a:1}, {a:1, b:2}, a];
 
-        ret = Luc.Array.removeFirstNot(arr, {a:1}, {shallow: false});
+        ret = Luc.Array.removeFirstNot(arr, {a:1}, {type: 'strict'});
         expect(arr).to.be.eql([{a:1, b:2}, {a:1}]);
         expect(ret).to.be.eql({a:1});
-        Luc.Array.removeFirstNot(arr, a, {shallow: false});
-        Luc.Array.removeFirstNot(arr, a, {shallow: false});
-        ret = Luc.Array.removeFirstNot(arr, a, {shallow: false});
+        Luc.Array.removeFirstNot(arr, a, {type: 'strict'});
+        Luc.Array.removeFirstNot(arr, a, {type: 'strict'});
+        ret = Luc.Array.removeFirstNot(arr, a, {type: 'strict'});
         expect(arr).to.be.eql([{a:1}]);
         expect(ret).to.be(false);
     });
@@ -143,7 +143,7 @@ describe('Luc Array functions', function() {
     it('findFirst', function() {
         var arr = [{a:1}, {a:1}, {a:1}, {a:1, b:2}];
         expect(Luc.Array.findFirst(arr, {a:1, b:2})).to.be.eql({a:1, b:2});
-        expect(Luc.Array.findFirst(arr, {a:1, b:2}, {shallow: false})).to.be.eql(false);
+        expect(Luc.Array.findFirst(arr, {a:1, b:2}, {type: 'strict'})).to.be.eql(false);
         expect(Luc.Array.findFirst(arr, {a:1, b:2, c:3})).to.be.eql(false);
 
         arr = [false, 0, undefined, null, ''];
@@ -158,8 +158,8 @@ describe('Luc Array functions', function() {
 
         var d = new Date();
         arr = [new Date(1000), new Date(1000), d];
-        expect(Luc.Array.findFirst(arr, d, {shallow: false})).to.be(d);
-        expect(Luc.Array.findFirst(arr, d, {shallow: true})).to.be(d);
+        expect(Luc.Array.findFirst(arr, d, {type: 'strict'})).to.be(d);
+        expect(Luc.Array.findFirst(arr, d, {type: 'shallow'})).to.be(d);
     });
 
     it('findFirstNot', function() {
@@ -178,7 +178,7 @@ describe('Luc Array functions', function() {
         var arr = [{a:1}, {a:1}, {a:1}, {a:1, b:2}, {b:2}];
         expect(Luc.Array.findAll(arr, {a:1, b:2})).to.be.eql([{a:1, b:2}]);
         expect(Luc.Array.findAll(arr, {a:1})).to.be.eql([{a:1},{a:1},{a:1}]);
-        expect(Luc.Array.findAll(arr, {a:1, b:2}, {shallow: false})).to.be.eql(false);
+        expect(Luc.Array.findAll(arr, {a:1, b:2}, {type: 'strict'})).to.be.eql(false);
         expect(Luc.Array.findAll(arr, {a:1, b:2, c:3})).to.be.eql(false);
 
         arr = [[],[1,2], [1,2]];
