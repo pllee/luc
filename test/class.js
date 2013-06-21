@@ -94,7 +94,48 @@ describe('Luc Class', function() {
             }
         });
 
-        expect(C.b).to.eql(1);
+        var c = new C();
+
+        expect(C.b).to.be(1);
+        expect(c.$class.b).to.be(1);
+    });
+
+    it('test get static value', function() {
+        var A = Luc.define({
+            $statics: {
+                a: 1
+            }
+        });
+
+        var B = Luc.define({
+            $super: A,
+            $statics: {
+                b: 2,
+                c:3
+            }
+        });
+
+        var C = Luc.define({
+            $super: B,
+            $statics: {
+                a: 5
+            }
+        });
+
+        var a = new A(), b = new B(), c = new C();
+
+        expect(a.getStaticValue('a')).to.be(1);
+        expect(a.getStaticValue('b')).to.be(undefined);
+
+        expect(b.getStaticValue('a')).to.be(1);
+        expect(b.getStaticValue('b')).to.be(2);
+        expect(b.getStaticValue('c')).to.be(3);
+        expect(b.getStaticValue('d')).to.be(undefined);
+
+        expect(c.getStaticValue('a')).to.be(5);
+        expect(c.getStaticValue('b')).to.be(2);
+        expect(c.getStaticValue('c')).to.be(3);
+        expect(c.getStaticValue('d')).to.be(undefined);
     });
 
     it('$class', function() {
@@ -160,10 +201,13 @@ describe('Luc Class', function() {
 
     it('class options do not get applied to the instance', function() {
         var AdderEmitter = defineClassWithAllOptions(),
-            allOptions = Luc.ClassDefiner.processorKeys;
+            allOptions = Luc.ClassDefiner.processorKeys,
+            ignoreKeys = ['$super'];
 
         Object.keys(allOptions).forEach(function(option) {
-            expect(AdderEmitter.prototype[option]).to.be(undefined);
+            if(ignoreKeys.indexOf(option) === -1) {
+                expect(AdderEmitter.prototype[option]).to.be(undefined);
+            }
         });
     });
 
