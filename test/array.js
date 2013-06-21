@@ -145,6 +145,7 @@ describe('Luc Array functions', function() {
         expect(Luc.Array.findFirst(arr, {a:1, b:2})).to.be.eql({a:1, b:2});
         expect(Luc.Array.findFirst(arr, {a:1, b:2}, {type: 'strict'})).to.be.eql(false);
         expect(Luc.Array.findFirst(arr, {a:1, b:2, c:3})).to.be.eql(false);
+        expect(Luc.Array.findFirstNot([1,2,3,{}], {})).to.be(1);
 
         arr = [false, 0, undefined, null, ''];
         expect(Luc.Array.findFirst(arr, null)).to.be.eql(null);
@@ -206,5 +207,63 @@ describe('Luc Array functions', function() {
         expect(Luc.Array.findAllNot(arr, '')).to.be.eql([null]);
         arr = ['', '', ''];
         expect(Luc.Array.findAllNot(arr, '')).to.be.eql(false);
+    });
+
+    it('test dynamic array is fns', function() {
+        var isFns = ['Array',
+                'Object',
+                'Function',
+                'Date',
+                'String',
+                'Number',
+                'RegExp',
+                'Falsy',
+                'Empty',
+                'Boolean'
+        ],
+        arrayFns = ['findFirstNot', 'findAllNot', 'findFirst', 'findAll',
+                'removeFirstNot', 'removeAllNot', 'removeFirst', 'removeAll'
+        ];
+
+        arrayFns.forEach(function(fnName) {
+            isFns.forEach(function(isFnName) {
+                expect(Luc.Array[fnName + isFnName]([])).to.be(false);
+            });
+        });
+    });
+
+    it('test remove/find with iterator and thisArg', function() {
+        var arr = [{a:1}, {a:1}, {a:1}, {a:1, b:2}];
+
+        expect(Luc.Array.findAll(arr, function(value) {
+            return this.num === value.a
+        }, {
+            num: 1
+        })).to.be.eql([{
+                a: 1
+            }, {
+                a: 1
+            }, {
+                a: 1
+            }, {
+                a: 1,
+                b: 2
+            }
+        ]);
+
+       expect(Luc.Array.findAllNot(arr, function(value) {
+            return this.num === value.a
+        }, {
+            num: 1
+        })).to.be.eql(false);
+
+       //direct function comparison
+        expect(Luc.Array.findAllNot(arr, function(){}, {type:'strict'})).to.be.eql(arr);
+
+        expect(Luc.Array.findAllNot(arr, function(){
+            return true
+        })).to.be.eql(false);
+
+
     });
 });

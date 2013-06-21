@@ -63,4 +63,10 @@ describe('Luc is', function() {
         expect(Luc.isEmpty([0])).to.be(false);
         expect(Luc.isEmpty({0:0})).to.be(false);
     });
+
+    it('isBoolean', function() {
+        expect(Luc.isBoolean({})).to.be(false);
+        expect(Luc.isBoolean(false)).to.be(true);
+        expect(Luc.isBoolean(true)).to.be(true);
+    });
 });

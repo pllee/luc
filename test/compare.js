@@ -32,6 +32,7 @@ describe('Luc compare fn', function() {
         expect(Luc.compare(null, false)).to.be(false);
         expect(Luc.compare(undefined, false)).to.be(false);
         expect(Luc.compare(NaN, false)).to.be(false);
+        expect(Luc.compare([], [1], {type: 'deep'})).to.be(false);
 
         var deepTrue = Luc.compare({
             a: {
