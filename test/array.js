@@ -210,26 +210,54 @@ describe('Luc Array functions', function() {
     });
 
     it('test dynamic array is fns', function() {
-        var isFns = ['Array',
-                'Object',
-                'Function',
-                'Date',
-                'String',
-                'Number',
-                'RegExp',
-                'Falsy',
-                'Empty',
-                'Boolean'
-        ],
-        arrayFns = ['findFirstNot', 'findAllNot', 'findFirst', 'findAll',
-                'removeFirstNot', 'removeAllNot', 'removeFirst', 'removeAll'
-        ];
+        //there are only a few being build with non is
+        //functions lets test those
+        var A = Luc.Array;
+        expect(A.findFirstNotFalse([false, 1])).to.be(1);
+        expect(A.findFirstNotTrue([true, 1])).to.be(1);
+        expect(A.findFirstNotNull([null, 1])).to.be(1);
+        expect(A.findFirstNotUndefined([undefined, 1])).to.be(1);
 
-        arrayFns.forEach(function(fnName) {
-            isFns.forEach(function(isFnName) {
-                expect(Luc.Array[fnName + isFnName]([])).to.be(false);
-            });
-        });
+        expect(A.findAllNotFalse([false, 1])).to.be.eql([1]);
+        expect(A.findAllNotTrue([true, 1])).to.be.eql([1]);
+        expect(A.findAllNotNull([null, 1])).to.be.eql([1]);
+        expect(A.findAllNotUndefined([undefined, 1])).to.be.eql([1]);
+
+        expect(A.removeFirstNotFalse([false, 1])).to.be(1);
+        expect(A.removeFirstNotTrue([true, 1])).to.be(1);
+        expect(A.removeFirstNotNull([null, 1])).to.be(1);
+        expect(A.removeFirstNotUndefined([undefined, 1])).to.be(1);
+
+        expect(A.removeAllNotFalse([false, 1])).to.be.eql([1]);
+        expect(A.removeAllNotTrue([true, 1])).to.be.eql([1]);
+        expect(A.removeAllNotNull([null, 1])).to.be.eql([1]);
+        expect(A.removeAllNotUndefined([undefined, 1])).to.be.eql([1]);
+
+        expect(A.removeFirstFalse([false, 1])).to.be(false);
+        expect(A.removeFirstTrue([true, 1])).to.be(true);
+        expect(A.removeFirstNull([null, 1])).to.be(null);
+        expect(A.removeFirstUndefined([undefined, 1])).to.be(undefined);
+
+        expect(A.removeAllFalse([false, 1])).to.be.eql([false]);
+        expect(A.removeAllTrue([true, 1])).to.be.eql([true]);
+        expect(A.removeAllNull([null, 1])).to.be.eql([null]);
+        expect(A.removeAllUndefined([undefined, 1])).to.be.eql([undefined]);
+
+        expect(A.removeLastNotFalse([false, 1])).to.be(1);
+        expect(A.removeLastNotTrue([true, 1])).to.be(1);
+        expect(A.removeLastNotNull([null, 1])).to.be(1);
+        expect(A.removeLastNotUndefined([undefined, 1])).to.be(1);
+
+        expect(A.removeLastFalse([false, 1])).to.be(false);
+        expect(A.removeLastTrue([true, 1])).to.be(true);
+        expect(A.removeLastNull([null, 1])).to.be(null);
+        expect(A.removeLastUndefined([undefined, 1])).to.be(undefined);
+
+        expect(A.findLastNotFalse([false, 1])).to.be.eql(1);
+        expect(A.findLastNotTrue([true, 1])).to.be.eql(1);
+        expect(A.findLastNotNull([null, 1])).to.be.eql(1);
+        expect(A.findLastNotUndefined([undefined, 1])).to.be.eql(1);
+
     });
 
     it('test remove/find with iterator and thisArg', function() {
