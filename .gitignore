@@ -2,3 +2,4 @@ node_modules/
 lib-cov/
 pages/docs/
 pages/coverage/*
+lib/docs.js
