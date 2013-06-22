@@ -4,7 +4,7 @@ var Luc = require('../lib/luc'),
     commonDocs,
     common =
         '/**\n' +
-        ' * @member Luc.ArrayG \n' +
+        ' * @member Luc.ArrayFns \n' +
         ' * @method {methodName} \n' +
         ' * {description} \n' +
         ' *  \n' +
@@ -12,7 +12,7 @@ var Luc = require('../lib/luc'),
         ' * {extraParams} \n' +
         ' * \n' +
         ' * @return {returnMessage} \n' +
-        ' */\n'
+        ' */\n';
 
 commonDocs = {
     findAll: {
@@ -97,14 +97,14 @@ function _getDocsToGen(methodName) {
     var doc;
 
     keys.some(function(key) {
-        if (key !== methodName) {
+        if (!~keys.indexOf(methodName)) {
             var index = methodName.indexOf(key);
             if (~index) {
                 doc = _generateDoc(key, methodName);
                 return true;
             }
         }
-    })
+    });
 
     return doc;
 }
@@ -114,7 +114,7 @@ var buffer = '';
 Luc.Object.each(arrayFns, function(key) {
     var docs = _getDocsToGen(key);
     if(docs) {
-        buffer += docs
+        buffer += docs;
     }
 });
 

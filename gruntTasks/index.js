@@ -31,6 +31,8 @@ module.exports.buildCoverage = function(done) {
 };
 
 module.exports.buildDocs = function(done) {
+    require('./docGenerator');
+
     exec('jsduck', function() {
         done();
     });
