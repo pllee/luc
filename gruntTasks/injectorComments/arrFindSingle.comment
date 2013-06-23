@@ -1,0 +1,2 @@
+ * @return {Object} the object that was found
+ * false if no object was found;

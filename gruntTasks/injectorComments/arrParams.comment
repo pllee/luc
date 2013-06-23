@@ -1,0 +1,23 @@
+ * @param  {Array} arr
+ * @param  {Any/Function} objectOrIterator if the value
+ * is {@link Luc#compare equal} to or the iterator returns true remove the 
+ * object from the array.
+ * 
+ * If an iterator function is passed it will be called with the following 
+ * parameters.  The same parameter to Array.forEach
+ * 
+ * @param {Object} objectOrIterator.value 
+ * @param {Number} objectOrIterator.number
+ * @param {Array} objectOrIterator.array
+ *
+ * 
+ * @param  {Object} [configOrthisArg]
+ * 
+ * thisArg for the iterator function an iterator is
+ * used.
+ * 
+ * Option config object for Luc.compare if an iterator
+ * function is not passed in.  If you want to actually
+ * do a direct equality comparison on a function instead of
+ * using it as an iterator pass in {type: 'strict'}
+ * 

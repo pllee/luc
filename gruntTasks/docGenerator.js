@@ -2,6 +2,7 @@ var Luc = require('../lib/luc'),
     arrayFns = Luc.Array,
     fs = require('fs'),
     commonDocs,
+    docInjector = require('./docInjector'),
     common =
         '/**\n' +
         ' * @member Luc.ArrayFns \n' +
@@ -69,6 +70,7 @@ commonDocs = {
     }
 };
 
+docInjector(__dirname + '/generatedDocs/');
 
 var extraParams = {
     'InstanceOf': '@param {Function} Constructor ',
@@ -118,4 +120,4 @@ Luc.Object.each(arrayFns, function(key) {
     }
 });
 
-fs.writeFileSync(__dirname + '/../lib/docs.js', buffer);
+fs.writeFileSync(__dirname + '/generatedDocs/docs.js', buffer);
