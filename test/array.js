@@ -64,8 +64,8 @@ describe('Luc Array functions', function() {
         arr = [{}, {a:1}, {a:1, b:2}];
         ret = Luc.Array.removeAll(arr, {a: 1});
 
-        expect(ret).to.be.eql([{a:1}]);
-        expect(arr).to.be.eql([{}, {a:1,b:2}]);
+        expect(ret).to.be.eql([{a:1}, {a:1, b:2}]);
+        expect(arr).to.be.eql([{}]);
     });
 
     it('removeAllNot', function() {
@@ -85,8 +85,8 @@ describe('Luc Array functions', function() {
         arr = [{}, {a:1}, {a:1, b:2}];
         ret = Luc.Array.removeAllNot(arr, {a: 1});
 
-        expect(arr).to.be.eql([{a:1}]);
-        expect(ret).to.be.eql([{}, {a:1,b:2}]);
+        expect(arr).to.be.eql([{a:1}, {a:1, b:2}]);
+        expect(ret).to.be.eql([{}]);
         
     });
 
@@ -121,10 +121,7 @@ describe('Luc Array functions', function() {
         arr = [{a:1}, {a:1, b:2}, {a:1}];
         ret = Luc.Array.removeFirstNot(arr, {a: 1});
 
-        expect(arr).to.be.eql([{a:1}, {a:1}]);
-        expect(ret).to.be.eql({a:1, b:2});
-        ret = Luc.Array.removeFirstNot(arr, {a: 1});
-        expect(arr).to.be.eql([{a:1}, {a:1}]);
+        expect(arr).to.be.eql([{a:1}, {a:1, b:2}, {a:1}]);
         expect(ret).to.be.eql(false);
 
         var a = {a: 1};
@@ -166,7 +163,6 @@ describe('Luc Array functions', function() {
     it('findFirstNot', function() {
         var arr = [{a:1}, {a:1}, {a:1}, {a:1, b:2}];
         expect(Luc.Array.findFirstNot(arr, {a:1, b:2})).to.be.eql({a:1});
-        expect(Luc.Array.findFirstNot(arr, {a:1})).to.be.eql({a:1, b:2});
 
         arr = ['', '', '', null];
         expect(Luc.Array.findFirstNot(arr, null)).to.be.eql('');
@@ -178,7 +174,7 @@ describe('Luc Array functions', function() {
     it('findAll', function() {
         var arr = [{a:1}, {a:1}, {a:1}, {a:1, b:2}, {b:2}];
         expect(Luc.Array.findAll(arr, {a:1, b:2})).to.be.eql([{a:1, b:2}]);
-        expect(Luc.Array.findAll(arr, {a:1})).to.be.eql([{a:1},{a:1},{a:1}]);
+        expect(Luc.Array.findAll(arr, {a:1})).to.be.eql([{a:1},{a:1},{a:1},{a:1, b:2}]);
         expect(Luc.Array.findAll(arr, {a:1, b:2}, {type: 'strict'})).to.be.eql([]);
         expect(Luc.Array.findAll(arr, {a:1, b:2, c:3})).to.be.eql([]);
 
@@ -200,7 +196,6 @@ describe('Luc Array functions', function() {
     it('findAllNot', function() {
         var arr = [{a:1}, {a:1}, {a:1}, {a:1, b:2}];
         expect(Luc.Array.findAllNot(arr, {a:1, b:2})).to.be.eql([{a:1},{a:1},{a:1}]);
-        expect(Luc.Array.findAllNot(arr, {a:1})).to.be.eql([{a:1, b:2}]);
 
         arr = ['', '', '', null];
         expect(Luc.Array.findAllNot(arr, null)).to.be.eql(['','','']);

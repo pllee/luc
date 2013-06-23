@@ -108,4 +108,20 @@ describe('Luc compare fn', function() {
         };
         expect(invalidType).to.throwException();
     });
+
+    it('loose compare', function() {
+        expect(Luc.compare(new Date(10000), {}), {type: 'loose'}).to.be(false);
+        expect(Luc.compare({}, new Date(10000)), {type: 'loose'}).to.be(false);
+
+        expect(Luc.compare({a:1}, {a:1, b:2}, {type: 'loose'})).to.be(true);
+        expect(Luc.compare({a:1}, {a:2}, {type: 'loose'})).to.be(false);
+
+        expect(Luc.compare(1, {a:2}, {type: 'loose'})).to.be(false);
+        expect(Luc.compare({a:1}, 1, {type: 'loose'})).to.be(false);
+
+        expect(Luc.compare([{a:1}], [{a:1, b:2}], {type: 'loose'})).to.be(true);
+        expect(Luc.compare([{a:1}, 1], [{a:1, b:2}], {type: 'loose'})).to.be(false);
+        expect(Luc.compare([{a:1}, 1], [{a:1, b:2}, 1], {type: 'loose'})).to.be(true);
+        expect(Luc.compare([{a:1}, 1], [{a:1, b:2}, 2], {type: 'loose'})).to.be(false);
+    })
 });
