@@ -351,6 +351,16 @@ describe('Luc Class', function() {
         expect(testInstance).to.be(c);
         expect(c.getPlugin(Luc.Plugin)).to.be.a(Luc.Plugin);
         expect(c.getPlugin({name: 'myPlugin'})).to.be.a(Luc.Plugin);
+        c.destroyPlugin({name: 'myPlugin'});
+        expect(c.getPlugin(Luc.Plugin)).to.be(false);
+        var ret = c.addPlugin({name: 'myPlugin'});
+        expect(ret).to.be.a(Luc.Plugin);
+
+        function A(){
+
+        }
+        ret = c.addPlugin({Constructor: A, name: 'myPlugin'});
+        expect(ret).to.be.a(A);
     });
 
     it('test configured plugin constructors', function() {
