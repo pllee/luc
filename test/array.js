@@ -297,4 +297,22 @@ describe('Luc Array functions', function() {
         expect(Luc.Array.findLastIn([1,2,3], [false, 2,3, false])).to.be.eql(3);
         expect(Luc.Array.findAllIn([1,2,3, false], [false, 2,3, false])).to.be.eql([2,3,false]);
     });
+
+    it('last', function() {
+        expect(Luc.Array.last([1,2,3])).to.be(3);
+        expect(Luc.Array.last([1,2,3], 2)).to.be.eql([2,3]);
+        (function(){
+            expect(Luc.Array.last(arguments)).to.be(3);
+            expect(Luc.Array.last(arguments, 2)).to.be.eql([2,3]);
+        })(1,2,3)
+    });
+
+    it('first', function() {
+        expect(Luc.Array.first([1,2,3])).to.be(1);
+        expect(Luc.Array.first([1,2,3], 2)).to.be.eql([1,2]);
+        (function(){
+            expect(Luc.Array.first(arguments)).to.be(1);
+            expect(Luc.Array.first(arguments, 2)).to.be.eql([1,2]);
+        })(1,2,3)
+    });
 });
