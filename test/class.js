@@ -387,27 +387,27 @@ describe('Luc Class', function() {
         expect(configedPlugin.myOwner).to.be(c);
     });
 
-    // it('test default plugin destroy', function() {
-    //     var testValue = false,
-    //     ClassWithPlugins = Luc.define({
-    //         $compositions: {
-    //             defaults: Luc.compositionEnumns.PluginManager
-    //         }
-    //     });
+    it('test default plugin destroy', function() {
+        var testValue = false,
+        ClassWithPlugins = Luc.define({
+            $compositions: {
+                defaults: Luc.compositionEnumns.PluginManager
+            }
+        });
 
-    //     var c = new ClassWithPlugins({
-    //         plugins: [{
-    //                 destroy: function() {
-    //                     testValue = true;
-    //                 }
-    //             }, {}
-    //         ]
-    //     });
+        var c = new ClassWithPlugins({
+            plugins: [{
+                    destroy: function() {
+                        testValue = true;
+                    }
+                }, {}
+            ]
+        });
 
-    //     expect(testValue).to.be(false);
-    //     c.destroyPlugins();
-    //     expect(testValue).to.be(true);
-    // });
+        expect(testValue).to.be(false);
+        c.destroyAllPlugins();
+        expect(testValue).to.be(true);
+    });
 });
 
 
