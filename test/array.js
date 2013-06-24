@@ -300,19 +300,17 @@ describe('Luc Array functions', function() {
 
     it('last', function() {
         expect(Luc.Array.last([1,2,3])).to.be(3);
-        expect(Luc.Array.last([1,2,3], 2)).to.be.eql([2,3]);
         (function(){
             expect(Luc.Array.last(arguments)).to.be(3);
-            expect(Luc.Array.last(arguments, 2)).to.be.eql([2,3]);
         })(1,2,3)
     });
 
-    it('first', function() {
-        expect(Luc.Array.first([1,2,3])).to.be(1);
-        expect(Luc.Array.first([1,2,3], 2)).to.be.eql([1,2]);
+    it('from index', function() {
+        expect(Luc.Array.fromIndex([1,2,3], 1)).to.be.eql([2,3]);
         (function(){
-            expect(Luc.Array.first(arguments)).to.be(1);
-            expect(Luc.Array.first(arguments, 2)).to.be.eql([1,2]);
+            expect(Luc.Array.fromIndex(arguments, 1)).to.be.eql([2,3]);
+            expect(Luc.Array.fromIndex(arguments, 0)).to.be.eql([1,2,3]);
+            expect(Luc.Array.fromIndex(arguments, 2)).to.be.eql([3]);
         })(1,2,3)
     });
 });
