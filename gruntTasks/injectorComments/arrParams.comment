@@ -17,7 +17,7 @@
  * used.
  * 
  * Option config object for Luc.compare if an iterator
- * function is not passed in.  If you want to actually
- * do a direct equality comparison on a function instead of
- * using it as an iterator pass in {type: 'strict'}
+ * function is not passed in.  The default is to do a loose comparison.
+ * If you want to actually want to do a direct equality comparison 
+ * on a function instead of using it as an iterator pass in {type: 'strict'}
  * 
