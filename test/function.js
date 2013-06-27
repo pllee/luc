@@ -10,7 +10,7 @@ describe('Luc Function utilities', function() {
             return this.str + arr.join('');
         }
 
-        var appendAndThis = Luc.Function.createAugmentor(testFn, {
+        var appendAndThis = Luc.Function.createAugmenter(testFn, {
             thisArg: {
                 str: '1'
             },
@@ -20,7 +20,7 @@ describe('Luc Function utilities', function() {
 
         expect(appendAndThis(2,3)).to.be('12345');
 
-        var appendAndThisArgumentsAfter = Luc.Function.createAugmentor(testFn, {
+        var appendAndThisArgumentsAfter = Luc.Function.createAugmenter(testFn, {
             thisArg: {
                 str: '1'
             },
@@ -31,7 +31,7 @@ describe('Luc Function utilities', function() {
 
         expect(appendAndThisArgumentsAfter(2,3)).to.be('14523');
 
-        var argumentsAfter = Luc.Function.createAugmentor(testFn, {
+        var argumentsAfter = Luc.Function.createAugmenter(testFn, {
             thisArg: {
                 str: '1'
             },
@@ -42,7 +42,7 @@ describe('Luc Function utilities', function() {
 
         expect(argumentsAfter(2,3)).to.be('14235');
 
-        var argumentsInsert = Luc.Function.createAugmentor(testFn, {
+        var argumentsInsert = Luc.Function.createAugmenter(testFn, {
             thisArg: {
                 str: '1'
             },
@@ -52,14 +52,14 @@ describe('Luc Function utilities', function() {
 
         expect(argumentsInsert(2,3)).to.be('12453');
 
-        var noThisArg = Luc.Function.createAugmentor(testFn, {
+        var noThisArg = Luc.Function.createAugmenter(testFn, {
             args: [4, 5],
             index: 1
         });
 
         expect(noThisArg.apply({str: '2'},[2,3])).to.be('22453');
 
-        var justArgs = Luc.Function.createAugmentor(testFn, {
+        var justArgs = Luc.Function.createAugmenter(testFn, {
             args: [4, 5]
         });
 

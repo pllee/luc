@@ -283,7 +283,7 @@ describe('Luc Class', function() {
                 }
             },
             $compositions: {
-                defaults : Luc.compositionEnumns.EventEmitter
+                defaults : Luc.compositionEnums.EventEmitter
             }
         });
 
@@ -331,7 +331,7 @@ describe('Luc Class', function() {
         var testIntance,
         ClassWithPlugins = Luc.define({
             $compositions: {
-                defaults: Luc.compositionEnumns.PluginManager
+                defaults: Luc.compositionEnums.PluginManager
             }
         });
 
@@ -370,7 +370,7 @@ describe('Luc Class', function() {
             },
             ClassWithPlugins = Luc.define({
                 $compositions: {
-                    defaults: Luc.compositionEnumns.PluginManager
+                    defaults: Luc.compositionEnums.PluginManager
                 }
             });
 
@@ -391,7 +391,7 @@ describe('Luc Class', function() {
         var testValue = false,
         ClassWithPlugins = Luc.define({
             $compositions: {
-                defaults: Luc.compositionEnumns.PluginManager
+                defaults: Luc.compositionEnums.PluginManager
             }
         });
 
