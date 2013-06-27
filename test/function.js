@@ -208,7 +208,7 @@ describe('Luc Function utilities', function() {
 
     it('create throtteled', function(done) {
         var callCount = 0;
-        var throtteled = Luc.Function.createThrotteled(function(a,b,c){
+        var throttled = Luc.Function.createThrottled(function(a,b,c){
             callCount++;
             expect(a).to.be(1);
             expect(b).to.be(3);
@@ -222,10 +222,10 @@ describe('Luc Function utilities', function() {
         });
 
         for(var i = 0; i < 200; ++i) {
-            throtteled(1);
+            throttled(1);
         }
 
-        throtteled(1,2);
+        throttled(1,2);
 
         expect(callCount).to.be(0);
     });
