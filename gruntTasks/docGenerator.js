@@ -74,7 +74,9 @@ docInjector(__dirname + '/generatedDocs/');
 
 var extraParams = {
     'InstanceOf': '@param {Function} Constructor ',
-    'NotInstanceOf': '@param {Function} Constructor '
+    'NotInstanceOf': '@param {Function} Constructor ',
+    'In': '@param {Array} searchArray \n  @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose',
+    'NotIn': '@param {Array} searchArray \n @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose'
 };
 
 var keys = Object.keys(commonDocs);

@@ -291,6 +291,10 @@ describe('Luc Array functions', function() {
     });
 
         it('find in', function() {
+        expect(Luc.Array.findAllIn([1,2,3, {a:1,b:2}, {b:1}], [2,{a:1}])).to.be.eql([2,{a:1,b:2}]);
+        expect(Luc.Array.findAllIn([1,2,3, {a:1,b:2}, {b:1}], [2,{a:1}], {type: 'deep'})).to.be.eql([2]);
+        expect(Luc.Array.findAllIn([1,2,3, {a:1,b:2}, {b:1}], [2,{a:1}], {type: 'loose'})).to.be.eql([2,{a:1,b:2}]);
+        expect(Luc.Array.findAllIn([1,2,3, {a:1,b:2}, {b:1}], [2,{a:1}], {type: 'strict'})).to.be.eql([2]);
         expect(Luc.Array.findAllIn([1,2,3], [2,3])).to.be.eql([2,3]);
         expect(Luc.Array.findFirstIn([1,2,3], [2,3])).to.be.eql(2);
         expect(Luc.Array.findLastIn([1,2,3], [2,3])).to.be.eql(3);
@@ -312,5 +316,10 @@ describe('Luc Array functions', function() {
             expect(Luc.Array.fromIndex(arguments, 0)).to.be.eql([1,2,3]);
             expect(Luc.Array.fromIndex(arguments, 2)).to.be.eql([3]);
         })(1,2,3)
+    });
+
+    it('pluck', function() {
+        expect(Luc.Array.pluck([{s:1}, undefined, 1], 's')).to.be.eql([1, undefined,undefined]);
+        expect(Luc.Array.pluck([{a:'1', b:2}, {b:3}, {b:4}], 'b')).to.be.eql([2,3,4]);
     });
 });
