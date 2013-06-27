@@ -1,5 +1,5 @@
  * @param  {Array} arr
- * @param  {Any/Function} objectOrIterator if the value
+ * @param  {Any/Function} objectOrCallback if the value
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
