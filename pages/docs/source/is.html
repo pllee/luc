@@ -20,7 +20,15 @@
 </span> * @class Luc.is 
  * Package for determining the types of objects
  * it also has an Luc.is.isEmpty and Luc.is.isFalsy 
- * functions.
+ * functions.  You can see that we don't have an 
+ * isNull isUndefined or isNaN.  We prefer to use:
+ 
+    obj === null
+    obj === undefined
+    isNaN(obj)
+
+ * Im sure there a is a use case for isBoolean
+ * but we will leave you on your own for that.
  */
 
 
@@ -94,18 +102,21 @@ function isString(obj) {
     return oToString.call(obj) === '[object String]';
 }
 
-<span id='Luc-is-method-isBoolean'>/**
+<span id='Luc-is-method-isArguments'>/**
 </span> * Return true if the passed in object is of
- * the type {@link Boolean Boolean}
+ * the type arguments.
+ * 
  * @param  {Object}  obj 
  * @return {Boolean}
  */
-function isBoolean(obj) {
-    return oToString.call(obj) === '[object Boolean]';
+function isArguments(obj) {
+    return oToString.call(obj) === '[object Arguments]';
 }
 
 <span id='Luc-is-method-isFalsy'>/**
-</span> * Return true if the object is falsy but not 0.
+</span> * Return true if the object is falsy but not zero.  If
+ * you want falsy check that includes zero use a goram 
+ * if statement :)
  * @param  {Object}  obj
  * @return {Boolean}     
  */
@@ -142,7 +153,7 @@ module.exports = {
     isString: isString,
     isNumber: isNumber,
     isRegExp: isRegExp,
-    isBoolean: isBoolean,
+    isArguments: isArguments,
     isFalsy: isFalsy,
     isEmpty: isEmpty
 };</pre>

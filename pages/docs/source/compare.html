@@ -42,7 +42,7 @@ function _shallowArray(val1, val2) {
     return true;
 }
 
-function _deepArray(val1, val2) {
+function _deepArray(val1, val2, config) {
     var i = 0,
         len;
     
@@ -51,7 +51,7 @@ function _deepArray(val1, val2) {
     }
 
     for(len = val1.length; i &lt; len; ++i) {
-        if(!compare(val1[i],val2[i], {type: 'deep'})) {
+        if(!compare(val1[i],val2[i], config)) {
             return false;
         }
     }
@@ -82,7 +82,7 @@ function _shallowObject(val1, val2) {
     return true;
 }
 
-function _deepObject(val1, val2) {
+function _deepObject(val1, val2, config) {
     var key, val;
 
     if (!_compareObjectKeysLength(val1, val2)) {
@@ -92,11 +92,44 @@ function _deepObject(val1, val2) {
     for (key in val1) {
         if (val1.hasOwnProperty(key)) {
             value = val1[key];
-            if (!val2.hasOwnProperty(key) || compare(value, val2[key], {type: 'deep'}) !== true) {
+            if (!val2.hasOwnProperty(key) || compare(value, val2[key], config) !== true) {
                 return false;
             }
         }
     }
+
+    return true;
+
+}
+
+function _looseObject(val1, val2, config) {
+    var key, val;
+
+    if(!(is.isObject(val1) &amp;&amp; is.isObject(val2))) {
+        return false;
+    }
+
+    if(config.type === 'looseRight') {
+        for (key in val2) {
+            if (val2.hasOwnProperty(key)) {
+                value = val2[key];
+                if (compare(value, val1[key], config) !== true) {
+                    return false;
+                }
+            }
+        }
+    }
+    else {
+        for (key in val1) {
+            if (val1.hasOwnProperty(key)) {
+                value = val1[key];
+                if (compare(value, val2[key], config) !== true) {
+                    return false;
+                }
+            }
+        }
+    }
+
 
     return true;
 
@@ -118,9 +151,18 @@ function _createBoundCompare(object, fn) {
 
 function getCompareFn(object, c) {
     var compareFn = _strict,
-        config = c || {};
+        config = c || {},
+        type = config.type;
 
-    if (config.type === 'shallow' || config.type === undefined) {
+    if (type === 'deep' || type === 'loose' || type === 'looseRight' || type === undefined) {
+        if (is.isObject(object)) {
+            compareFn = type === 'loose' || type === 'looseRight' ? _looseObject : _deepObject;
+        } else if (is.isArray(object)) {
+            compareFn = _deepArray;
+        } else if (is.isDate(object)) {
+            compareFn = _date;
+        }
+    } else if (type === 'shallow') {
         if (is.isObject(object)) {
             compareFn = _shallowObject;
         } else if (is.isArray(object)) {
@@ -128,17 +170,7 @@ function getCompareFn(object, c) {
         } else if (is.isDate(object)) {
             compareFn = _date;
         }
-    }
-    else if(config.type === 'deep') {
-        if (is.isObject(object)) {
-            compareFn = _deepObject;
-        } else if (is.isArray(object)) {
-            compareFn = _deepArray;
-        } else if (is.isDate(object)) {
-            compareFn = _date;
-        }
-    }
-    else if(config.type !== 'strict') {
+    } else if (type !== 'strict') {
         //we would be doing a strict comparison on a type-o
         //I think an error is good here.
         throw new Error('You passed in an invalid comparison type');
@@ -152,30 +184,50 @@ function getCompareFn(object, c) {
  * @method compare
  * 
  * Return true if the values are equal to each
- * other.  By default a shallow comparison is 
+ * other.  By default a deep comparison is 
  * done on arrays, dates and objects and a strict comparison
  * is done on other types.
  * 
  * @param  {Any} val1  
  * @param  {Any} val2   
  * @param  {Object} [config]
- * @param {String} config.type pass in 'deep' for a deep
- * comparison, 'shallow' (default) for a shallow comparison
- * or 'strict' for a strict === comparison for all objects.
+ * @param {String} config.type pass in 'shallow' for a shallow
+ * comparison, 'deep' (default) for a deep comparison
+ * 'strict' for a strict === comparison for all objects or 
+ * 'loose' for a loose comparison on objects.  A loose comparison
+ *  will compare the keys and values of val1 to val2 and does not
+ *  check if keys from val2 do not exist in val1.
  *
- * 
+ *
+    Luc.compare('1', 1)
+    &gt;false
     Luc.compare({a: 1}, {a: 1})
     &gt;true
-    Luc.compare({a: 1, b: {}}, {a: 1, b: {} })
+    Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type:'shallow'})
     &gt;false
     Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type: 'deep'})
     &gt;true
     Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type: 'strict'})
     &gt;false
+    Luc.compare({a: 1}, {a:1,b:1})
+    &gt;false
+    Luc.compare({a: 1}, {a:1,b:1}, {type: 'loose'})
+    &gt;true
+    Luc.compare({a: 1}, {a:1,b:1}, {type: 'loose'})
+    &gt;true
+    Luc.compare([{a: 1}], [{a:1,b:1}], {type: 'loose'})
+    &gt;true
+    Luc.compare([{a: 1}, {}], [{a:1,b:1}], {type: 'loose'})
+    &gt;false
+    Luc.compare([{a: 1}, {}], [{a:1,b:1}, {}], {type: 'loose'})
+    &gt;true
+    Luc.compare([{a:1,b:1}], [{a: 1}], {type: 'loose'})
+    &gt;false
+
  * @return {Boolean}
  */
 function compare(val1, val2, config) {
-    return getCompareFn(val1, config)(val1, val2);
+    return getCompareFn(val1, config)(val1, val2, config);
 }
 
 

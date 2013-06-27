@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var array = require('./array'),
+    is = require('./is'),
+    Generator;
+
+Generator = {
+    arrayFnNames: ['findFirstNot', 'findAllNot', 'findFirst', 'findAll',
+            'removeFirstNot', 'removeAllNot', 'removeFirst', 'removeAll',
+            'removeLastNot', 'removeLast', 'findLast', 'findLastNot'
+    ],
+
+    createFn: function(arrayFnName, fn) {
+        return function(arr) {
+            return array[arrayFnName](arr, fn);
+        };
+    },
+
+    createBoundFn: function(arrayFnName, fnToBind) {
+        return function(arr, value) {
+            var fn = fnToBind.apply(this, array.fromIndex(arguments, 1));
+            return array[arrayFnName](arr, fn);
+        };
+    }
+};
+
+module.exports = Generator;
+
+<span id='Luc-ArrayFns'>/**
+</span> * @class Luc.ArrayFns
+ * This is documented as a seperate package but it actuall exists under the 
+ * Luc.Array namespace.  Check out the &quot;Filter class members&quot; input box
+ * just to the right when searching for functions.
+ *&lt;br&gt;
+ * 
+ * There a lot of functions in this package but all of the
+ *  methods follow the same api.  \*All functions will return an array of removed or found
+ * items.  The items will be added to the array in the order they are
+ * found.  \*First functions will return the first item and stop iterating after that, if none
+ *  is found false is returned.  remove\* functions will directly change the passed in array.
+ *  \*Not functions only do the following actions if the comparison is not true.
+ *  \*Last functions do the same as their \*First counterparts execpt that the iterating
+ *  starts at the end of the array. Amost every public method of Luc.is available it
+ *  uses the following grammer Luc.Array[&quot;methodName&quot;&quot;isMethodName&quot;]
+ *
+      Luc.Array.findAllNotEmpty([false, true, null, undefined, 0, '', [], [1]])
+      &gt; [true, 0, [1]]
+
+      Luc.Array.findAllNotFalsy([false, true, null, undefined, 0, '', [], [1]])
+      &gt; [true, 0, [], [1]]
+
+      Luc.Array.findFirstString([1,2,3,'5'])
+      &gt;&quot;5&quot;
+      Luc.Array.findFirstNotString([1,2,3,'5'])
+      &gt;1
+      var arr = [1,2,3,'5'];
+      Luc.Array.removeAllNotString(arr);
+      &gt;[1,2,3]
+      arr
+      &gt;[&quot;5&quot;]
+ *
+ * As of right now there are two function sets which differ from the is
+ * api.
+ * 
+    Luc.Array.findAllInstanceOf([1,2, new Date(), {}, []], Object)
+    &gt;[date, {}, []]
+    &gt;Luc.Array.findAllNotInstanceOf([1,2, new Date(), {}, []], Object)
+    [1, 2]
+ *
+ * 
+    Luc.Array.findAllIn([1,2,3], [1,2])
+    &gt;[1, 2]
+    Luc.Array.findFirstIn([1,2,3], [1,2])
+    &gt;1
+    Luc.Array.findFirst([1,2,3, {a:1, b:2}], {a:1})
+    &gt;Object {a: 1, b: 2}
+
+    Luc.Array.findFirstIn([1,2,3, {a:1, b:2}], [1,{a:1}], {type: 'deep'})
+    &gt;1
+ */
+
+(function _createIsFns() {
+    var isToIgnore = ['isRegExp', 'isArguments'];
+
+    Object.keys(is).forEach(function(key) {
+        var name = key.split('is')[1];
+        Generator.arrayFnNames.forEach(function(fnName) {
+            if(isToIgnore.indexOf(key) === -1) {
+                array[fnName + name] = Generator.createFn(fnName, is[key]);
+            }
+        });
+    });
+}());
+
+(function _createFalsyFns() {
+    var usefullFalsyFns = ['findFirstNot', 'findAllNot', 'removeFirstNot', 'removeAllNot',
+                            'removeFirst', 'removeAll', 'removeLastNot', 'removeLast',  'findLastNot'];
+
+    var fns = {
+        'False': function(val) {
+            return val === false;
+        },
+        'True': function(val) {
+            return val === true;
+        },
+        'Null': function(val) {
+            return val === null;
+        },
+        'Undefined': function(val) {
+            return val === undefined;
+        }
+    };
+
+    Object.keys(fns).forEach(function(key) {
+        usefullFalsyFns.forEach(function(fnName) {
+            array[fnName + key] = Generator.createFn(fnName, fns[key]);
+        });
+    });
+}());
+
+(function _createBoundFns() {
+    var fns = {
+        'InstanceOf': function(Constructor) {
+            return function(value) {
+                return (value instanceof Constructor);
+            };
+        },'In': function(arr, c) {
+            var defaultC = {type:'looseRight'};
+            return function(value) {
+                if(value !== false) {
+                    var cfg = c || defaultC;
+                    //this is a right to left comparison 
+                    //expected loose behavior should be looseRight
+                    return array.findFirst(arr, value, cfg.type === 'loose' ? defaultC : cfg) !== false;
+                }
+                
+                return arr.indexOf(false) &gt; -1;
+            };
+        }
+    };
+
+    Object.keys(fns).forEach(function(key) {
+        Generator.arrayFnNames.forEach(function(fnName) {
+            array[fnName + key] = Generator.createBoundFn(fnName, fns[key]);
+        });
+    });
+}());</pre>
+</body>
+</html>

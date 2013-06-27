@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js">var ids = {};
+<span id='Luc-method-id'>/**
+</span> * @member Luc
+ * @method id
+ * 
+ * Return a unique id.
+ * @param {String} [prefix] Option prefix to use
+ *
+ *
+        Luc.id()
+        &gt;&quot;luc-0&quot;
+        Luc.id()
+        &gt;&quot;luc-1&quot;
+        Luc.id('my-prefix')
+        &gt;&quot;my-prefix0&quot;
+        Luc.id('')
+        &gt;&quot;0&quot;
+ *
+ * @return {String}
+ *
+ */
+module.exports = function(p) {
+    var prefix = p === undefined ? 'luc-' : p;
+
+    if(ids[prefix] === undefined) {
+        ids[prefix] = 0;
+    }
+
+    return prefix + ids[prefix]++;
+};</pre>
+</body>
+</html>

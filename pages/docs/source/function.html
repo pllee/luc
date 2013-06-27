@@ -286,10 +286,10 @@ exports.createRelayer = function(fns, config) {
     };
 };
 
-<span id='Luc-Function-method-createThrotteled'>/**
-</span> * Create a throttled function that the passed in funciton
- * only gets evoked once even it is called many times
- *
+<span id='Luc-Function-method-createThrottled'>/**
+</span> * Create a throttled function from the passed in function
+ * that will only get called once the passed number of miliseconds
+ * have been execeeded.  
  * 
  * @param  {Function} fn
  * @param  {Number} [millis] Number of milliseconds to
@@ -297,10 +297,31 @@ exports.createRelayer = function(fns, config) {
  * @param  {Object} [config] Config object
  * for Luc.Function.createAugmentor.  If defined all of the functions
  * will get created with the passed in config;
+ *
+    var logArgs  = function() {
+        console.log(arguments)
+    };
+
+    var a = Luc.Function.createThrottled(logArgs, 1);
+
+    for(var i = 0; i &lt; 100; ++i) {
+        a(1,2,3);
+    }
+
+    setTimeout(function() {
+        a(1)
+    }, 100)
+    setTimeout(function() {
+        a(2)
+    }, 400)
+
+    &gt;[1, 2, 3]
+    &gt;[1]
+    &gt;[2]
  * 
  * @return {Function}
  */
-exports.createThrotteled = function(f, millis, config) {
+exports.createThrottled = function(f, millis, config) {
     var fn = config ? exports.createAugmentor(f, config) : f,
         timeOutId = false;
 

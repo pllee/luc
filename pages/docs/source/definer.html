@@ -20,25 +20,38 @@
     obj = require('../object'),
     arrayFns = require('../array'),
     emptyFn = require('../function').emptyFn,
+    is = require('../is'),
     aEach = arrayFns.each,
     apply = obj.apply,
     oEach = obj.each,
     oFilter = obj.filter,
     mix = obj.mix,
-    arraySlice = Array.prototype.slice;
+    arraySlice = Array.prototype.slice,
+    ClassDefiner;
 
-function ClassDefiner() {}
+<span id='Luc-ClassDefiner'>/**
+</span> * @class Luc.ClassDefiner
+ * @singleton
+ *
+ * Singleton that {@link Luc.define#define Luc.define} uses to define the classes
+ */
 
-ClassDefiner.COMPOSITIONS_NAME = '$compositions';
+<span id='Luc-ClassDefiner-cfg-defaultType'>/**
+</span> * @cfg {Function} defaultType this can be changed to any Constructor.  Defaults
+ * to Luc.Base
+ */
 
-ClassDefiner.prototype = {
+ClassDefiner = {
+
+    COMPOSITIONS_NAME: '$compositions',
+
     defaultType: Base,
 
     processorKeys: {
         $mixins: '_applyMixins',
         $statics: '_applyStatics',
-        $compositions: '_compose',
-        $super: true
+        $compositions: '_applyComposerMethods',
+        $super: '_applySuper'
     },
 
     define: function(opts) {
@@ -72,7 +85,7 @@ ClassDefiner.prototype = {
             Constructor;
 
         if (this._hasConstructorModifyingOptions(options)) {
-            Constructor = this._createConstructorWithModifiyingOptions(options);
+            Constructor = this._createConstructorFromOptions(options);
         }
         else if(!superclass) {
             Constructor = function() {};
@@ -86,7 +99,11 @@ ClassDefiner.prototype = {
         return Constructor;
     },
 
-    _createConstructorWithModifiyingOptions: function(options) {
+    _hasConstructorModifyingOptions: function(options) {
+        return options.$compositions;
+    },
+
+    _createConstructorFromOptions: function(options) {
         var superclass = options.$super,
             me = this,
             initBeforeSuperclass,
@@ -94,7 +111,7 @@ ClassDefiner.prototype = {
             init;
 
         if (!superclass) {
-            init = this._createInitClassOptionsFn(options, {
+            init = this._createInitClassFn(options, {
                 all: true
             });
 
@@ -104,11 +121,11 @@ ClassDefiner.prototype = {
             };
         }
 
-        initBeforeSuperclass = this._createInitClassOptionsFn(options, {
+        initBeforeSuperclass = this._createInitClassFn(options, {
             before: true
         });
 
-        initAfterSuperclass = this._createInitClassOptionsFn(options, {
+        initAfterSuperclass = this._createInitClassFn(options, {
             before: false
         });
 
@@ -121,7 +138,7 @@ ClassDefiner.prototype = {
         };
     },
 
-    _createInitClassOptionsFn: function(options, config) {
+    _createInitClassFn: function(options, config) {
         var me = this,
             compositions = this._filterCompositions(config, options.$compositions);
 
@@ -151,8 +168,105 @@ ClassDefiner.prototype = {
         return filtered;
     },
 
+    _processAfterCreate: function($class, options) {
+        this._applyValuesToProto($class, options);
+        this._handlePostProcessors($class, options);
+    },
+
+    _applyValuesToProto: function($class, options) {
+        var proto = $class.prototype,
+            values = apply({
+                $class: $class
+            }, options);
+
+        //Don't put the define specific properties
+        //on the prototype
+        oEach(values, function(key, value) {
+            if (!this._getProcessorKey(key)) {
+                proto[key] = value;
+            }
+        }, this);
+    },
+
+    _getProcessorKey: function(key) {
+        return this.processorKeys[key];
+    },
+
+    _handlePostProcessors: function($class, options) {
+        oEach(options, function(key, value) {
+            var method = this._getProcessorKey(key);
+
+            if (is.isFunction(this[method])) {
+                this[method].call(this, $class, options[key]);
+            }
+        }, this);
+    },
+
+    _applyMixins: function($class, mixins) {
+        var proto = $class.prototype;
+        aEach(mixins, function(mixin) {
+            //accept Constructors or Objects
+            var toMix = mixin.prototype || mixin;
+            mix(proto, toMix);
+        });
+    },
+
+    _applyStatics: function($class, statics) {
+        var prototype = $class.prototype;
+
+        apply($class, statics);
+
+        if(prototype.getStaticValue === undefined) {
+            prototype.getStaticValue = this.getStaticValue;
+        }
+    },
+
+    _applyComposerMethods: function($class, compositions) {
+        var prototype = $class.prototype,
+            methodsToCompose;
+
+        aEach(compositions, function(compositionConfig) {
+            var composition = new Composition(compositionConfig),
+                name = composition.name,
+                Constructor = composition.Constructor;
+
+            composition.validate();
+
+            methodsToCompose = composition.getMethodsToCompose();
+
+            methodsToCompose.forEach(function(key) {
+                if (prototype[key] === undefined) {
+                    prototype[key] = this._createComposerProtoFn(key, name);
+                }
+            }, this);
+
+            if(prototype.getComposition === undefined) {
+                prototype.getComposition = this.getComposition;
+            }
+
+        }, this);
+    },
+
+    _applySuper: function($class, $super) {
+        var proto;
+        //super can be falsy to signify no superclass
+        if ($super) {
+            proto = $class.prototype;
+            proto.$super = $super;
+            proto.$superclass = $super.prototype;
+        }
+    },
+
+    _createComposerProtoFn: function(methodName, compositionName) {
+        return function() {
+            var comp = this[ClassDefiner.COMPOSITIONS_NAME][compositionName];
+            return comp[methodName].apply(comp, arguments);
+        };
+    },
+
 <span id='global-method-_initCompositions'>    /**
 </span>     * @private
+     * @ignore
      * options {Object} the composition config object
      * instanceArgs {Array} the arguments passed to the instance's
      * constructor.
@@ -175,105 +289,511 @@ ClassDefiner.prototype = {
         }, this);
     },
 
-    _hasConstructorModifyingOptions: function(options) {
-        return options.$compositions;
-    },
-
-    _getProcessorKey: function(key) {
-        return this.processorKeys[key];
-    },
-
-    _processAfterCreate: function($class, options) {
-        this._applyValuesToProto($class, options);
-        this._handlePostProcessors($class, options);
-    },
-
-    _applyValuesToProto: function($class, options) {
-        var proto = $class.prototype,
-            Super = options.$super,
-            values = apply({
-                $superclass: Super.prototype,
-                $class: $class
-            }, options);
-
-        //Don't put the define specific properties
-        //on the prototype
-        oEach(values, function(key, value) {
-            if (!this._getProcessorKey(key)) {
-                proto[key] = value;
-            }
-        }, this);
-    },
-
-    _handlePostProcessors: function($class, options) {
-        oEach(options, function(key, value) {
-            var method = this._getProcessorKey(key);
-
-            if (typeof this[method] === 'function') {
-                this[method].call(this, $class, options[key]);
-            }
-        }, this);
-    },
-
-    _applyMixins: function($class, mixins) {
-        var proto = $class.prototype;
-        aEach(mixins, function(mixin) {
-            //accept Constructors or Objects
-            var toMix = mixin.prototype || mixin;
-            mix(proto, toMix);
-        });
-    },
-
-    _applyStatics: function($class, statics) {
-        apply($class, statics);
-    },
-
-    _compose: function($class, compositions) {
-        var prototype = $class.prototype,
-            methodsToCompose;
-
-        aEach(compositions, function(compositionConfig) {
-            var composition = new Composition(compositionConfig),
-                name = composition.name,
-                Constructor = composition.Constructor;
-
-            composition.validate();
-
-            methodsToCompose = composition.getMethodsToCompose();
-
-            methodsToCompose.forEach(function(key) {
-                if (prototype[key] === undefined) {
-                    prototype[key] = this._createComposerProtoFn(key, name);
-                }
-            }, this);
-
-            prototype.getComposition = this.__getComposition;
-
-        }, this);
-    },
-
-<span id='global-method-__getComposition'>    /**
-</span>     * @private
-     * Getter for composition instance that gets put on
-     * the defined class.
-     * @param  {String} key
-     */
-    __getComposition: function(key) {
+<span id='Luc-ClassDefiner-method-getComposition'>    //Methods that can get added to the prototype
+</span>    //they will be called in the context of the instance.
+    //
+    getComposition: function(key) {
         return this[ClassDefiner.COMPOSITIONS_NAME][key];
     },
 
-    _createComposerProtoFn: function(methodName, compositionName) {
-        return function() {
-            var comp = this[ClassDefiner.COMPOSITIONS_NAME][compositionName];
-            return comp[methodName].apply(comp, arguments);
-        };
+    getStaticValue: function (key, $class) {
+        var classToFindValue = $class || this.$class,
+            $super,
+            value;
+
+        value = classToFindValue[key];
+
+        if(value === undefined) {
+            $super = classToFindValue.prototype.$super;
+            if($super) {
+                return this.getStaticValue(key, $super);
+            }
+        }
+
+        return value;
     }
+
 };
 
-var Definer = new ClassDefiner();
-//make Luc.define happy
-Definer.define = Definer.define.bind(Definer);
+ClassDefiner.define = ClassDefiner.define.bind(ClassDefiner);
 
-module.exports = Definer;</pre>
+module.exports = ClassDefiner;
+
+<span id='Luc-define'>/**
+</span> * @class  Luc.define
+ * This is actually a function but has a lot of decent amount of important options
+ * so we are documenting it like it is a class.  Properties are things that will get
+ * applied to instances of classes defined with {@link Luc.define#define define}.  No
+ * are needed for {@link Luc.define#define defining} a class.  {@link Luc.define#define define}
+ * just takes the passed in config and puts the properties on the prototype and returns
+ * a Constructor.
+ *
+
+    var C = Luc.define({
+        a: 1,
+        doLog: true,
+        logA: function() {
+            if (this.doLog) {
+                console.log(this.a);
+            }
+        }
+    });
+    var c = new C();
+    c.logA();
+    &gt;1
+    c.a = 45;
+    c.logA();
+    &gt;45
+    c.doLog = false;
+    c.logA();
+
+    new C().logA()
+    &gt;1
+
+ *
+ * Check out the following configs to add functionality to a class without messing
+ * up the inheritance chain.  All the configs have examples and documentation on 
+ * how to use them.
+ *
+ * {@link Luc.define#$super super} &lt;br&gt;
+ * {@link Luc.define#$compositions compositions} &lt;br&gt;
+ * {@link Luc.define#$mixins mixins} &lt;br&gt;
+ * {@link Luc.define#$statics statics} &lt;br&gt;
+ * 
+ * 
+ */
+
+<span id='Luc-define-method-define'>/**
+</span> * @method  define
+ * @param {Object} config config object used when creating the class.  Any property that
+ * is not apart of the special configs will be applied to the prototype.  Check out
+ * Luc.define for all the config options.   No configs are needed to define a class.
+ * 
+ * @return {Function} the defined class
+ *
+    var C = Luc.define({
+        logA: function() {
+            console.log(this.a)
+        },
+        a: 1
+    });
+    var c = new C();
+    c.logA();
+    &gt;1
+
+    c.a = 4;
+    c.logA();
+    &gt;4
+ *
+ *
+ */
+
+<span id='Luc-define-property-S-class'>/**
+</span> * @property {Function} $class reference to the instances own constructor.  This
+ * will get added to any class that is defined with Luc.define.
+ * 
+    var C = Luc.define()
+    var c = new C()
+    c.$class === C
+    &gt;true
+ *
+ * There are some really good use cases to have a reference to it's
+ * own constructor.  Add functionality to an instance in a simple
+ * and generic way.
+ *
+    var C = Luc.define({
+        add: function(a,b) {
+            return a + b;
+        }
+    });
+
+    //Luc.Base applies first 
+    //arg to the instance
+
+    var c = new C({
+        add: function(a,b,c) {
+            return this.$class.prototype.add.call(this, a,b) + c;
+        }
+    });
+
+    c.add(1,2,3)
+    &gt;6
+    new C().add(1,2,3)
+    &gt;3
+ *
+ * Or have a simple generic clone method :
+ *
+    var C = Luc.define({
+        clone: function() {
+            var myOwnProps = {};
+            Luc.Object.each(this, function(key, value) {
+                myOwnProps[key] = value;
+            });
+
+            return new this.$class(myOwnProps);
+        }
+    });
+
+    var c = new C({a:1,b:2,c:3});
+    c.d = 4;
+    var clone = c.clone();
+
+    clone === c
+    &gt;false
+
+    clone.a
+    &gt;1
+    clone.b
+    &gt;2
+    clone.c
+    &gt;3
+    clone.d
+    &gt;4
+ */
+
+<span id='Luc-define-property-S-super'>/**
+</span> * @property {Function} [$super] If $super is not false or null 
+ * the $super property will be added to every instance of the defined class,
+ * $super is the Constructor passed in with the $super config or the {@link Luc.ClassDefiner#defaultType default}
+ * 
+    var C = Luc.define()
+    var c = new C()
+    //Luc.Base is the defualt 
+    c.$super === Luc.Base
+    &gt;true
+ */
+
+<span id='Luc-define-property-S-superclass'>/**
+</span> * @property {Function} [$superclass] If $super is defined it
+ * will the prototype of $super.  It can be used to call parent's
+ * method
+ * 
+    function MyCoolClass() {}
+    MyCoolClass.prototype.addNums = function(a,b) {
+        return a + b;
+    }
+
+    var MyOtherCoolClass = Luc.define({
+        $super: MyCoolClass,
+        addNums: function(a, b, c) {
+            return this.$superclass.addNums.call(this, a, b) + c;
+        }
+    })
+
+    var m = new MyOtherCoolClass();
+    m.addNums(1,2,3);
+    &gt;6
+ */
+
+<span id='Luc-define-property-getStaticValue'>/**
+</span> * @property {Function} getStaticValue this method
+ * will be added to instances that use the $statics
+ * config.
+ *
+ * 
+ * This should be used over this.$class.staticName to
+ * get the value over a static.  If the class gets inherited
+ * from this.$class will not be the same.  getStatic value
+ * deals with this issue.
+ * 
+    var A = Luc.define({
+    $statics: {
+    a: 1
+    },
+    getABetter: function() {
+    return this.getStaticValue('a');
+    },
+    getA: function() {
+    return this.$class.a;
+    }
+    });
+
+    var B = Luc.define({
+    $super: A,
+    $statics: {
+    b: 2,
+    c: 3
+    }
+    });
+
+    
+    var b = new B();
+    b.getA();
+    &gt;undefined
+    b.getABetter();
+    &gt;1
+
+ * @return {Object} the static value of the key
+ */
+
+    
+<span id='Luc-define-property-getComposition'>/**
+</span> * @property {Function} getComposition this method will be
+ * to instances that use the $compositions config
+ *
+ * @param  {String} name the game of the composition to
+ * get.
+ */
+
+
+<span id='Luc-define-cfg-S-statics'>/**
+</span> * @cfg {Object} $statics (optional) Add static properties or methods
+ * to the class.  These will properties/methods will not be able to be
+ * directly modified by the instance so they are good for defining default
+ * configs.  
+ *
+    var C = Luc.define({
+        $statics: {
+            number: 1
+        }
+    });
+
+    var c = new C();
+    c.number
+    &gt;undefined
+    C.number
+    &gt;1
+    
+ *
+ * Bad things can happen if non primatives are placed on the 
+ * prototype and instance sharing is not wanted.  Using statics
+ * prevent subclasses and instances from unknowingly modifing
+ * all instances.
+ * 
+    var C = Luc.define({
+        cfg: {
+            a: 1
+        }
+    });
+
+    var c = new C();
+    c.cfg.a
+    &gt;1
+    c.cfg.a = 5
+    new C().cfg.a
+    &gt;5
+ *
+ */
+
+<span id='Luc-define-property-S-superclass'>/**
+</span> * @property {Function} [$superclass] If $super is defined it
+ * will the prototype of $super.  It can be used to call parent's
+ * method
+ * 
+    function MyCoolClass() {}
+    MyCoolClass.prototype.addNums = function(a,b) {
+        return a + b;
+    }
+
+    var MyOtherCoolClass = Luc.define({
+        $super: MyCoolClass,
+        addNums: function(a, b, c) {
+            return this.$superclass.addNums.call(this, a, b) + c;
+        }
+    })
+
+    var m = new MyOtherCoolClass();
+    m.addNums(1,2,3);
+    &gt;6
+ */
+
+<span id='Luc-define-cfg-S-mixins'>/**
+</span> * @cfg {Object/Constructor/Object[]/Constructor[]} $mixins (optional)  Mixins are a way to add functionality
+ * to a class that should not add state.  $mixins can be either objects or Constructors.
+ *
+    function Logger() {}
+    Logger.prototype.log = function() {
+        console.log(arguments)
+    }
+
+    var C = Luc.define({
+        $mixins: [Logger, {
+            warn: function() {
+                console.warn(arguments)
+            }
+        }]
+    });
+
+    var c = new C();
+
+    c.log(1,2)
+    &gt;[1,2]
+
+    c.warn(3,4)
+    &gt;[3,4]
+ *
+ */
+<span id='Luc-define-cfg-S-super'>/**
+</span> * @cfg {Constructor} $super (optional)  super for the defining class.  By Luc.Base
+ * is the default if super is not passed in.  To define a class without a superclass
+ * you can pass in false or null.
+ *
+     function Counter() {
+        this.count = 0;
+     };
+
+     Counter.prototype = {
+        getCount: function() {
+            return this.count;
+        },
+        increaseCount: function() {
+            this.count++;
+        }
+     }
+
+     var C = Luc.define({
+        $super:Counter
+    });
+
+    var c = new C()
+
+    c instanceof Counter
+    &gt;true
+    c.increaseCount();
+    c.getCount();
+    &gt;1
+    c.count
+    &gt;1
+ *
+ * Check out Luc.Base to see why we have it as the default.
+ * 
+    var B = Luc.define({
+        amIALucBase: function() {
+            return this instanceof Luc.Base
+        }
+    })
+    var b = new B();
+    b.amIALucBase();
+    &gt;true
+ *
+ * 
+ */
+
+
+
+<span id='Luc-define-cfg-S-compositions'>/**
+</span> * @cfg {Object/Object[]} $compositions (optional) config objects for 
+ * Luc.Composition.  Compositions are a great way to add behavior to a class
+ * without extending it.  A $mixin can offer similar functionalty but should
+ * be stateless.  A Constructor and a name are needed for the config object
+ * The filterKeys property is optional here but it is saying take all of 
+ * Luc.EventEmitter's instance methods and make them instance methods for C.
+ * You can check out all of the config options by looking at Luc.Composition.
+ * 
+        var C = Luc.define({
+            $compositions: {
+                Constructor: Luc.EventEmitter,
+                name: 'emitter',
+                filterKeys: 'allMethods'
+            }
+        });
+
+        var c = new C();
+
+        c.on('hey', function() {
+            console.log(arguments);
+        });
+
+        c.emit('hey', 1,2,3, 'a');
+        &gt;[1, 2, 3, &quot;a&quot;]
+        c instanceof Luc.EventEmitter
+        &gt;false
+        c._events
+        &gt;undefined
+ *
+ * Luc.EventEmitter is prefered as a composition over a mixin because
+ * it adds a state &quot;_events&quot; to the this instance when on is called.
+ * It is not terrible practice by any means but it is not good to have an object
+ * that knows that it may be mixin.  Even worse than that would be a mixin that needs
+ * to be inited by the defining class.  Encapsulating logic in a class
+ * and using it anywhere seamlessly is where compositions shine.
+ * 
+ * Luc comes with two common {@link Luc#compositionEnums enums} that we expect will be used over
+ * you can check.  Here is an example of a composition that doesn't
+ * come with Luc:
+ *
+         function Counter() {
+            this.count = 0;
+         };
+
+         Counter.prototype = {
+            getCount: function() {
+                return this.count;
+            },
+            increaseCount: function() {
+                this.count++;
+            }
+         }
+
+         var C = Luc.define({
+                $compositions: {
+                    name: 'counter',
+                    Constructor: Counter,
+                    filterKeys: 'allMethods'
+                }
+        });
+
+        var c = new C()
+
+        c.increaseCount();
+        c.increaseCount();
+        c.increaseCount();
+        c.getCount();
+        &gt;3
+        c.count
+ *
+ * Here is the plugin manager enum in action keep in mind that this
+ * functionality can be added to any class, not just ones defined with 
+ * Luc.define.
+   
+    function MyPlugin() {
+        this.myCoolName = 'coo';
+
+        this.init = function() {
+            console.log('im getting initted');
+        }
+        this.destroy = function() {
+            console.log('MyPlugin instance being destroyed')
+        }
+    }
+
+    var C = Luc.define({
+        $compositions: Luc.compositionEnumns.PluginManager
+    });
+
+    var c = new C({
+        //inheriting from Luc.Base is not needed
+        super: null,
+        plugins: [{Constructor: MyPlugin, myCoolName: 'coo'}]
+    });
+    &gt;im getting initted
+
+    c.getPlugin({myCoolName: 'coo'}) instanceof MyPlugin
+    &gt; true
+
+
+    c.a = 1;
+    //This will be the default Luc.Plugin
+    c.addPlugin({
+        init: function(owner) {
+            console.log(owner.a)
+        },
+        destroy: function() {
+            console.log('Im getting destroyed')
+        }
+    });
+
+    &gt;1
+
+    c.destroyAllPlugins();
+    &gt;MyPlugin instance being destroyed
+    &gt;I'm getting destroyed.
+
+    c.getPlugin({myCoolName: 'coo'})
+    &gt;false
+ *
+ * You can see that it can add plugin like behavior to any defining
+ * class with Luc.PluginManger which is less than 75 SLOC.
+ */</pre>
 </body>
 </html>

@@ -27,7 +27,57 @@
  * @protected
  * class that wraps $composition config objects
  * to conform to an api. The config object
- * will override any protected methods and default configs.
+ * will override any protected methods and default configs.  defaults
+ * can be used for often used configs, keys that are not defaults will
+ * override the defaults
+ *
+    var C = Luc.define({
+        $compositions: {
+            defaults: Luc.compositionEnumns.EventEmitter,
+            filterKeys: ['emit']
+        }
+    });
+
+    var c = new C()
+    typeof c.emit
+    &gt;&quot;function&quot;
+    typeof c.on
+    &gt;&quot;undefined&quot;
+ *
+ * If you want to add your own composition all you need to have is
+ * a name and a Constructor, the rest of the configs and Luc.Composition.create
+ * can be used to inject behavior if needed.
+ * 
+     function Counter() {
+        this.count = 0;
+     };
+
+     Counter.prototype = {
+        getCount: function() {
+            return this.count;
+        },
+        increaseCount: function() {
+            this.count++;
+        }
+     }
+
+     var C = Luc.define({
+            $compositions: {
+                name: 'counter',
+                Constructor: Counter,
+                filterKeys: 'allMethods'
+            }
+    });
+
+    var c = new C()
+
+    c.increaseCount();
+    c.increaseCount();
+    c.increaseCount();
+    c.getCount();
+    &gt;3
+    c.count
+    &gt;undefined
  */
 function Composition(c) {
     var defaults = c.defaults,
@@ -46,6 +96,16 @@ Composition.prototype = {
 </span>     * @cfg {String} name (required) the name
      */
     
+<span id='Luc-Composition-cfg-defaults'>    /**
+</span>     * @cfg {Object} defaults
+     */
+    
+<span id='Luc-Composition-cfg-initAfter'>    /**
+</span>     * @cfg {Boolean} initAfter  defaults to false
+     * pass in true to init the composition instance after the 
+     * superclass has been called.
+     */
+
 <span id='Luc-Composition-cfg-Constructor'>    /**
 </span>     * @cfg {Function} Constructor (required) the Constructor
      * to use when creating the composition instance.  This
@@ -114,11 +174,17 @@ Composition.prototype = {
      * @type {Object}
      * @property filterFns.allMethods return all methods from the
      * constructors prototype
+     * @property {filterFns.public} retrurn all methods that don't
+     * start with _.  We know not everyone follows this convention, but we
+     * do and so do many others.
      * @type {Function}
      */
     filterFns: {
         allMethods: function(key, value) {
             return is.isFunction(value);
+        },
+        publicMethods: function(key, value) {
+            return is.isFunction(value) &amp;&amp; key.charAt(0) !== '_';
         }
     },
 
@@ -160,6 +226,10 @@ Composition.prototype = {
      */
     filterKeys: emptyFn,
 
+    getObjectWithMethods: function() {
+        return this.Constructor &amp;&amp; this.Constructor.prototype;
+    },
+
     getMethodsToCompose: function() {
         var filterKeys = this.filterKeys,
             pairsToAdd,
@@ -176,7 +246,7 @@ Composition.prototype = {
             }
 
             //Constructors are not needed if create is overwritten
-            pairsToAdd = oFilter(this.Constructor &amp;&amp; this.Constructor.prototype, filterFn, this, {
+            pairsToAdd = oFilter(this.getObjectWithMethods(), filterFn, this, {
                 ownProperties: false,
                 keys: true
             });

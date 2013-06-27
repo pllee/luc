@@ -33,6 +33,47 @@
     b.a
     &gt;hey
     &gt;1
+ *
+ * We found that most of our classes do this so we made
+ * it the default.  Having a config object as the first and only 
+ * param keeps a clean api as well.
+ *
+    var C = Luc.define({
+        init: function() {
+            Luc.Array.each(this.items, this.logItems)
+        },
+
+        logItems: function(item) {
+            console.log(item);
+        }
+    });
+
+    var c = new C({items: [1,2,3]});
+    &gt;1
+    &gt;2
+    &gt;3
+    var d = new C({items: 'A'});
+    &gt;'A'
+    var e = new C();
+ *
+ * If you don't like the applying of the config to the instance it 
+ * can always be &quot;disabled&quot;
+ *
+    var NoApply = Luc.define({
+        beforeInit: function() {
+
+        },
+        init: function() {
+            Luc.Array.each(this.items, this.logItems)
+        },
+
+        logItems: function(item) {
+            console.log(item);
+        }
+    });
+
+    var c = new NoApply({items: [1,2,3]});
+ * 
  */
 function Base() {
     this.beforeInit.apply(this, arguments);

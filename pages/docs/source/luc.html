@@ -18,7 +18,8 @@
   <pre class="prettyprint lang-js">var Luc = {};
 <span id='Luc'>/**
 </span> * @class Luc
- * Aliases for common Luc methods and packages.
+ * Aliases for common Luc methods and packages.  Check out Luc.define
+ * to look at the class system Luc provides.
  */
 module.exports = Luc;
 
@@ -81,6 +82,8 @@ Luc.Array = array;
  */
 Luc.A = array;
 
+Luc.ArrayFnGenerator = require('./arrayFnGenerator');
+
 Luc.apply(Luc, require('./is'));
 
 var EventEmitter = require('./events/eventEmitter');
@@ -95,15 +98,24 @@ var Definer = require('./class/definer');
 
 Luc.ClassDefiner = Definer;
 
+<span id='Luc-method-define'>/**
+</span> * @member Luc
+ * @method define
+ * @inheritdoc Luc.define#define
+ */
 Luc.define = Definer.define;
 
 Luc.Plugin = require('./class/plugin');
+
+Luc.PluginManager = require('./class/pluginManager');
 
 Luc.apply(Luc, {
     compositionEnumns: require('./class/compositionEnumns')
 });
 
 Luc.compare = require('./compare').compare;
+
+Luc.id = require('./id');
 
 
 if(typeof window !== 'undefined') {

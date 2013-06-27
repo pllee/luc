@@ -17,7 +17,8 @@
 <body onload="prettyPrint(); highlight();">
   <pre class="prettyprint lang-js"><span id='Luc-Object'>/**
 </span> * @class Luc.Object
- * Package for Object methods
+ * Package for Object methods  Luc.Object.apply and Luc.Object.each
+ * are used very often.
  */
 
 <span id='Luc-Object-method-apply'>/**
@@ -36,8 +37,17 @@
     clone === from
     &gt;false
  *
- * @param  {Object|undefined} toObject Object to put the properties fromObject on.
- * @param  {Object|undefined} fromObject Object to put the properties on the toObject
+ * No null checks are needed.
+    
+    Luc.apply(undefined, {a:1})
+    &gt;{a:1}
+    Luc.apply({a: 1})
+    &gt;{a:1}
+
+ *
+ * 
+ * @param  {Object} [toObject] Object to put the properties fromObject on.
+ * @param  {Object} [fromObject] Object to put the properties on the toObject
  * @return {Object} the toObject
  */
 exports.apply = function(toObject, fromObject) {
@@ -57,9 +67,21 @@ exports.apply = function(toObject, fromObject) {
 <span id='Luc-Object-method-mix'>/**
 </span> * Similar to Luc.Object.apply except that the fromObject will 
  * NOT overwrite the keys of the toObject if they are defined.
- * 
- * @param  {Object|undefined} toObject Object to put the properties fromObject on.
- * @param  {Object|undefined} fromObject Object to put the properties on the toObject
+ *
+    Luc.mix({a:1,b:2}, {a:3,b:4,c:5})
+    &gt;{a: 1, b: 2, c: 5}
+
+ * No null checks are needed.
+    
+    Luc.mix(undefined, {a:1})
+    &gt;{a:1}
+    Luc.mix({a: 1})
+    &gt;{a:1}
+    
+ *
+
+ * @param  {Object} [toObject] Object to put the properties fromObject on.
+ * @param  {Object} [fromObject] fromObject Object to put the properties on the toObject
  * @return {Object} the toObject
  */
 exports.mix = function(toObject, fromObject) {
@@ -80,12 +102,12 @@ exports.mix = function(toObject, fromObject) {
 </span> * Iterate over an objects properties
  * as key value &quot;pairs&quot; with the passed in function.
  * 
-    var context = {val:1};
+    var thisArg = {val:1};
     Luc.Object.each({
         key: 1
     }, function(key, value) {
         console.log(value + key + this.val)
-    }, context)
+    }, thisArg)
     
     &gt;1key1 
  
@@ -173,6 +195,17 @@ exports.toObject = function(strings, values) {
         return key === 'a' || value
     })
     &gt;[{key: 'a', value: false}, {key: 'b', value: true}]
+
+    Luc.Object.filter({
+        a: false,
+        b: true,
+        c: false
+    }, function(key, value) {
+        return key === 'a' || value
+    }, undefined, {
+        keys: true
+    })
+    &gt;['a', 'b']
  * 
  * @param  {Object}   obj  the object to iterate over
  * @param  {Function} filterFn   the function to call, return a truthy value
@@ -192,11 +225,12 @@ exports.toObject = function(strings, values) {
  * 
  * @return {Object[]/String[]} Array of key value pairs in the form
  * of {key: 'key', value: value}.  If keys or values is true on the config
- * just the keys or values are return.
+ * just the keys or values are returned.
  *
  */
-exports.filter = function(obj, filterFn, thisArg, config) {
-    var values = [];
+exports.filter = function(obj, filterFn, thisArg, c) {
+    var values = [],
+        config = c || {};
 
     exports.each(obj, function(key, value) {
         if (filterFn.call(thisArg, key, value)) {

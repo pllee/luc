@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>The source code</title>
+  <link href="../resources/prettify/prettify.css" type="text/css" rel="stylesheet" />
+  <script type="text/javascript" src="../resources/prettify/prettify.js"></script>
+  <style type="text/css">
+    .highlight { display: block; background-color: #ddd; }
+  </style>
+  <script type="text/javascript">
+    function highlight() {
+      document.getElementById(location.hash.replace(/#/, "")).className = "highlight";
+    }
+  </script>
+</head>
+<body onload="prettyPrint(); highlight();">
+  <pre class="prettyprint lang-js"><span id='Luc-ArrayFns-method-findFirstNotArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotArray 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotArray 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstArray 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllArray 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotArray 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotArray 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstArray 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllArray 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotArray 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastArray 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastArray 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotArray'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotArray 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotObject 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotObject 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstObject 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllObject 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotObject 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotObject 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstObject 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllObject 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotObject 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastObject 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastObject 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotObject'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotObject 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotFunction 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotFunction 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstFunction 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllFunction 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotFunction 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotFunction 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstFunction 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllFunction 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotFunction 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastFunction 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastFunction 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotFunction'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotFunction 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotDate 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotDate 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstDate 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllDate 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotDate 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotDate 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstDate 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllDate 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotDate 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastDate 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastDate 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotDate'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotDate 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotString 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotString 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstString 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllString 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotString 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotString 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstString 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllString 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotString 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastString 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastString 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotString'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotString 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotNumber 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotNumber 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNumber 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNumber 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotNumber 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotNumber 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNumber 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNumber 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotNumber 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNumber 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNumber 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotNumber'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotNumber 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotFalsy 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotFalsy 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstFalsy 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllFalsy 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotFalsy 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotFalsy 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstFalsy 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllFalsy 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotFalsy 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastFalsy 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastFalsy 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotFalsy'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotFalsy 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotEmpty 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotEmpty 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstEmpty 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllEmpty 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotEmpty 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotEmpty 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstEmpty 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllEmpty 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotEmpty 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastEmpty 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastEmpty 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotEmpty'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotEmpty 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotFalse 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotFalse 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotFalse 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotFalse 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstFalse 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllFalse 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotFalse 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastFalse 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastNotFalse'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotFalse 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotTrue 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotTrue 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotTrue 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotTrue 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstTrue 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllTrue 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotTrue 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastTrue 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastNotTrue'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotTrue 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotNull 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotNull 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotNull 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotNull 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNull 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNull 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotNull 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNull 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastNotNull'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotNull 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotUndefined 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotUndefined 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotUndefined 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotUndefined 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstUndefined 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllUndefined 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotUndefined 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastUndefined 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastNotUndefined'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotUndefined 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ *  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotInstanceOf 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotInstanceOf 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstInstanceOf 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllInstanceOf 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotInstanceOf 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotInstanceOf 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstInstanceOf 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllInstanceOf 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotInstanceOf 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastInstanceOf 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastInstanceOf 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotInstanceOf'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotInstanceOf 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Function} Constructor  
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findFirstNotIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstNotIn 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+ @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllNotIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllNotIn 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+ @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-findFirstIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findFirstIn 
+ * Return the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+  @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findAllIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findAllIn 
+ * Return all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+  @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Array} an array of items found 
+ */
+<span id='Luc-ArrayFns-method-removeFirstNotIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstNotIn 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+ @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllNotIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllNotIn 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+ @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeFirstIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeFirstIn 
+ * Remove the first item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+  @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeAllIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeAllIn 
+ * Remove all items that are equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+  @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Array} an array of items removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastNotIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastNotIn 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+ @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-removeLastIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method removeLastIn 
+ * Remove the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+  @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was removed, false if no object was removed 
+ */
+<span id='Luc-ArrayFns-method-findLastIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastIn 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+  @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+<span id='Luc-ArrayFns-method-findLastNotIn'>/**
+</span> * @member Luc.ArrayFns 
+ * @method findLastNotIn 
+ * Return the last item that is equal to the associated function. 
+ *  
+ * @param {Array} arr 
+ * @param {Array} searchArray 
+ @param {Object} [compareConfig] optional config for Luc.Compare defaults to loose 
+ * 
+ * @return {Object} the object that was found, false if no object was found 
+ */
+</pre>
+</body>
+</html>
