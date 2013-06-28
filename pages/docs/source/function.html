@@ -58,7 +58,7 @@ exports.abstractFn = function() {
     throw new Error('abstractFn must be implemented');
 };
 
-<span id='Luc-Function-method-createAugmentor'>/**
+<span id='Luc-Function-method-createAugmenter'>/**
 </span> * Augment the passed in function's thisArg and or aguments object 
  * based on the passed in config.
  * 
@@ -86,7 +86,7 @@ exports.abstractFn = function() {
         console.log(arguments)
     }
 
-    Luc.Function.createAugmentor(fn, {
+    Luc.Function.createAugmenter(fn, {
         thisArg: {configedThisArg: true},
         args: [1,2,3],
         index:0
@@ -95,7 +95,7 @@ exports.abstractFn = function() {
     &gt;Object {configedThisArg: true}
     &gt;[1, 2, 3, 4]
 
-    Luc.Function.createAugmentor(fn, {
+    Luc.Function.createAugmenter(fn, {
         thisArg: {configedThisArg: true},
         args: [1,2,3],
         index:0,
@@ -106,7 +106,7 @@ exports.abstractFn = function() {
     &gt;[4, 1, 2, 3]
 
 
-    var f = Luc.Function.createAugmentor(fn, {
+    var f = Luc.Function.createAugmenter(fn, {
         args: [1,2,3],
         index: true
     });
@@ -118,7 +118,7 @@ exports.abstractFn = function() {
 
  * @return {Function} the augmented function.
  */
-exports.createAugmentor = function(fn, config) {
+exports.createAugmenter = function(fn, config) {
     var thisArg = config.thisArg;
 
     return function() {
@@ -132,7 +132,7 @@ function initSequenceFunctions(fns, config) {
         var fn = f;
 
         if (config) {
-            fn = exports.createAugmentor(f, config);
+            fn = exports.createAugmenter(f, config);
         }
 
         toRun.push(fn);
@@ -147,7 +147,7 @@ function initSequenceFunctions(fns, config) {
  * 
  * @param  {Function/Function[]} fns 
  * @param  {Object} [config] Config object
- * for Luc.Function.createAugmentor.  If defined all of the functions
+ * for Luc.Function.createAugmenter.  If defined all of the functions
  * will get created with the passed in config;
  *
     Luc.Function.createSequence([
@@ -195,7 +195,7 @@ exports.createSequence = function(fns, config) {
  * 
  * @param  {Function/Function[]} fns 
  * @param  {Object} [config] Config object
- * for Luc.Function.createAugmentor.  If defined all of the functions
+ * for Luc.Function.createAugmenter.  If defined all of the functions
  * will get created with the passed in config;
 
     Luc.Function.createSequenceIf([
@@ -248,7 +248,7 @@ exports.createSequenceIf = function(fns, config) {
  * 
  * @param  {Function/Function[]} fns 
  * @param  {Object} [config] Config object
- * for Luc.Function.createAugmentor.  If defined all of the functions
+ * for Luc.Function.createAugmenter.  If defined all of the functions
  * will get created with the passed in config;
      
      Luc.Function.createRelayer([
@@ -295,7 +295,7 @@ exports.createRelayer = function(fns, config) {
  * @param  {Number} [millis] Number of milliseconds to
  * throttle the function.
  * @param  {Object} [config] Config object
- * for Luc.Function.createAugmentor.  If defined all of the functions
+ * for Luc.Function.createAugmenter.  If defined all of the functions
  * will get created with the passed in config;
  *
     var logArgs  = function() {
@@ -322,7 +322,7 @@ exports.createRelayer = function(fns, config) {
  * @return {Function}
  */
 exports.createThrottled = function(f, millis, config) {
-    var fn = config ? exports.createAugmentor(f, config) : f,
+    var fn = config ? exports.createAugmenter(f, config) : f,
         timeOutId = false;
 
     if(!millis) {
@@ -351,13 +351,13 @@ exports.createThrottled = function(f, millis, config) {
  * @param  {Number} [millis] Number of milliseconds to
  * defer
  * @param  {Object} [config] Config object
- * for Luc.Function.createAugmentor.  If defined all of the functions
+ * for Luc.Function.createAugmenter.  If defined all of the functions
  * will get created with the passed in config;
  * 
  * @return {Function}
  */
 exports.createDeferred = function(f, millis, config) {
-    var fn = config ? exports.createAugmentor(f, config) : f;
+    var fn = config ? exports.createAugmenter(f, config) : f;
 
     if(!millis) {
         return fn;

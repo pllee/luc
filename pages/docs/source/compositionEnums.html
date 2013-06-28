@@ -18,15 +18,15 @@
   <pre class="prettyprint lang-js">var EventEmitter = require('../events/eventEmitter'),
     PluginManager = require('./pluginManager');
 
-<span id='Luc-compositionEnumns'>/**
-</span> * @class Luc.compositionEnumns
+<span id='Luc-compositionEnums'>/**
+</span> * @class Luc.compositionEnums
  * Composition enums are just common config objects for Luc.Composition.
  * Here is an example of a composition that uses EventEmitter but only
  * puts the emit method on the prototype.
  *
     var C = Luc.define({
         $compositions: {
-            defaults: Luc.compositionEnumns.EventEmitter,
+            defaults: Luc.compositionEnums.EventEmitter,
             filterKeys: ['emit']
         }
     });
@@ -40,7 +40,7 @@
  * 
  */
 
-<span id='Luc-compositionEnumns-property-EventEmitter'>/**
+<span id='Luc-compositionEnums-property-EventEmitter'>/**
 </span> * @property {Object} EventEmitter
  */
 module.exports.EventEmitter = {
@@ -50,7 +50,7 @@ module.exports.EventEmitter = {
 };
 
 
-<span id='Luc-compositionEnumns-property-PluginManager'>/**
+<span id='Luc-compositionEnums-property-PluginManager'>/**
 </span> * @property {Object} PluginManager
  */
 module.exports.PluginManager = {
