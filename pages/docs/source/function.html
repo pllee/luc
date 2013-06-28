@@ -59,26 +59,26 @@ exports.abstractFn = function() {
 };
 
 <span id='Luc-Function-method-createAugmentor'>/**
-</span> * Agument the passed in function's thisArg and or aguments object 
+</span> * Augment the passed in function's thisArg and or aguments object 
  * based on the passed in config.
  * 
  * @param  {Function} fn the function to call
  * @param  {Object} config
  * 
- * @param {Object} [config.thisArg] the thisArg for the funciton being executed.
- * If this is the only property on your config object the prefered way would
+ * @param {Object} [config.thisArg] the thisArg for the function being executed.
+ * If this is the only property on your config object the preferred way would
  * be just to use Function.bind
  * 
  * @param {Array} [config.args] the arguments used for the function being executed.
  * This will replace the functions call args if index is not a number or 
  * true.
  * 
- * @param {Number/True} [config.index] By defualt the the configured arguments
+ * @param {Number/True} [config.index] By default the the configured arguments
  * will be inserted into the functions passed in call arguments.  If index is true
  * append the args together if it is a number insert it at the passed in index.
  * 
  * @param {Array} [config.argumentsFirst] pass in false to 
- * agument the configured args first with Luc.Array.insert.  Defaults
+ * augment the configured args first with Luc.Array.insert.  Defaults
  * to true
      
      function fn() {

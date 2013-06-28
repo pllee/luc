@@ -109,7 +109,7 @@ Composition.prototype = {
 <span id='Luc-Composition-cfg-Constructor'>    /**
 </span>     * @cfg {Function} Constructor (required) the Constructor
      * to use when creating the composition instance.  This
-     * is required if Luc.Composition.create is not overrwitten by
+     * is required if Luc.Composition.create is not overwritten by
      * the passed in composition config object.
      */
     
@@ -165,7 +165,7 @@ Composition.prototype = {
             throw new Error('A name must be defined');
         }
         if(!is.isFunction(this.Constructor) &amp;&amp; this.create === Composition.prototype.create) {
-            throw new Error('The Constructor must be function if create is not overriden');
+            throw new Error('The Constructor must be function if create is not overridden');
         }
     },
 
