@@ -3,21 +3,19 @@
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    > {a:1, b:2}
