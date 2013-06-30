@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         cmd: 'node_modules/.bin/browserify --debug lib/luc-es5-shim.js > build/luc-es5-shim.js'
       },
       buildTest: {
-        cmd: 'node_modules/.bin/browserify --debug test/lib/luc.js > pages/testRunner/build/tests.js'
+        cmd: 'node_modules/.bin/browserify --debug --im test/lib/luc.js > pages/testRunner/build/tests.js'
       },
       runTest: {
         cmd: 'mocha -R list'
