@@ -1,5 +1,5 @@
 node_modules/
 lib-cov/
-pages/docs/
-pages/coverage/*
+pages/*
+!pages/testRunner
 gruntTasks/generatedDocs/*
