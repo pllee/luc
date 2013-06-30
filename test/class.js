@@ -22,7 +22,7 @@ function defineClassWithAllOptions() {
         $compositions: {
             Constructor: Luc.EventEmitter,
             name: 'emitter',
-            filterKeys: 'allMethods'
+            methods: 'allMethods'
         },
         add: function(a, b, c) {
             var two = this.$superclass.add.call(this, a, b),
@@ -168,7 +168,7 @@ describe('Luc Class', function() {
         });
 
         var BaseEmitter = Luc.define({
-            $compositions: [{Constructor: EmitterParent, name: 'emitter', filterKeys: 'allMethods'}]
+            $compositions: [{Constructor: EmitterParent, name: 'emitter', methods: 'allMethods'}]
         });
 
 
