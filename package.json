@@ -42,6 +42,6 @@
     "files": "test/*.js"
   },
   "scripts": {
-    "test": "npm install -g mocha && mocha"
+    "test": "node_modules/.bin/mocha"
   }
 }
