@@ -1,12 +1,15 @@
-var exec = require('child_process').exec;
+var exec = require('child_process').exec,
+    wrench = require('wrench'),
+    fs = require('fs');
 
-function clean(dirs, callback) {
-    var removeDirs = dirs.join(' ');
-    exec('rm -r ' + removeDirs, callback);
-    callback();
+function clean(dirs) {
+    dirs.forEach(function(dir) {
+        wrench.rmdirSyncRecursive(dir, true);
+    });
 }
 
 function buildCoverage(done) {
+    fs.mkdirSync('pages/coverage');
     exec('jscoverage lib lib-cov', function(error, stdout, stderr) {
         exec('mocha -R html-cov > pages/coverage/index.html', {
             env: {
@@ -25,9 +28,8 @@ function buildCoverage(done) {
 }
 
 module.exports.buildCoverage = function(done) {
-    clean(['lib-cov', 'pages/coverage/*'], function(){
-        buildCoverage(done);
-    });
+    clean(['lib-cov', 'pages/coverage']);
+    buildCoverage(done);
 };
 
 module.exports.buildDocs = function(done) {
