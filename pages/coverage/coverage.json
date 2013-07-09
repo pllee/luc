@@ -1,9 +1,9 @@
 {
   "instrumentation": "node-jscoverage",
   "sloc": 605,
-  "hits": 588,
-  "misses": 17,
-  "coverage": 97.19008264462809,
+  "hits": 589,
+  "misses": 16,
+  "coverage": 97.35537190082646,
   "files": [
     {
       "filename": "array.js",
@@ -38,7 +38,7 @@
         },
         "7": {
           "source": "    var config = c || {};",
-          "coverage": 135
+          "coverage": 136
         },
         "8": {
           "source": "",
@@ -46,7 +46,7 @@
         },
         "9": {
           "source": "    if(is.isFunction(fn) &amp;&amp; (config.type !== 'strict')) {",
-          "coverage": 135
+          "coverage": 136
         },
         "10": {
           "source": "        return c ? fn.bind(c) : fn;",
@@ -62,7 +62,7 @@
         },
         "13": {
           "source": "    if(config.type === undefined) {",
-          "coverage": 85
+          "coverage": 86
         },
         "14": {
           "source": "        config.type = 'loose';",
@@ -78,11 +78,11 @@
         },
         "17": {
           "source": "    return function(value) {",
-          "coverage": 85
+          "coverage": 86
         },
         "18": {
           "source": "        return compare(fn, value, config);",
-          "coverage": 216
+          "coverage": 218
         },
         "19": {
           "source": "    };",
@@ -114,7 +114,7 @@
         },
         "26": {
           "source": "        return !functionToNot.apply(this, arguments);",
-          "coverage": 98
+          "coverage": 96
         },
         "27": {
           "source": "    };",
@@ -598,11 +598,11 @@
         },
         "147": {
           "source": "    return arr.map(function(value) {",
-          "coverage": 2
+          "coverage": 1
         },
         "148": {
           "source": "        return value &amp;&amp; value[key];",
-          "coverage": 6
+          "coverage": 3
         },
         "149": {
           "source": "    });",
@@ -886,7 +886,7 @@
         },
         "219": {
           "source": "    var firstArray = arraySlice.call(firstArrayOrArgs),",
-          "coverage": 30
+          "coverage": 22
         },
         "220": {
           "source": "        secondArray = arraySlice.call(secondArrayOrArgs),",
@@ -902,11 +902,11 @@
         },
         "223": {
           "source": "    if(indexOrAppend === true) {",
-          "coverage": 30
+          "coverage": 22
         },
         "224": {
           "source": "        return firstArray.concat(secondArray);",
-          "coverage": 10
+          "coverage": 8
         },
         "225": {
           "source": "    }",
@@ -918,15 +918,15 @@
         },
         "227": {
           "source": "    spliceArgs = [indexOrAppend, 0].concat(secondArray);",
-          "coverage": 20
+          "coverage": 14
         },
         "228": {
           "source": "    firstArray.splice.apply(firstArray, spliceArgs);",
-          "coverage": 20
+          "coverage": 14
         },
         "229": {
           "source": "    return firstArray;",
-          "coverage": 20
+          "coverage": 14
         },
         "230": {
           "source": "}",
@@ -998,15 +998,15 @@
         },
         "247": {
           "source": "    var item = arr[index];",
-          "coverage": 42
+          "coverage": 43
         },
         "248": {
           "source": "    arr.splice(index, 1);",
-          "coverage": 42
+          "coverage": 43
         },
         "249": {
           "source": "    return item;",
-          "coverage": 42
+          "coverage": 43
         },
         "250": {
           "source": "}",
@@ -1190,7 +1190,7 @@
         },
         "295": {
           "source": "    var indexsToRemove = [],",
-          "coverage": 15
+          "coverage": 16
         },
         "296": {
           "source": "        removed = [];",
@@ -1202,19 +1202,19 @@
         },
         "298": {
           "source": "    arr.forEach(function(value, index) {",
-          "coverage": 15
+          "coverage": 16
         },
         "299": {
           "source": "        if (fn.apply(this, arguments)) {",
-          "coverage": 36
+          "coverage": 39
         },
         "300": {
           "source": "            indexsToRemove.unshift(index);",
-          "coverage": 18
+          "coverage": 19
         },
         "301": {
           "source": "            removed.push(value);",
-          "coverage": 18
+          "coverage": 19
         },
         "302": {
           "source": "        }",
@@ -1230,11 +1230,11 @@
         },
         "305": {
           "source": "    indexsToRemove.forEach(function(index){",
-          "coverage": 15
+          "coverage": 16
         },
         "306": {
           "source": "        removeAtIndex(arr, index);",
-          "coverage": 18
+          "coverage": 19
         },
         "307": {
           "source": "    });",
@@ -1246,7 +1246,7 @@
         },
         "309": {
           "source": "    return removed;",
-          "coverage": 15
+          "coverage": 16
         },
         "310": {
           "source": "}",
@@ -1354,11 +1354,11 @@
         },
         "336": {
           "source": "    var fn = _createIteratorFn(obj, config);",
-          "coverage": 8
+          "coverage": 9
         },
         "337": {
           "source": "    return _removeAll(arr, fn);",
-          "coverage": 8
+          "coverage": 9
         },
         "338": {
           "source": "}",
@@ -3180,679 +3180,679 @@
           "coverage": ""
         },
         "80": {
-          "source": "     * @cfg {String} name (required) the name",
+          "source": "     * @cfg {String} name (required) the name which the composition",
           "coverage": ""
         },
         "81": {
-          "source": "     */",
+          "source": "     * will be referred to by the instance.",
           "coverage": ""
         },
         "82": {
-          "source": "    ",
+          "source": "     */",
           "coverage": ""
         },
         "83": {
-          "source": "    /**",
+          "source": "    ",
           "coverage": ""
         },
         "84": {
-          "source": "     * @cfg {Object} defaults",
+          "source": "    /**",
           "coverage": ""
         },
         "85": {
-          "source": "     */",
+          "source": "     * @cfg {Object} defaults",
           "coverage": ""
         },
         "86": {
-          "source": "    ",
+          "source": "     */",
           "coverage": ""
         },
         "87": {
-          "source": "    /**",
-          "coverage": ""
-        },
-        "88": {
-          "source": "     * @cfg {Boolean} initAfter  defaults to false",
-          "coverage": ""
-        },
-        "89": {
-          "source": "     * pass in true to init the composition instance after the ",
-          "coverage": ""
-        },
-        "90": {
-          "source": "     * superclass has been called.",
-          "coverage": ""
-        },
-        "91": {
-          "source": "     */",
-          "coverage": ""
-        },
-        "92": {
-          "source": "",
-          "coverage": ""
-        },
-        "93": {
-          "source": "    /**",
-          "coverage": ""
-        },
-        "94": {
-          "source": "     * @cfg {Function} Constructor (required) the Constructor",
-          "coverage": ""
-        },
-        "95": {
-          "source": "     * to use when creating the composition instance.  This",
-          "coverage": ""
-        },
-        "96": {
-          "source": "     * is required if Luc.Composition.create is not overwritten by",
-          "coverage": ""
-        },
-        "97": {
-          "source": "     * the passed in composition config object.",
-          "coverage": ""
-        },
-        "98": {
-          "source": "     */",
-          "coverage": ""
-        },
-        "99": {
           "source": "    ",
           "coverage": ""
         },
-        "100": {
+        "88": {
           "source": "    /**",
+          "coverage": ""
+        },
+        "89": {
+          "source": "     * @cfg {Boolean} initAfter  defaults to false",
+          "coverage": ""
+        },
+        "90": {
+          "source": "     * pass in true to init the composition instance after the ",
+          "coverage": ""
+        },
+        "91": {
+          "source": "     * superclass has been called.",
+          "coverage": ""
+        },
+        "92": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "93": {
+          "source": "",
+          "coverage": ""
+        },
+        "94": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "95": {
+          "source": "     * @cfg {Function} Constructor (required) the Constructor",
+          "coverage": ""
+        },
+        "96": {
+          "source": "     * to use when creating the composition instance.  This",
+          "coverage": ""
+        },
+        "97": {
+          "source": "     * is required if Luc.Composition.create is not overwritten by",
+          "coverage": ""
+        },
+        "98": {
+          "source": "     * the passed in composition config object.",
+          "coverage": ""
+        },
+        "99": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "100": {
+          "source": "    ",
           "coverage": ""
         },
         "101": {
-          "source": "     * @protected",
+          "source": "    /**",
           "coverage": ""
         },
         "102": {
-          "source": "     * By default just return a newly created Constructor instance.",
+          "source": "     * @protected",
           "coverage": ""
         },
         "103": {
-          "source": "     * ",
+          "source": "     * By default just return a newly created Constructor instance.",
           "coverage": ""
         },
         "104": {
-          "source": "     * When create is called the following properties can be used :",
+          "source": "     * ",
           "coverage": ""
         },
         "105": {
-          "source": "     * ",
+          "source": "     * When create is called the following properties can be used :",
           "coverage": ""
         },
         "106": {
-          "source": "     * this.instance The instance that is creating",
+          "source": "     * ",
           "coverage": ""
         },
         "107": {
-          "source": "     * the composition.",
+          "source": "     * this.instance The instance that is creating",
           "coverage": ""
         },
         "108": {
-          "source": "     * ",
+          "source": "     * the composition.",
           "coverage": ""
         },
         "109": {
-          "source": "     * this.Constructor the constructor that is passed in from",
+          "source": "     * ",
           "coverage": ""
         },
         "110": {
-          "source": "     * the composition config. ",
+          "source": "     * this.Constructor the constructor that is passed in from",
           "coverage": ""
         },
         "111": {
-          "source": "     *",
+          "source": "     * the composition config. ",
           "coverage": ""
         },
         "112": {
-          "source": "     * this.instanceArgs the arguments passed into the instance when it ",
+          "source": "     *",
           "coverage": ""
         },
         "113": {
-          "source": "     * is being created.  For example",
+          "source": "     * this.instanceArgs the arguments passed into the instance when it ",
           "coverage": ""
         },
         "114": {
-          "source": "",
+          "source": "     * is being created.  For example",
           "coverage": ""
         },
         "115": {
-          "source": "        new MyClassWithAComposition({plugins: []})",
+          "source": "",
           "coverage": ""
         },
         "116": {
-          "source": "        //inside of the create method",
+          "source": "        new MyClassWithAComposition({plugins: []})",
           "coverage": ""
         },
         "117": {
-          "source": "        this.instanceArgs",
+          "source": "        //inside of the create method",
           "coverage": ""
         },
         "118": {
-          "source": "        &gt;[{plugins: []}]",
+          "source": "        this.instanceArgs",
           "coverage": ""
         },
         "119": {
-          "source": "",
+          "source": "        &gt;[{plugins: []}]",
           "coverage": ""
         },
         "120": {
-          "source": "     * @return {Object} ",
+          "source": "",
           "coverage": ""
         },
         "121": {
-          "source": "     * the composition instance.",
+          "source": "     * @return {Object} ",
           "coverage": ""
         },
         "122": {
-          "source": "     *",
+          "source": "     * the composition instance.",
           "coverage": ""
         },
         "123": {
-          "source": "     * For example set the emitters maxListeners",
-          "coverage": ""
-        },
-        "124": {
-          "source": "     * to what the instance has configed.",
-          "coverage": ""
-        },
-        "125": {
-          "source": "      ",
-          "coverage": ""
-        },
-        "126": {
-          "source": "        maxListeners: 100,",
-          "coverage": ""
-        },
-        "127": {
-          "source": "        $compositions: {",
-          "coverage": ""
-        },
-        "128": {
-          "source": "            Constructor: Luc.EventEmitter,",
-          "coverage": ""
-        },
-        "129": {
-          "source": "            create: function() {",
-          "coverage": ""
-        },
-        "130": {
-          "source": "                var emitter = new this.Constructor();",
-          "coverage": ""
-        },
-        "131": {
-          "source": "                emitter.setMaxListeners(this.instance.maxListeners);",
-          "coverage": ""
-        },
-        "132": {
-          "source": "                return emitter;",
-          "coverage": ""
-        },
-        "133": {
-          "source": "            },",
-          "coverage": ""
-        },
-        "134": {
-          "source": "            name: 'emitter'",
-          "coverage": ""
-        },
-        "135": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "136": {
-          "source": "",
-          "coverage": ""
-        },
-        "137": {
-          "source": "     */",
-          "coverage": ""
-        },
-        "138": {
-          "source": "    create: function() {",
-          "coverage": ""
-        },
-        "139": {
-          "source": "        var Constructor = this.Constructor;",
-          "coverage": 9
-        },
-        "140": {
-          "source": "        return new Constructor();",
-          "coverage": 9
-        },
-        "141": {
-          "source": "    },",
-          "coverage": ""
-        },
-        "142": {
-          "source": "",
-          "coverage": ""
-        },
-        "143": {
-          "source": "    getInstance: function() {",
-          "coverage": ""
-        },
-        "144": {
-          "source": "        return this.create();",
-          "coverage": 12
-        },
-        "145": {
-          "source": "    },",
-          "coverage": ""
-        },
-        "146": {
-          "source": "",
-          "coverage": ""
-        },
-        "147": {
-          "source": "    validate: function() {",
-          "coverage": ""
-        },
-        "148": {
-          "source": "        if(this.name  === undefined) {",
-          "coverage": 15
-        },
-        "149": {
-          "source": "            throw new Error('A name must be defined');",
-          "coverage": 1
-        },
-        "150": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "151": {
-          "source": "        if(!is.isFunction(this.Constructor) &amp;&amp; this.create === Composition.prototype.create) {",
-          "coverage": 14
-        },
-        "152": {
-          "source": "            throw new Error('The Constructor must be function if create is not overridden');",
-          "coverage": 1
-        },
-        "153": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "154": {
-          "source": "    },",
-          "coverage": ""
-        },
-        "155": {
-          "source": "",
-          "coverage": ""
-        },
-        "156": {
-          "source": "    /**",
-          "coverage": ""
-        },
-        "157": {
-          "source": "     * @property filterMethodFns",
-          "coverage": ""
-        },
-        "158": {
-          "source": "     * @type {Object}",
-          "coverage": ""
-        },
-        "159": {
-          "source": "     * @property filterMethodFns.allMethods return all methods from the",
-          "coverage": ""
-        },
-        "160": {
-          "source": "     * constructors prototype",
-          "coverage": ""
-        },
-        "161": {
-          "source": "     * @property filterMethodFns.public return all methods that don't",
-          "coverage": ""
-        },
-        "162": {
-          "source": "     * start with _.  We know not everyone follows this convention, but we",
-          "coverage": ""
-        },
-        "163": {
-          "source": "     * do and so do many others.",
-          "coverage": ""
-        },
-        "164": {
-          "source": "     * @type {Function}",
-          "coverage": ""
-        },
-        "165": {
-          "source": "     */",
-          "coverage": ""
-        },
-        "166": {
-          "source": "    filterMethodFns: {",
-          "coverage": ""
-        },
-        "167": {
-          "source": "        allMethods: function(key, value) {",
-          "coverage": ""
-        },
-        "168": {
-          "source": "            return is.isFunction(value);",
-          "coverage": 35
-        },
-        "169": {
-          "source": "        },",
-          "coverage": ""
-        },
-        "170": {
-          "source": "        publicMethods: function(key, value) {",
-          "coverage": ""
-        },
-        "171": {
-          "source": "            return is.isFunction(value) &amp;&amp; key.charAt(0) !== '_';",
-          "coverage": 30
-        },
-        "172": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "173": {
-          "source": "    },",
-          "coverage": ""
-        },
-        "174": {
-          "source": "",
-          "coverage": ""
-        },
-        "175": {
-          "source": "    /**",
-          "coverage": ""
-        },
-        "176": {
-          "source": "     * @cfg {Function/String/Array[]} methods",
-          "coverage": ""
-        },
-        "177": {
-          "source": "     * The keys to add to the definers prototype that will in turn call",
-          "coverage": ""
-        },
-        "178": {
-          "source": "     * the compositions method.",
-          "coverage": ""
-        },
-        "179": {
-          "source": "     * ",
-          "coverage": ""
-        },
-        "180": {
-          "source": "     * Defaults to Luc.emptyFn. ",
-          "coverage": ""
-        },
-        "181": {
-          "source": "     * If an array is passed it will just use that Array.",
-          "coverage": ""
-        },
-        "182": {
-          "source": "     * ",
-          "coverage": ""
-        },
-        "183": {
-          "source": "     * If a string is passed and matches a method from ",
-          "coverage": ""
-        },
-        "184": {
-          "source": "     * Luc.Composition.filterMethodFns it will call that instead.",
-          "coverage": ""
-        },
-        "185": {
-          "source": "     * ",
-          "coverage": ""
-        },
-        "186": {
-          "source": "     * If a function is defined it",
-          "coverage": ""
-        },
-        "187": {
-          "source": "     * will get called while iterating over each key value pair of the ",
-          "coverage": ""
-        },
-        "188": {
-          "source": "     * Constructor's prototype, if a truthy value is ",
-          "coverage": ""
-        },
-        "189": {
-          "source": "     * returned the property will be added to the defining",
-          "coverage": ""
-        },
-        "190": {
-          "source": "     * classes prototype.",
-          "coverage": ""
-        },
-        "191": {
-          "source": "     * ",
-          "coverage": ""
-        },
-        "192": {
-          "source": "     * For example this config will only expose the emit method ",
-          "coverage": ""
-        },
-        "193": {
-          "source": "     * to the defining class",
-          "coverage": ""
-        },
-        "194": {
-          "source": "     ",
-          "coverage": ""
-        },
-        "195": {
-          "source": "        $compositions: {",
-          "coverage": ""
-        },
-        "196": {
-          "source": "            Constructor: Luc.EventEmitter,",
-          "coverage": ""
-        },
-        "197": {
-          "source": "            methods: function(key, value) {",
-          "coverage": ""
-        },
-        "198": {
-          "source": "                return key === 'emit';",
-          "coverage": ""
-        },
-        "199": {
-          "source": "            },",
-          "coverage": ""
-        },
-        "200": {
-          "source": "            name: 'emitter'",
-          "coverage": ""
-        },
-        "201": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "202": {
-          "source": "     * this is also a valid config",
-          "coverage": ""
-        },
-        "203": {
-          "source": "     * ",
-          "coverage": ""
-        },
-        "204": {
-          "source": "        $compositions: {",
-          "coverage": ""
-        },
-        "205": {
-          "source": "            Constructor: Luc.EventEmitter,",
-          "coverage": ""
-        },
-        "206": {
-          "source": "            methods: ['emitter'],",
-          "coverage": ""
-        },
-        "207": {
-          "source": "            name: 'emitter'",
-          "coverage": ""
-        },
-        "208": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "209": {
-          "source": "     * ",
-          "coverage": ""
-        },
-        "210": {
-          "source": "     */",
-          "coverage": ""
-        },
-        "211": {
-          "source": "    methods: emptyFn,",
-          "coverage": ""
-        },
-        "212": {
-          "source": "",
-          "coverage": ""
-        },
-        "213": {
-          "source": "    /**",
-          "coverage": ""
-        },
-        "214": {
-          "source": "     * @cfg {String[]/String} ignoreMethods methods that will always",
-          "coverage": ""
-        },
-        "215": {
-          "source": "     * be ignored if methods is not an Array.",
-          "coverage": ""
-        },
-        "216": {
           "source": "     *",
           "coverage": ""
         },
-        "217": {
-          "source": "        ",
+        "124": {
+          "source": "     * For example set the emitters maxListeners",
           "coverage": ""
         },
-        "218": {
-          "source": "        var C = Luc.define({",
+        "125": {
+          "source": "     * to what the instance has configed.",
           "coverage": ""
         },
-        "219": {
-          "source": "                $compositions: {",
+        "126": {
+          "source": "      ",
           "coverage": ""
         },
-        "220": {
-          "source": "                    defaults: Luc.compositionEnums.EventEmitter,",
+        "127": {
+          "source": "        maxListeners: 100,",
           "coverage": ""
         },
-        "221": {
-          "source": "                    methods: 'allMethods',",
+        "128": {
+          "source": "        $compositions: {",
           "coverage": ""
         },
-        "222": {
-          "source": "                    ignoreMethods: ['emit']",
+        "129": {
+          "source": "            Constructor: Luc.EventEmitter,",
           "coverage": ""
         },
-        "223": {
-          "source": "                }",
+        "130": {
+          "source": "            create: function() {",
           "coverage": ""
         },
-        "224": {
-          "source": "            });",
+        "131": {
+          "source": "                var emitter = new this.Constructor();",
           "coverage": ""
         },
-        "225": {
-          "source": "",
+        "132": {
+          "source": "                emitter.setMaxListeners(this.instance.maxListeners);",
           "coverage": ""
         },
-        "226": {
-          "source": "            var c = new C();",
+        "133": {
+          "source": "                return emitter;",
           "coverage": ""
         },
-        "227": {
-          "source": "            typeof c.emit",
+        "134": {
+          "source": "            },",
           "coverage": ""
         },
-        "228": {
-          "source": "            &gt;\"undefined\"",
+        "135": {
+          "source": "            name: 'emitter'",
           "coverage": ""
         },
-        "229": {
-          "source": "     */",
-          "coverage": ""
-        },
-        "230": {
-          "source": "    ignoreMethods: undefined,",
-          "coverage": ""
-        },
-        "231": {
-          "source": "",
-          "coverage": ""
-        },
-        "232": {
-          "source": "    getObjectWithMethods: function() {",
-          "coverage": ""
-        },
-        "233": {
-          "source": "        var methodsObj = this.Constructor &amp;&amp; this.Constructor.prototype;",
-          "coverage": 13
-        },
-        "234": {
-          "source": "        if (this.ignoreMethods) {",
-          "coverage": 13
-        },
-        "235": {
-          "source": "            methodsObj = apply({}, methodsObj);",
-          "coverage": 3
-        },
-        "236": {
-          "source": "            array.each(this.ignoreMethods, function(value) {",
-          "coverage": 3
-        },
-        "237": {
-          "source": "                delete methodsObj[value];",
-          "coverage": 3
-        },
-        "238": {
-          "source": "            });",
-          "coverage": ""
-        },
-        "239": {
+        "136": {
           "source": "        }",
           "coverage": ""
         },
-        "240": {
+        "137": {
           "source": "",
           "coverage": ""
         },
-        "241": {
-          "source": "        return methodsObj;",
-          "coverage": 13
+        "138": {
+          "source": "     */",
+          "coverage": ""
         },
-        "242": {
+        "139": {
+          "source": "    create: function() {",
+          "coverage": ""
+        },
+        "140": {
+          "source": "        var Constructor = this.Constructor;",
+          "coverage": 9
+        },
+        "141": {
+          "source": "        return new Constructor();",
+          "coverage": 9
+        },
+        "142": {
           "source": "    },",
           "coverage": ""
         },
-        "243": {
+        "143": {
           "source": "",
+          "coverage": ""
+        },
+        "144": {
+          "source": "    getInstance: function() {",
+          "coverage": ""
+        },
+        "145": {
+          "source": "        return this.create();",
+          "coverage": 12
+        },
+        "146": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "147": {
+          "source": "",
+          "coverage": ""
+        },
+        "148": {
+          "source": "    validate: function() {",
+          "coverage": ""
+        },
+        "149": {
+          "source": "        if(this.name  === undefined) {",
+          "coverage": 15
+        },
+        "150": {
+          "source": "            throw new Error('A name must be defined');",
+          "coverage": 1
+        },
+        "151": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "152": {
+          "source": "        if(!is.isFunction(this.Constructor) &amp;&amp; this.create === Composition.prototype.create) {",
+          "coverage": 14
+        },
+        "153": {
+          "source": "            throw new Error('The Constructor must be function if create is not overridden');",
+          "coverage": 1
+        },
+        "154": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "155": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "156": {
+          "source": "",
+          "coverage": ""
+        },
+        "157": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "158": {
+          "source": "     * @property filterMethodFns",
+          "coverage": ""
+        },
+        "159": {
+          "source": "     * @type {Object}",
+          "coverage": ""
+        },
+        "160": {
+          "source": "     * @property filterMethodFns.allMethods return all methods from the",
+          "coverage": ""
+        },
+        "161": {
+          "source": "     * constructors prototype",
+          "coverage": ""
+        },
+        "162": {
+          "source": "     * @property filterMethodFns.public return all methods that don't",
+          "coverage": ""
+        },
+        "163": {
+          "source": "     * start with _.  We know not everyone follows this convention, but we",
+          "coverage": ""
+        },
+        "164": {
+          "source": "     * do and so do many others.",
+          "coverage": ""
+        },
+        "165": {
+          "source": "     * @type {Function}",
+          "coverage": ""
+        },
+        "166": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "167": {
+          "source": "    filterMethodFns: {",
+          "coverage": ""
+        },
+        "168": {
+          "source": "        allMethods: function(key, value) {",
+          "coverage": ""
+        },
+        "169": {
+          "source": "            return is.isFunction(value);",
+          "coverage": 35
+        },
+        "170": {
+          "source": "        },",
+          "coverage": ""
+        },
+        "171": {
+          "source": "        publicMethods: function(key, value) {",
+          "coverage": ""
+        },
+        "172": {
+          "source": "            return is.isFunction(value) &amp;&amp; key.charAt(0) !== '_';",
+          "coverage": 30
+        },
+        "173": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "174": {
+          "source": "    },",
+          "coverage": ""
+        },
+        "175": {
+          "source": "",
+          "coverage": ""
+        },
+        "176": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "177": {
+          "source": "     * @cfg {Function/String/Array[]} methods",
+          "coverage": ""
+        },
+        "178": {
+          "source": "     * The keys to add to the definers prototype that will in turn call",
+          "coverage": ""
+        },
+        "179": {
+          "source": "     * the compositions method.",
+          "coverage": ""
+        },
+        "180": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "181": {
+          "source": "     * Defaults to Luc.emptyFn. ",
+          "coverage": ""
+        },
+        "182": {
+          "source": "     * If an array is passed it will just use that Array.",
+          "coverage": ""
+        },
+        "183": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "184": {
+          "source": "     * If a string is passed and matches a method from ",
+          "coverage": ""
+        },
+        "185": {
+          "source": "     * Luc.Composition.filterMethodFns it will call that instead.",
+          "coverage": ""
+        },
+        "186": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "187": {
+          "source": "     * If a function is defined it",
+          "coverage": ""
+        },
+        "188": {
+          "source": "     * will get called while iterating over each key value pair of the ",
+          "coverage": ""
+        },
+        "189": {
+          "source": "     * Constructor's prototype, if a truthy value is ",
+          "coverage": ""
+        },
+        "190": {
+          "source": "     * returned the property will be added to the defining",
+          "coverage": ""
+        },
+        "191": {
+          "source": "     * classes prototype.",
+          "coverage": ""
+        },
+        "192": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "193": {
+          "source": "     * For example this config will only expose the emit method ",
+          "coverage": ""
+        },
+        "194": {
+          "source": "     * to the defining class",
+          "coverage": ""
+        },
+        "195": {
+          "source": "     ",
+          "coverage": ""
+        },
+        "196": {
+          "source": "        $compositions: {",
+          "coverage": ""
+        },
+        "197": {
+          "source": "            Constructor: Luc.EventEmitter,",
+          "coverage": ""
+        },
+        "198": {
+          "source": "            methods: function(key, value) {",
+          "coverage": ""
+        },
+        "199": {
+          "source": "                return key === 'emit';",
+          "coverage": ""
+        },
+        "200": {
+          "source": "            },",
+          "coverage": ""
+        },
+        "201": {
+          "source": "            name: 'emitter'",
+          "coverage": ""
+        },
+        "202": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "203": {
+          "source": "     * this is also a valid config",
+          "coverage": ""
+        },
+        "204": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "205": {
+          "source": "        $compositions: {",
+          "coverage": ""
+        },
+        "206": {
+          "source": "            Constructor: Luc.EventEmitter,",
+          "coverage": ""
+        },
+        "207": {
+          "source": "            methods: ['emitter'],",
+          "coverage": ""
+        },
+        "208": {
+          "source": "            name: 'emitter'",
+          "coverage": ""
+        },
+        "209": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "210": {
+          "source": "     * ",
+          "coverage": ""
+        },
+        "211": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "212": {
+          "source": "    methods: emptyFn,",
+          "coverage": ""
+        },
+        "213": {
+          "source": "",
+          "coverage": ""
+        },
+        "214": {
+          "source": "    /**",
+          "coverage": ""
+        },
+        "215": {
+          "source": "     * @cfg {String[]/String} ignoreMethods methods that will always",
+          "coverage": ""
+        },
+        "216": {
+          "source": "     * be ignored if methods is not an Array.",
+          "coverage": ""
+        },
+        "217": {
+          "source": "     *",
+          "coverage": ""
+        },
+        "218": {
+          "source": "        ",
+          "coverage": ""
+        },
+        "219": {
+          "source": "        var C = Luc.define({",
+          "coverage": ""
+        },
+        "220": {
+          "source": "                $compositions: {",
+          "coverage": ""
+        },
+        "221": {
+          "source": "                    defaults: Luc.compositionEnums.EventEmitter,",
+          "coverage": ""
+        },
+        "222": {
+          "source": "                    methods: 'allMethods',",
+          "coverage": ""
+        },
+        "223": {
+          "source": "                    ignoreMethods: ['emit']",
+          "coverage": ""
+        },
+        "224": {
+          "source": "                }",
+          "coverage": ""
+        },
+        "225": {
+          "source": "            });",
+          "coverage": ""
+        },
+        "226": {
+          "source": "",
+          "coverage": ""
+        },
+        "227": {
+          "source": "            var c = new C();",
+          "coverage": ""
+        },
+        "228": {
+          "source": "            typeof c.emit",
+          "coverage": ""
+        },
+        "229": {
+          "source": "            &gt;\"undefined\"",
+          "coverage": ""
+        },
+        "230": {
+          "source": "     */",
+          "coverage": ""
+        },
+        "231": {
+          "source": "    ignoreMethods: undefined,",
+          "coverage": ""
+        },
+        "232": {
+          "source": "",
+          "coverage": ""
+        },
+        "233": {
+          "source": "    getObjectWithMethods: function() {",
+          "coverage": ""
+        },
+        "234": {
+          "source": "        var methodsObj = this.Constructor &amp;&amp; this.Constructor.prototype;",
+          "coverage": 13
+        },
+        "235": {
+          "source": "        if (this.ignoreMethods) {",
+          "coverage": 13
+        },
+        "236": {
+          "source": "            methodsObj = apply({}, methodsObj);",
+          "coverage": 3
+        },
+        "237": {
+          "source": "            array.each(this.ignoreMethods, function(value) {",
+          "coverage": 3
+        },
+        "238": {
+          "source": "                delete methodsObj[value];",
+          "coverage": 3
+        },
+        "239": {
+          "source": "            });",
+          "coverage": ""
+        },
+        "240": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "241": {
+          "source": "",
+          "coverage": ""
+        },
+        "242": {
+          "source": "        return methodsObj;",
+          "coverage": 13
+        },
+        "243": {
+          "source": "    },",
           "coverage": ""
         },
         "244": {
-          "source": "    getMethodsToCompose: function() {",
+          "source": "",
           "coverage": ""
         },
         "245": {
+          "source": "    getMethodsToCompose: function() {",
+          "coverage": ""
+        },
+        "246": {
           "source": "        var methods = this.methods,",
           "coverage": 13
         },
-        "246": {
+        "247": {
           "source": "            pairsToAdd,",
           "coverage": ""
         },
-        "247": {
-          "source": "            filterFn;",
-          "coverage": ""
-        },
         "248": {
-          "source": "",
+          "source": "            filterFn;",
           "coverage": ""
         },
         "249": {
@@ -3860,86 +3860,90 @@
           "coverage": ""
         },
         "250": {
+          "source": "",
+          "coverage": ""
+        },
+        "251": {
           "source": "        if (is.isArray(methods)) {",
           "coverage": 13
         },
-        "251": {
+        "252": {
           "source": "            pairsToAdd = methods;",
           "coverage": 0
         },
-        "252": {
+        "253": {
           "source": "        } else {",
           "coverage": ""
         },
-        "253": {
+        "254": {
           "source": "            filterFn = methods;",
           "coverage": 13
         },
-        "254": {
+        "255": {
           "source": "",
           "coverage": ""
         },
-        "255": {
+        "256": {
           "source": "            if (is.isString(methods)) {",
           "coverage": 13
         },
-        "256": {
+        "257": {
           "source": "                filterFn = this.filterMethodFns[methods];",
           "coverage": 7
         },
-        "257": {
+        "258": {
           "source": "            }",
           "coverage": ""
         },
-        "258": {
-          "source": "",
-          "coverage": ""
-        },
         "259": {
-          "source": "            //Constructors are not needed if create is overwritten",
+          "source": "",
           "coverage": ""
         },
         "260": {
+          "source": "            //Constructors are not needed if create is overwritten",
+          "coverage": ""
+        },
+        "261": {
           "source": "            pairsToAdd = oFilter(this.getObjectWithMethods(), filterFn, this, {",
           "coverage": 13
         },
-        "261": {
+        "262": {
           "source": "                ownProperties: false,",
           "coverage": ""
         },
-        "262": {
+        "263": {
           "source": "                keys: true",
           "coverage": ""
         },
-        "263": {
+        "264": {
           "source": "            });",
           "coverage": ""
         },
-        "264": {
+        "265": {
           "source": "        }",
           "coverage": ""
         },
-        "265": {
+        "266": {
           "source": "",
           "coverage": ""
         },
-        "266": {
+        "267": {
           "source": "        return pairsToAdd;",
           "coverage": 13
         },
-        "267": {
+        "268": {
           "source": "    }",
           "coverage": ""
         },
-        "268": {
+        "269": {
           "source": "};",
           "coverage": ""
         },
-        "269": {
+        "270": {
           "source": "",
           "coverage": ""
         },
-        "270": {
+        "271": {
           "source": "module.exports = Composition;",
           "coverage": 1
         }
@@ -6098,7 +6102,7 @@
           "coverage": ""
         },
         "482": {
-          "source": " * will be added to instances that use the $statics",
+          "source": " * will be added to instances that use the {@link Luc.define#$statics $statics}",
           "coverage": ""
         },
         "483": {
@@ -6266,7 +6270,7 @@
           "coverage": ""
         },
         "524": {
-          "source": " * to instances that use the $compositions config",
+          "source": " * to instances that use the {@link Luc.define#$compositions $compositions}  config",
           "coverage": ""
         },
         "525": {
@@ -6274,455 +6278,455 @@
           "coverage": ""
         },
         "526": {
-          "source": " * @param  {String} name the game of the composition to",
+          "source": " *  This will return the composition instance based off the composition {@link Luc.Composition#name name}",
           "coverage": ""
         },
         "527": {
-          "source": " * get.",
-          "coverage": ""
-        },
-        "528": {
-          "source": " */",
-          "coverage": ""
-        },
-        "529": {
-          "source": "",
-          "coverage": ""
-        },
-        "530": {
-          "source": "",
-          "coverage": ""
-        },
-        "531": {
-          "source": "/**",
-          "coverage": ""
-        },
-        "532": {
-          "source": " * @cfg {Object} $statics (optional) Add static properties or methods",
-          "coverage": ""
-        },
-        "533": {
-          "source": " * to the class.  These properties/methods will not be able to be",
-          "coverage": ""
-        },
-        "534": {
-          "source": " * directly modified by the instance so they are good for defining default",
-          "coverage": ""
-        },
-        "535": {
-          "source": " * configs.  ",
-          "coverage": ""
-        },
-        "536": {
-          "source": " *",
-          "coverage": ""
-        },
-        "537": {
-          "source": "    var C = Luc.define({",
-          "coverage": ""
-        },
-        "538": {
-          "source": "        $statics: {",
-          "coverage": ""
-        },
-        "539": {
-          "source": "            number: 1",
-          "coverage": ""
-        },
-        "540": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "541": {
-          "source": "    });",
-          "coverage": ""
-        },
-        "542": {
-          "source": "",
-          "coverage": ""
-        },
-        "543": {
-          "source": "    var c = new C();",
-          "coverage": ""
-        },
-        "544": {
-          "source": "    c.number",
-          "coverage": ""
-        },
-        "545": {
-          "source": "    &gt;undefined",
-          "coverage": ""
-        },
-        "546": {
-          "source": "    C.number",
-          "coverage": ""
-        },
-        "547": {
-          "source": "    &gt;1",
-          "coverage": ""
-        },
-        "548": {
           "source": "    ",
           "coverage": ""
         },
-        "549": {
+        "528": {
+          "source": "    this.getComposition(\"name\");",
+          "coverage": ""
+        },
+        "529": {
+          "source": "    ",
+          "coverage": ""
+        },
+        "530": {
           "source": " *",
+          "coverage": ""
+        },
+        "531": {
+          "source": " */",
+          "coverage": ""
+        },
+        "532": {
+          "source": "",
+          "coverage": ""
+        },
+        "533": {
+          "source": "",
+          "coverage": ""
+        },
+        "534": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "535": {
+          "source": " * @cfg {Object} $statics (optional) Add static properties or methods",
+          "coverage": ""
+        },
+        "536": {
+          "source": " * to the class.  These properties/methods will not be able to be",
+          "coverage": ""
+        },
+        "537": {
+          "source": " * directly modified by the instance so they are good for defining default",
+          "coverage": ""
+        },
+        "538": {
+          "source": " * configs.  Using this config adds the {@link Luc.define#getStaticValue getStaticValue}",
+          "coverage": ""
+        },
+        "539": {
+          "source": " * method to instances.",
+          "coverage": ""
+        },
+        "540": {
+          "source": " *",
+          "coverage": ""
+        },
+        "541": {
+          "source": "    var C = Luc.define({",
+          "coverage": ""
+        },
+        "542": {
+          "source": "        $statics: {",
+          "coverage": ""
+        },
+        "543": {
+          "source": "            number: 1",
+          "coverage": ""
+        },
+        "544": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "545": {
+          "source": "    });",
+          "coverage": ""
+        },
+        "546": {
+          "source": "",
+          "coverage": ""
+        },
+        "547": {
+          "source": "    var c = new C();",
+          "coverage": ""
+        },
+        "548": {
+          "source": "    c.number",
+          "coverage": ""
+        },
+        "549": {
+          "source": "    &gt;undefined",
           "coverage": ""
         },
         "550": {
-          "source": " * Bad things can happen if non primitives are placed on the ",
+          "source": "    C.number",
           "coverage": ""
         },
         "551": {
-          "source": " * prototype and instance sharing is not wanted.  Using statics",
-          "coverage": ""
-        },
-        "552": {
-          "source": " * prevent subclasses and instances from unknowingly modifying",
-          "coverage": ""
-        },
-        "553": {
-          "source": " * all instances.",
-          "coverage": ""
-        },
-        "554": {
-          "source": " * ",
-          "coverage": ""
-        },
-        "555": {
-          "source": "    var C = Luc.define({",
-          "coverage": ""
-        },
-        "556": {
-          "source": "        cfg: {",
-          "coverage": ""
-        },
-        "557": {
-          "source": "            a: 1",
-          "coverage": ""
-        },
-        "558": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "559": {
-          "source": "    });",
-          "coverage": ""
-        },
-        "560": {
-          "source": "",
-          "coverage": ""
-        },
-        "561": {
-          "source": "    var c = new C();",
-          "coverage": ""
-        },
-        "562": {
-          "source": "    c.cfg.a",
-          "coverage": ""
-        },
-        "563": {
           "source": "    &gt;1",
           "coverage": ""
         },
-        "564": {
-          "source": "    c.cfg.a = 5",
+        "552": {
+          "source": "    ",
           "coverage": ""
         },
-        "565": {
-          "source": "    new C().cfg.a",
-          "coverage": ""
-        },
-        "566": {
-          "source": "    &gt;5",
-          "coverage": ""
-        },
-        "567": {
+        "553": {
           "source": " *",
           "coverage": ""
         },
-        "568": {
-          "source": " */",
+        "554": {
+          "source": " * Bad things can happen if non primitives are placed on the ",
           "coverage": ""
         },
-        "569": {
-          "source": "",
+        "555": {
+          "source": " * prototype and instance sharing is not wanted.  Using statics",
           "coverage": ""
         },
-        "570": {
-          "source": "/**",
+        "556": {
+          "source": " * prevent subclasses and instances from unknowingly modifying",
           "coverage": ""
         },
-        "571": {
-          "source": " * @property {Function} [$superclass] If $super is defined it",
+        "557": {
+          "source": " * all instances.",
           "coverage": ""
         },
-        "572": {
-          "source": " * will the prototype of $super.  It can be used to call parent's",
-          "coverage": ""
-        },
-        "573": {
-          "source": " * method",
-          "coverage": ""
-        },
-        "574": {
+        "558": {
           "source": " * ",
           "coverage": ""
         },
-        "575": {
-          "source": "    function MyCoolClass() {}",
-          "coverage": ""
-        },
-        "576": {
-          "source": "    MyCoolClass.prototype.addNums = function(a,b) {",
-          "coverage": ""
-        },
-        "577": {
-          "source": "        return a + b;",
-          "coverage": ""
-        },
-        "578": {
-          "source": "    }",
-          "coverage": ""
-        },
-        "579": {
-          "source": "",
-          "coverage": ""
-        },
-        "580": {
-          "source": "    var MyOtherCoolClass = Luc.define({",
-          "coverage": ""
-        },
-        "581": {
-          "source": "        $super: MyCoolClass,",
-          "coverage": ""
-        },
-        "582": {
-          "source": "        addNums: function(a, b, c) {",
-          "coverage": ""
-        },
-        "583": {
-          "source": "            return this.$superclass.addNums.call(this, a, b) + c;",
-          "coverage": ""
-        },
-        "584": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "585": {
-          "source": "    })",
-          "coverage": ""
-        },
-        "586": {
-          "source": "",
-          "coverage": ""
-        },
-        "587": {
-          "source": "    var m = new MyOtherCoolClass();",
-          "coverage": ""
-        },
-        "588": {
-          "source": "    m.addNums(1,2,3);",
-          "coverage": ""
-        },
-        "589": {
-          "source": "    &gt;6",
-          "coverage": ""
-        },
-        "590": {
-          "source": " */",
-          "coverage": ""
-        },
-        "591": {
-          "source": "",
-          "coverage": ""
-        },
-        "592": {
-          "source": "/**",
-          "coverage": ""
-        },
-        "593": {
-          "source": " * @cfg {Object/Constructor/Object[]/Constructor[]} $mixins (optional)  Mixins are a way to add functionality",
-          "coverage": ""
-        },
-        "594": {
-          "source": " * to a class that should not add state to the instance unknowingly.  Mixins can be either objects or Constructors.",
-          "coverage": ""
-        },
-        "595": {
-          "source": " *",
-          "coverage": ""
-        },
-        "596": {
-          "source": "    function Logger() {}",
-          "coverage": ""
-        },
-        "597": {
-          "source": "    Logger.prototype.log = function() {",
-          "coverage": ""
-        },
-        "598": {
-          "source": "        console.log(arguments)",
-          "coverage": ""
-        },
-        "599": {
-          "source": "    }",
-          "coverage": ""
-        },
-        "600": {
-          "source": "",
-          "coverage": ""
-        },
-        "601": {
+        "559": {
           "source": "    var C = Luc.define({",
           "coverage": ""
         },
-        "602": {
-          "source": "        $mixins: [Logger, {",
+        "560": {
+          "source": "        cfg: {",
           "coverage": ""
         },
-        "603": {
-          "source": "            warn: function() {",
+        "561": {
+          "source": "            a: 1",
           "coverage": ""
         },
-        "604": {
-          "source": "                console.warn(arguments)",
-          "coverage": ""
-        },
-        "605": {
-          "source": "            }",
-          "coverage": ""
-        },
-        "606": {
-          "source": "        }]",
-          "coverage": ""
-        },
-        "607": {
-          "source": "    });",
-          "coverage": ""
-        },
-        "608": {
-          "source": "",
-          "coverage": ""
-        },
-        "609": {
-          "source": "    var c = new C();",
-          "coverage": ""
-        },
-        "610": {
-          "source": "",
-          "coverage": ""
-        },
-        "611": {
-          "source": "    c.log(1,2)",
-          "coverage": ""
-        },
-        "612": {
-          "source": "    &gt;[1,2]",
-          "coverage": ""
-        },
-        "613": {
-          "source": "",
-          "coverage": ""
-        },
-        "614": {
-          "source": "    c.warn(3,4)",
-          "coverage": ""
-        },
-        "615": {
-          "source": "    &gt;[3,4]",
-          "coverage": ""
-        },
-        "616": {
-          "source": " *",
-          "coverage": ""
-        },
-        "617": {
-          "source": " */",
-          "coverage": ""
-        },
-        "618": {
-          "source": "/**",
-          "coverage": ""
-        },
-        "619": {
-          "source": " * @cfg {Constructor} $super (optional)  super for the defining class.  By Luc.Base",
-          "coverage": ""
-        },
-        "620": {
-          "source": " * is the default if super is not passed in.  To define a class without a superclass",
-          "coverage": ""
-        },
-        "621": {
-          "source": " * you can pass in false or null.",
-          "coverage": ""
-        },
-        "622": {
-          "source": " *",
-          "coverage": ""
-        },
-        "623": {
-          "source": "     function Counter() {",
-          "coverage": ""
-        },
-        "624": {
-          "source": "        this.count = 0;",
-          "coverage": ""
-        },
-        "625": {
-          "source": "     };",
-          "coverage": ""
-        },
-        "626": {
-          "source": "",
-          "coverage": ""
-        },
-        "627": {
-          "source": "     Counter.prototype = {",
-          "coverage": ""
-        },
-        "628": {
-          "source": "        getCount: function() {",
-          "coverage": ""
-        },
-        "629": {
-          "source": "            return this.count;",
-          "coverage": ""
-        },
-        "630": {
-          "source": "        },",
-          "coverage": ""
-        },
-        "631": {
-          "source": "        increaseCount: function() {",
-          "coverage": ""
-        },
-        "632": {
-          "source": "            this.count++;",
-          "coverage": ""
-        },
-        "633": {
+        "562": {
           "source": "        }",
           "coverage": ""
         },
-        "634": {
-          "source": "     }",
+        "563": {
+          "source": "    });",
           "coverage": ""
         },
-        "635": {
+        "564": {
           "source": "",
           "coverage": ""
         },
+        "565": {
+          "source": "    var c = new C();",
+          "coverage": ""
+        },
+        "566": {
+          "source": "    c.cfg.a",
+          "coverage": ""
+        },
+        "567": {
+          "source": "    &gt;1",
+          "coverage": ""
+        },
+        "568": {
+          "source": "    c.cfg.a = 5",
+          "coverage": ""
+        },
+        "569": {
+          "source": "    new C().cfg.a",
+          "coverage": ""
+        },
+        "570": {
+          "source": "    &gt;5",
+          "coverage": ""
+        },
+        "571": {
+          "source": " *",
+          "coverage": ""
+        },
+        "572": {
+          "source": " */",
+          "coverage": ""
+        },
+        "573": {
+          "source": "",
+          "coverage": ""
+        },
+        "574": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "575": {
+          "source": " * @property {Function} [$superclass] If $super is defined it",
+          "coverage": ""
+        },
+        "576": {
+          "source": " * will the prototype of $super.  It can be used to call parent's",
+          "coverage": ""
+        },
+        "577": {
+          "source": " * method",
+          "coverage": ""
+        },
+        "578": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "579": {
+          "source": "    function MyCoolClass() {}",
+          "coverage": ""
+        },
+        "580": {
+          "source": "    MyCoolClass.prototype.addNums = function(a,b) {",
+          "coverage": ""
+        },
+        "581": {
+          "source": "        return a + b;",
+          "coverage": ""
+        },
+        "582": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "583": {
+          "source": "",
+          "coverage": ""
+        },
+        "584": {
+          "source": "    var MyOtherCoolClass = Luc.define({",
+          "coverage": ""
+        },
+        "585": {
+          "source": "        $super: MyCoolClass,",
+          "coverage": ""
+        },
+        "586": {
+          "source": "        addNums: function(a, b, c) {",
+          "coverage": ""
+        },
+        "587": {
+          "source": "            return this.$superclass.addNums.call(this, a, b) + c;",
+          "coverage": ""
+        },
+        "588": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "589": {
+          "source": "    })",
+          "coverage": ""
+        },
+        "590": {
+          "source": "",
+          "coverage": ""
+        },
+        "591": {
+          "source": "    var m = new MyOtherCoolClass();",
+          "coverage": ""
+        },
+        "592": {
+          "source": "    m.addNums(1,2,3);",
+          "coverage": ""
+        },
+        "593": {
+          "source": "    &gt;6",
+          "coverage": ""
+        },
+        "594": {
+          "source": " */",
+          "coverage": ""
+        },
+        "595": {
+          "source": "",
+          "coverage": ""
+        },
+        "596": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "597": {
+          "source": " * @cfg {Object/Constructor/Object[]/Constructor[]} $mixins (optional)  Mixins are a way to add functionality",
+          "coverage": ""
+        },
+        "598": {
+          "source": " * to a class that should not add state to the instance unknowingly.  Mixins can be either objects or Constructors.",
+          "coverage": ""
+        },
+        "599": {
+          "source": " *",
+          "coverage": ""
+        },
+        "600": {
+          "source": "    function Logger() {}",
+          "coverage": ""
+        },
+        "601": {
+          "source": "    Logger.prototype.log = function() {",
+          "coverage": ""
+        },
+        "602": {
+          "source": "        console.log(arguments)",
+          "coverage": ""
+        },
+        "603": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "604": {
+          "source": "",
+          "coverage": ""
+        },
+        "605": {
+          "source": "    var C = Luc.define({",
+          "coverage": ""
+        },
+        "606": {
+          "source": "        $mixins: [Logger, {",
+          "coverage": ""
+        },
+        "607": {
+          "source": "            warn: function() {",
+          "coverage": ""
+        },
+        "608": {
+          "source": "                console.warn(arguments)",
+          "coverage": ""
+        },
+        "609": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "610": {
+          "source": "        }]",
+          "coverage": ""
+        },
+        "611": {
+          "source": "    });",
+          "coverage": ""
+        },
+        "612": {
+          "source": "",
+          "coverage": ""
+        },
+        "613": {
+          "source": "    var c = new C();",
+          "coverage": ""
+        },
+        "614": {
+          "source": "",
+          "coverage": ""
+        },
+        "615": {
+          "source": "    c.log(1,2)",
+          "coverage": ""
+        },
+        "616": {
+          "source": "    &gt;[1,2]",
+          "coverage": ""
+        },
+        "617": {
+          "source": "",
+          "coverage": ""
+        },
+        "618": {
+          "source": "    c.warn(3,4)",
+          "coverage": ""
+        },
+        "619": {
+          "source": "    &gt;[3,4]",
+          "coverage": ""
+        },
+        "620": {
+          "source": " *",
+          "coverage": ""
+        },
+        "621": {
+          "source": " */",
+          "coverage": ""
+        },
+        "622": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "623": {
+          "source": " * @cfg {Constructor} $super (optional)  super for the defining class.  By Luc.Base",
+          "coverage": ""
+        },
+        "624": {
+          "source": " * is the default if super is not passed in.  To define a class without a superclass",
+          "coverage": ""
+        },
+        "625": {
+          "source": " * you can pass in false or null.",
+          "coverage": ""
+        },
+        "626": {
+          "source": " *",
+          "coverage": ""
+        },
+        "627": {
+          "source": "     function Counter() {",
+          "coverage": ""
+        },
+        "628": {
+          "source": "        this.count = 0;",
+          "coverage": ""
+        },
+        "629": {
+          "source": "     };",
+          "coverage": ""
+        },
+        "630": {
+          "source": "",
+          "coverage": ""
+        },
+        "631": {
+          "source": "     Counter.prototype = {",
+          "coverage": ""
+        },
+        "632": {
+          "source": "        getCount: function() {",
+          "coverage": ""
+        },
+        "633": {
+          "source": "            return this.count;",
+          "coverage": ""
+        },
+        "634": {
+          "source": "        },",
+          "coverage": ""
+        },
+        "635": {
+          "source": "        increaseCount: function() {",
+          "coverage": ""
+        },
         "636": {
-          "source": "     var C = Luc.define({",
+          "source": "            this.count++;",
           "coverage": ""
         },
         "637": {
-          "source": "        $super:Counter",
+          "source": "        }",
           "coverage": ""
         },
         "638": {
-          "source": "    });",
+          "source": "     }",
           "coverage": ""
         },
         "639": {
@@ -6730,666 +6734,694 @@
           "coverage": ""
         },
         "640": {
-          "source": "    var c = new C()",
+          "source": "     var C = Luc.define({",
           "coverage": ""
         },
         "641": {
-          "source": "",
+          "source": "        $super:Counter",
           "coverage": ""
         },
         "642": {
-          "source": "    c instanceof Counter",
+          "source": "    });",
           "coverage": ""
         },
         "643": {
-          "source": "    &gt;true",
+          "source": "",
           "coverage": ""
         },
         "644": {
-          "source": "    c.increaseCount();",
+          "source": "    var c = new C()",
           "coverage": ""
         },
         "645": {
-          "source": "    c.getCount();",
+          "source": "",
           "coverage": ""
         },
         "646": {
-          "source": "    &gt;1",
+          "source": "    c instanceof Counter",
           "coverage": ""
         },
         "647": {
-          "source": "    c.count",
+          "source": "    &gt;true",
           "coverage": ""
         },
         "648": {
-          "source": "    &gt;1",
+          "source": "    c.increaseCount();",
           "coverage": ""
         },
         "649": {
-          "source": " *",
+          "source": "    c.getCount();",
           "coverage": ""
         },
         "650": {
-          "source": " * Check out Luc.Base to see why we have it as the default.",
-          "coverage": ""
-        },
-        "651": {
-          "source": " * ",
-          "coverage": ""
-        },
-        "652": {
-          "source": "    var B = Luc.define({",
-          "coverage": ""
-        },
-        "653": {
-          "source": "        amIALucBase: function() {",
-          "coverage": ""
-        },
-        "654": {
-          "source": "            return this instanceof Luc.Base",
-          "coverage": ""
-        },
-        "655": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "656": {
-          "source": "    })",
-          "coverage": ""
-        },
-        "657": {
-          "source": "    var b = new B();",
-          "coverage": ""
-        },
-        "658": {
-          "source": "    b.amIALucBase();",
-          "coverage": ""
-        },
-        "659": {
-          "source": "    &gt;true",
-          "coverage": ""
-        },
-        "660": {
-          "source": " *",
-          "coverage": ""
-        },
-        "661": {
-          "source": " * ",
-          "coverage": ""
-        },
-        "662": {
-          "source": " */",
-          "coverage": ""
-        },
-        "663": {
-          "source": "",
-          "coverage": ""
-        },
-        "664": {
-          "source": "",
-          "coverage": ""
-        },
-        "665": {
-          "source": "",
-          "coverage": ""
-        },
-        "666": {
-          "source": "/**",
-          "coverage": ""
-        },
-        "667": {
-          "source": " * @cfg {Object/Object[]} $compositions (optional) config objects for ",
-          "coverage": ""
-        },
-        "668": {
-          "source": " * Luc.Composition.  Compositions are a great way to add behavior to a class",
-          "coverage": ""
-        },
-        "669": {
-          "source": " * without extending it.  A $mixin can offer similar functionality but should",
-          "coverage": ""
-        },
-        "670": {
-          "source": " * be stateless.  A Constructor and a name are needed for the config object",
-          "coverage": ""
-        },
-        "671": {
-          "source": " * The methods property is optional here but it is saying take all of ",
-          "coverage": ""
-        },
-        "672": {
-          "source": " * Luc.EventEmitter's instance methods and make them instance methods for C.",
-          "coverage": ""
-        },
-        "673": {
-          "source": " * You can check out all of the config options by looking at Luc.Composition.",
-          "coverage": ""
-        },
-        "674": {
-          "source": " * ",
-          "coverage": ""
-        },
-        "675": {
-          "source": "        var C = Luc.define({",
-          "coverage": ""
-        },
-        "676": {
-          "source": "            $compositions: {",
-          "coverage": ""
-        },
-        "677": {
-          "source": "                Constructor: Luc.EventEmitter,",
-          "coverage": ""
-        },
-        "678": {
-          "source": "                name: 'emitter',",
-          "coverage": ""
-        },
-        "679": {
-          "source": "                methods: 'allMethods'",
-          "coverage": ""
-        },
-        "680": {
-          "source": "            }",
-          "coverage": ""
-        },
-        "681": {
-          "source": "        });",
-          "coverage": ""
-        },
-        "682": {
-          "source": "",
-          "coverage": ""
-        },
-        "683": {
-          "source": "        var c = new C();",
-          "coverage": ""
-        },
-        "684": {
-          "source": "",
-          "coverage": ""
-        },
-        "685": {
-          "source": "        c.on('hey', function() {",
-          "coverage": ""
-        },
-        "686": {
-          "source": "            console.log(arguments);",
-          "coverage": ""
-        },
-        "687": {
-          "source": "        });",
-          "coverage": ""
-        },
-        "688": {
-          "source": "",
-          "coverage": ""
-        },
-        "689": {
-          "source": "        c.emit('hey', 1,2,3, 'a');",
-          "coverage": ""
-        },
-        "690": {
-          "source": "        &gt;[1, 2, 3, \"a\"]",
-          "coverage": ""
-        },
-        "691": {
-          "source": "        c instanceof Luc.EventEmitter",
-          "coverage": ""
-        },
-        "692": {
-          "source": "        &gt;false",
-          "coverage": ""
-        },
-        "693": {
-          "source": "        c._events",
-          "coverage": ""
-        },
-        "694": {
-          "source": "        &gt;undefined",
-          "coverage": ""
-        },
-        "695": {
-          "source": " *",
-          "coverage": ""
-        },
-        "696": {
-          "source": " * Luc.EventEmitter is preferred as a composition over a mixin because",
-          "coverage": ""
-        },
-        "697": {
-          "source": " * it adds a state \"_events\" to the this instance when on is called.  It",
-          "coverage": ""
-        },
-        "698": {
-          "source": " * also shouldn't have to know that it may be instantiated alone or mixed into classes",
-          "coverage": ""
-        },
-        "699": {
-          "source": " * so the initing of state is not done in the constructor like it probably should.",
-          "coverage": ""
-        },
-        "700": {
-          "source": " * It is not terrible practice by any means but it is not good to have a standalone class",
-          "coverage": ""
-        },
-        "701": {
-          "source": " * that knows that it may be mixin.  Even worse than that would be a mixin that needs",
-          "coverage": ""
-        },
-        "702": {
-          "source": " * to be inited by the defining class.  Encapsulating logic in a class",
-          "coverage": ""
-        },
-        "703": {
-          "source": " * and using it anywhere seamlessly is where compositions shine. Luc comes with two common ",
-          "coverage": ""
-        },
-        "704": {
-          "source": " * {@link Luc#compositionEnums enums} that we expect will be used often.",
-          "coverage": ""
-        },
-        "705": {
-          "source": " * ",
-          "coverage": ""
-        },
-        "706": {
-          "source": " * &lt;br&gt;",
-          "coverage": ""
-        },
-        "707": {
-          "source": " * Here is an example of a simple composition see how the functionality ",
-          "coverage": ""
-        },
-        "708": {
-          "source": " * is added but we are not inheriting and this.count is",
-          "coverage": ""
-        },
-        "709": {
-          "source": " * undefined.",
-          "coverage": ""
-        },
-        "710": {
-          "source": " *",
-          "coverage": ""
-        },
-        "711": {
-          "source": "         function Counter() {",
-          "coverage": ""
-        },
-        "712": {
-          "source": "            this.count = 0;",
-          "coverage": ""
-        },
-        "713": {
-          "source": "         };",
-          "coverage": ""
-        },
-        "714": {
-          "source": "",
-          "coverage": ""
-        },
-        "715": {
-          "source": "         Counter.prototype = {",
-          "coverage": ""
-        },
-        "716": {
-          "source": "            getCount: function() {",
-          "coverage": ""
-        },
-        "717": {
-          "source": "                return this.count;",
-          "coverage": ""
-        },
-        "718": {
-          "source": "            },",
-          "coverage": ""
-        },
-        "719": {
-          "source": "            increaseCount: function() {",
-          "coverage": ""
-        },
-        "720": {
-          "source": "                this.count++;",
-          "coverage": ""
-        },
-        "721": {
-          "source": "            }",
-          "coverage": ""
-        },
-        "722": {
-          "source": "         }",
-          "coverage": ""
-        },
-        "723": {
-          "source": "",
-          "coverage": ""
-        },
-        "724": {
-          "source": "         var C = Luc.define({",
-          "coverage": ""
-        },
-        "725": {
-          "source": "                $compositions: {",
-          "coverage": ""
-        },
-        "726": {
-          "source": "                    name: 'counter',",
-          "coverage": ""
-        },
-        "727": {
-          "source": "                    Constructor: Counter,",
-          "coverage": ""
-        },
-        "728": {
-          "source": "                    methods: 'allMethods'",
-          "coverage": ""
-        },
-        "729": {
-          "source": "                }",
-          "coverage": ""
-        },
-        "730": {
-          "source": "        });",
-          "coverage": ""
-        },
-        "731": {
-          "source": "",
-          "coverage": ""
-        },
-        "732": {
-          "source": "        var c = new C()",
-          "coverage": ""
-        },
-        "733": {
-          "source": "",
-          "coverage": ""
-        },
-        "734": {
-          "source": "        c.increaseCount();",
-          "coverage": ""
-        },
-        "735": {
-          "source": "        c.increaseCount();",
-          "coverage": ""
-        },
-        "736": {
-          "source": "        c.increaseCount();",
-          "coverage": ""
-        },
-        "737": {
-          "source": "        c.getCount();",
-          "coverage": ""
-        },
-        "738": {
-          "source": "        &gt;3",
-          "coverage": ""
-        },
-        "739": {
-          "source": "        c.count",
-          "coverage": ""
-        },
-        "740": {
-          "source": "        &gt;undefined",
-          "coverage": ""
-        },
-        "741": {
-          "source": " *",
-          "coverage": ""
-        },
-        "742": {
-          "source": " * Luc comes with two default composition objects Luc.compositionEnums.PluginManager",
-          "coverage": ""
-        },
-        "743": {
-          "source": " * and Luc.compositionEnums.EventEmitter.",
-          "coverage": ""
-        },
-        "744": {
-          "source": " * ",
-          "coverage": ""
-        },
-        "745": {
-          "source": " * Here is the plugin manager enum, keep in mind that this",
-          "coverage": ""
-        },
-        "746": {
-          "source": " * functionality can be added to any class, not just ones defined with ",
-          "coverage": ""
-        },
-        "747": {
-          "source": " * Luc.define.  Check out Luc.PluginManager to see all of the public ",
-          "coverage": ""
-        },
-        "748": {
-          "source": " * methods that gets added to the defined instance.",
-          "coverage": ""
-        },
-        "749": {
-          "source": "   ",
-          "coverage": ""
-        },
-        "750": {
-          "source": "    function MyClass() {};",
-          "coverage": ""
-        },
-        "751": {
-          "source": "",
-          "coverage": ""
-        },
-        "752": {
-          "source": "    function MyPlugin() {",
-          "coverage": ""
-        },
-        "753": {
-          "source": "        this.myCoolName = 'coo';",
-          "coverage": ""
-        },
-        "754": {
-          "source": "",
-          "coverage": ""
-        },
-        "755": {
-          "source": "        this.init = function() {",
-          "coverage": ""
-        },
-        "756": {
-          "source": "            console.log('im getting initted');",
-          "coverage": ""
-        },
-        "757": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "758": {
-          "source": "        this.destroy = function() {",
-          "coverage": ""
-        },
-        "759": {
-          "source": "            console.log('MyPlugin instance being destroyed')",
-          "coverage": ""
-        },
-        "760": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "761": {
-          "source": "    }",
-          "coverage": ""
-        },
-        "762": {
-          "source": "",
-          "coverage": ""
-        },
-        "763": {
-          "source": "    var C = Luc.define({",
-          "coverage": ""
-        },
-        "764": {
-          "source": "        $super: MyClass,",
-          "coverage": ""
-        },
-        "765": {
-          "source": "        $compositions: Luc.compositionEnums.PluginManager",
-          "coverage": ""
-        },
-        "766": {
-          "source": "    });",
-          "coverage": ""
-        },
-        "767": {
-          "source": "",
-          "coverage": ""
-        },
-        "768": {
-          "source": "    var c = new C({",
-          "coverage": ""
-        },
-        "769": {
-          "source": "        plugins: [{",
-          "coverage": ""
-        },
-        "770": {
-          "source": "                Constructor: MyPlugin,",
-          "coverage": ""
-        },
-        "771": {
-          "source": "                myCoolName: 'coo'",
-          "coverage": ""
-        },
-        "772": {
-          "source": "            }",
-          "coverage": ""
-        },
-        "773": {
-          "source": "        ]",
-          "coverage": ""
-        },
-        "774": {
-          "source": "    });",
-          "coverage": ""
-        },
-        "775": {
-          "source": "    &gt;im getting initted",
-          "coverage": ""
-        },
-        "776": {
-          "source": "    c instanceof MyClass",
-          "coverage": ""
-        },
-        "777": {
-          "source": "    &gt;true",
-          "coverage": ""
-        },
-        "778": {
-          "source": "",
-          "coverage": ""
-        },
-        "779": {
-          "source": "    c.getPlugin({myCoolName: 'coo'}) instanceof MyPlugin",
-          "coverage": ""
-        },
-        "780": {
-          "source": "    &gt; true",
-          "coverage": ""
-        },
-        "781": {
-          "source": "",
-          "coverage": ""
-        },
-        "782": {
-          "source": "",
-          "coverage": ""
-        },
-        "783": {
-          "source": "    c.a = 1;",
-          "coverage": ""
-        },
-        "784": {
-          "source": "    //This will be the default Luc.Plugin",
-          "coverage": ""
-        },
-        "785": {
-          "source": "    c.addPlugin({",
-          "coverage": ""
-        },
-        "786": {
-          "source": "        init: function(owner) {",
-          "coverage": ""
-        },
-        "787": {
-          "source": "            console.log(owner.a)",
-          "coverage": ""
-        },
-        "788": {
-          "source": "        },",
-          "coverage": ""
-        },
-        "789": {
-          "source": "        destroy: function() {",
-          "coverage": ""
-        },
-        "790": {
-          "source": "            console.log('Im getting destroyed')",
-          "coverage": ""
-        },
-        "791": {
-          "source": "        }",
-          "coverage": ""
-        },
-        "792": {
-          "source": "    });",
-          "coverage": ""
-        },
-        "793": {
-          "source": "",
-          "coverage": ""
-        },
-        "794": {
           "source": "    &gt;1",
           "coverage": ""
         },
-        "795": {
-          "source": "",
+        "651": {
+          "source": "    c.count",
           "coverage": ""
         },
-        "796": {
-          "source": "    c.destroyAllPlugins();",
+        "652": {
+          "source": "    &gt;1",
           "coverage": ""
         },
-        "797": {
-          "source": "    &gt;MyPlugin instance being destroyed",
-          "coverage": ""
-        },
-        "798": {
-          "source": "    &gt;I'm getting destroyed.",
-          "coverage": ""
-        },
-        "799": {
-          "source": "",
-          "coverage": ""
-        },
-        "800": {
-          "source": "    c.getPlugin({myCoolName: 'coo'})",
-          "coverage": ""
-        },
-        "801": {
-          "source": "    &gt;false",
-          "coverage": ""
-        },
-        "802": {
+        "653": {
           "source": " *",
           "coverage": ""
         },
+        "654": {
+          "source": " * Check out Luc.Base to see why we have it as the default.",
+          "coverage": ""
+        },
+        "655": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "656": {
+          "source": "    var B = Luc.define({",
+          "coverage": ""
+        },
+        "657": {
+          "source": "        amIALucBase: function() {",
+          "coverage": ""
+        },
+        "658": {
+          "source": "            return this instanceof Luc.Base",
+          "coverage": ""
+        },
+        "659": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "660": {
+          "source": "    })",
+          "coverage": ""
+        },
+        "661": {
+          "source": "    var b = new B();",
+          "coverage": ""
+        },
+        "662": {
+          "source": "    b.amIALucBase();",
+          "coverage": ""
+        },
+        "663": {
+          "source": "    &gt;true",
+          "coverage": ""
+        },
+        "664": {
+          "source": " *",
+          "coverage": ""
+        },
+        "665": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "666": {
+          "source": " */",
+          "coverage": ""
+        },
+        "667": {
+          "source": "",
+          "coverage": ""
+        },
+        "668": {
+          "source": "",
+          "coverage": ""
+        },
+        "669": {
+          "source": "",
+          "coverage": ""
+        },
+        "670": {
+          "source": "/**",
+          "coverage": ""
+        },
+        "671": {
+          "source": " * @cfg {Object/Object[]} $compositions (optional) config objects for ",
+          "coverage": ""
+        },
+        "672": {
+          "source": " * Luc.Composition.  Compositions are a great way to add behavior to a class",
+          "coverage": ""
+        },
+        "673": {
+          "source": " * without extending it.  A {@link Luc.define#$mixins mixin} can offer similar functionality but should",
+          "coverage": ""
+        },
+        "674": {
+          "source": " * not be adding an unneeded state.  A Constructor and a name are needed for the config object.",
+          "coverage": ""
+        },
+        "675": {
+          "source": " *  Using this config adds the {@link Luc.define#getComposition getComposition}",
+          "coverage": ""
+        },
+        "676": {
+          "source": " * method to instances.",
+          "coverage": ""
+        },
+        "677": {
+          "source": " * &lt;br&gt;",
+          "coverage": ""
+        },
+        "678": {
+          "source": " * The methods property is optional here but it is saying take all of ",
+          "coverage": ""
+        },
+        "679": {
+          "source": " * Luc.EventEmitter's instance methods and make them instance methods for C.",
+          "coverage": ""
+        },
+        "680": {
+          "source": " * You can check out all of the config options by looking at Luc.Composition.",
+          "coverage": ""
+        },
+        "681": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "682": {
+          "source": "        var C = Luc.define({",
+          "coverage": ""
+        },
+        "683": {
+          "source": "            $compositions: {",
+          "coverage": ""
+        },
+        "684": {
+          "source": "                Constructor: Luc.EventEmitter,",
+          "coverage": ""
+        },
+        "685": {
+          "source": "                name: 'emitter',",
+          "coverage": ""
+        },
+        "686": {
+          "source": "                methods: 'allMethods'",
+          "coverage": ""
+        },
+        "687": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "688": {
+          "source": "        });",
+          "coverage": ""
+        },
+        "689": {
+          "source": "",
+          "coverage": ""
+        },
+        "690": {
+          "source": "        var c = new C();",
+          "coverage": ""
+        },
+        "691": {
+          "source": "",
+          "coverage": ""
+        },
+        "692": {
+          "source": "        c.on('hey', function() {",
+          "coverage": ""
+        },
+        "693": {
+          "source": "            console.log(arguments);",
+          "coverage": ""
+        },
+        "694": {
+          "source": "        });",
+          "coverage": ""
+        },
+        "695": {
+          "source": "",
+          "coverage": ""
+        },
+        "696": {
+          "source": "        c.emit('hey', 1,2,3, 'a');",
+          "coverage": ""
+        },
+        "697": {
+          "source": "        &gt;[1, 2, 3, \"a\"]",
+          "coverage": ""
+        },
+        "698": {
+          "source": "        c instanceof Luc.EventEmitter",
+          "coverage": ""
+        },
+        "699": {
+          "source": "        &gt;false",
+          "coverage": ""
+        },
+        "700": {
+          "source": "        c._events",
+          "coverage": ""
+        },
+        "701": {
+          "source": "        &gt;undefined",
+          "coverage": ""
+        },
+        "702": {
+          "source": " *",
+          "coverage": ""
+        },
+        "703": {
+          "source": " * Luc.EventEmitter is preferred as a composition over a mixin because",
+          "coverage": ""
+        },
+        "704": {
+          "source": " * it adds a state \"_events\" to the this instance when on is called.  It",
+          "coverage": ""
+        },
+        "705": {
+          "source": " * also shouldn't have to know that it may be instantiated alone or mixed into classes",
+          "coverage": ""
+        },
+        "706": {
+          "source": " * so the initing of state is not done in the constructor like it probably should.",
+          "coverage": ""
+        },
+        "707": {
+          "source": " * It is not terrible practice by any means but it is not good to have a standalone class",
+          "coverage": ""
+        },
+        "708": {
+          "source": " * that knows that it may be mixin.  Even worse than that would be a mixin that needs",
+          "coverage": ""
+        },
+        "709": {
+          "source": " * to be inited by the defining class.  Encapsulating logic in a class",
+          "coverage": ""
+        },
+        "710": {
+          "source": " * and using it anywhere seamlessly is where compositions shine. Luc comes with two common ",
+          "coverage": ""
+        },
+        "711": {
+          "source": " * {@link Luc#compositionEnums enums} that we expect will be used often.",
+          "coverage": ""
+        },
+        "712": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "713": {
+          "source": " * &lt;br&gt;",
+          "coverage": ""
+        },
+        "714": {
+          "source": " * Here is an example of a simple composition see how the functionality ",
+          "coverage": ""
+        },
+        "715": {
+          "source": " * is added but we are not inheriting and this.count is",
+          "coverage": ""
+        },
+        "716": {
+          "source": " * undefined.",
+          "coverage": ""
+        },
+        "717": {
+          "source": " *",
+          "coverage": ""
+        },
+        "718": {
+          "source": "         function Counter() {",
+          "coverage": ""
+        },
+        "719": {
+          "source": "            this.count = 0;",
+          "coverage": ""
+        },
+        "720": {
+          "source": "         };",
+          "coverage": ""
+        },
+        "721": {
+          "source": "",
+          "coverage": ""
+        },
+        "722": {
+          "source": "         Counter.prototype = {",
+          "coverage": ""
+        },
+        "723": {
+          "source": "            getCount: function() {",
+          "coverage": ""
+        },
+        "724": {
+          "source": "                return this.count;",
+          "coverage": ""
+        },
+        "725": {
+          "source": "            },",
+          "coverage": ""
+        },
+        "726": {
+          "source": "            increaseCount: function() {",
+          "coverage": ""
+        },
+        "727": {
+          "source": "                this.count++;",
+          "coverage": ""
+        },
+        "728": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "729": {
+          "source": "         }",
+          "coverage": ""
+        },
+        "730": {
+          "source": "",
+          "coverage": ""
+        },
+        "731": {
+          "source": "         var C = Luc.define({",
+          "coverage": ""
+        },
+        "732": {
+          "source": "                $compositions: {",
+          "coverage": ""
+        },
+        "733": {
+          "source": "                    name: 'counter',",
+          "coverage": ""
+        },
+        "734": {
+          "source": "                    Constructor: Counter,",
+          "coverage": ""
+        },
+        "735": {
+          "source": "                    methods: 'allMethods'",
+          "coverage": ""
+        },
+        "736": {
+          "source": "                }",
+          "coverage": ""
+        },
+        "737": {
+          "source": "        });",
+          "coverage": ""
+        },
+        "738": {
+          "source": "",
+          "coverage": ""
+        },
+        "739": {
+          "source": "        var c = new C()",
+          "coverage": ""
+        },
+        "740": {
+          "source": "",
+          "coverage": ""
+        },
+        "741": {
+          "source": "        c.increaseCount();",
+          "coverage": ""
+        },
+        "742": {
+          "source": "        c.increaseCount();",
+          "coverage": ""
+        },
+        "743": {
+          "source": "        c.increaseCount();",
+          "coverage": ""
+        },
+        "744": {
+          "source": "        c.getCount();",
+          "coverage": ""
+        },
+        "745": {
+          "source": "        &gt;3",
+          "coverage": ""
+        },
+        "746": {
+          "source": "        c.count",
+          "coverage": ""
+        },
+        "747": {
+          "source": "        &gt;undefined",
+          "coverage": ""
+        },
+        "748": {
+          "source": " *",
+          "coverage": ""
+        },
+        "749": {
+          "source": " * Luc comes with two default composition objects Luc.compositionEnums.PluginManager",
+          "coverage": ""
+        },
+        "750": {
+          "source": " * and Luc.compositionEnums.EventEmitter.",
+          "coverage": ""
+        },
+        "751": {
+          "source": " * ",
+          "coverage": ""
+        },
+        "752": {
+          "source": " * Here is the plugin manager enum, keep in mind that this",
+          "coverage": ""
+        },
+        "753": {
+          "source": " * functionality can be added to any class, not just ones defined with ",
+          "coverage": ""
+        },
+        "754": {
+          "source": " * Luc.define.  Check out Luc.PluginManager to see all of the public ",
+          "coverage": ""
+        },
+        "755": {
+          "source": " * methods that gets added to the defined instance.",
+          "coverage": ""
+        },
+        "756": {
+          "source": "   ",
+          "coverage": ""
+        },
+        "757": {
+          "source": "    function MyClass() {};",
+          "coverage": ""
+        },
+        "758": {
+          "source": "",
+          "coverage": ""
+        },
+        "759": {
+          "source": "    function MyPlugin() {",
+          "coverage": ""
+        },
+        "760": {
+          "source": "        this.myCoolName = 'coo';",
+          "coverage": ""
+        },
+        "761": {
+          "source": "",
+          "coverage": ""
+        },
+        "762": {
+          "source": "        this.init = function() {",
+          "coverage": ""
+        },
+        "763": {
+          "source": "            console.log('im getting initted');",
+          "coverage": ""
+        },
+        "764": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "765": {
+          "source": "        this.destroy = function() {",
+          "coverage": ""
+        },
+        "766": {
+          "source": "            console.log('MyPlugin instance being destroyed')",
+          "coverage": ""
+        },
+        "767": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "768": {
+          "source": "    }",
+          "coverage": ""
+        },
+        "769": {
+          "source": "",
+          "coverage": ""
+        },
+        "770": {
+          "source": "    var C = Luc.define({",
+          "coverage": ""
+        },
+        "771": {
+          "source": "        $super: MyClass,",
+          "coverage": ""
+        },
+        "772": {
+          "source": "        $compositions: Luc.compositionEnums.PluginManager",
+          "coverage": ""
+        },
+        "773": {
+          "source": "    });",
+          "coverage": ""
+        },
+        "774": {
+          "source": "",
+          "coverage": ""
+        },
+        "775": {
+          "source": "    var c = new C({",
+          "coverage": ""
+        },
+        "776": {
+          "source": "        plugins: [{",
+          "coverage": ""
+        },
+        "777": {
+          "source": "                Constructor: MyPlugin,",
+          "coverage": ""
+        },
+        "778": {
+          "source": "                myCoolName: 'coo'",
+          "coverage": ""
+        },
+        "779": {
+          "source": "            }",
+          "coverage": ""
+        },
+        "780": {
+          "source": "        ]",
+          "coverage": ""
+        },
+        "781": {
+          "source": "    });",
+          "coverage": ""
+        },
+        "782": {
+          "source": "    &gt;im getting initted",
+          "coverage": ""
+        },
+        "783": {
+          "source": "    c instanceof MyClass",
+          "coverage": ""
+        },
+        "784": {
+          "source": "    &gt;true",
+          "coverage": ""
+        },
+        "785": {
+          "source": "",
+          "coverage": ""
+        },
+        "786": {
+          "source": "    c.getPlugin({myCoolName: 'coo'}) instanceof MyPlugin",
+          "coverage": ""
+        },
+        "787": {
+          "source": "    &gt; true",
+          "coverage": ""
+        },
+        "788": {
+          "source": "",
+          "coverage": ""
+        },
+        "789": {
+          "source": "",
+          "coverage": ""
+        },
+        "790": {
+          "source": "    c.a = 1;",
+          "coverage": ""
+        },
+        "791": {
+          "source": "    //This will be the default Luc.Plugin",
+          "coverage": ""
+        },
+        "792": {
+          "source": "    c.addPlugin({",
+          "coverage": ""
+        },
+        "793": {
+          "source": "        init: function(owner) {",
+          "coverage": ""
+        },
+        "794": {
+          "source": "            console.log(owner.a)",
+          "coverage": ""
+        },
+        "795": {
+          "source": "        },",
+          "coverage": ""
+        },
+        "796": {
+          "source": "        destroy: function() {",
+          "coverage": ""
+        },
+        "797": {
+          "source": "            console.log('Im getting destroyed')",
+          "coverage": ""
+        },
+        "798": {
+          "source": "        }",
+          "coverage": ""
+        },
+        "799": {
+          "source": "    });",
+          "coverage": ""
+        },
+        "800": {
+          "source": "",
+          "coverage": ""
+        },
+        "801": {
+          "source": "    &gt;1",
+          "coverage": ""
+        },
+        "802": {
+          "source": "",
+          "coverage": ""
+        },
         "803": {
-          "source": " * You can see that it can add plugin like behavior to any defining",
+          "source": "    c.destroyAllPlugins();",
           "coverage": ""
         },
         "804": {
-          "source": " * class with Luc.PluginManger which is less than 75 SLOC.",
+          "source": "    &gt;MyPlugin instance being destroyed",
           "coverage": ""
         },
         "805": {
+          "source": "    &gt;I'm getting destroyed.",
+          "coverage": ""
+        },
+        "806": {
+          "source": "",
+          "coverage": ""
+        },
+        "807": {
+          "source": "    c.getPlugin({myCoolName: 'coo'})",
+          "coverage": ""
+        },
+        "808": {
+          "source": "    &gt;false",
+          "coverage": ""
+        },
+        "809": {
+          "source": " *",
+          "coverage": ""
+        },
+        "810": {
+          "source": " * You can see that it can add plugin like behavior to any defining",
+          "coverage": ""
+        },
+        "811": {
+          "source": " * class with Luc.PluginManager which is less than 75 SLOC.",
+          "coverage": ""
+        },
+        "812": {
           "source": " */",
           "coverage": ""
         }
@@ -8518,7 +8550,7 @@
         },
         "46": {
           "source": "    return (is.isObject(val1) &amp;&amp; is.isObject(val2) &amp;&amp; Object.keys(val1).length === Object.keys(val2).length);",
-          "coverage": 24
+          "coverage": 27
         },
         "47": {
           "source": "}",
@@ -8610,7 +8642,7 @@
         },
         "69": {
           "source": "    var key, val;",
-          "coverage": 22
+          "coverage": 25
         },
         "70": {
           "source": "",
@@ -8618,11 +8650,11 @@
         },
         "71": {
           "source": "    if (!_compareObjectKeysLength(val1, val2)) {",
-          "coverage": 22
+          "coverage": 25
         },
         "72": {
           "source": "        return false;",
-          "coverage": 7
+          "coverage": 9
         },
         "73": {
           "source": "    }",
@@ -8634,19 +8666,19 @@
         },
         "75": {
           "source": "    for (key in val1) {",
-          "coverage": 15
+          "coverage": 16
         },
         "76": {
           "source": "        if (val1.hasOwnProperty(key)) {",
-          "coverage": 17
+          "coverage": 18
         },
         "77": {
           "source": "            value = val1[key];",
-          "coverage": 17
+          "coverage": 18
         },
         "78": {
           "source": "            if (!val2.hasOwnProperty(key) || compare(value, val2[key], config) !== true) {",
-          "coverage": 17
+          "coverage": 18
         },
         "79": {
           "source": "                return false;",
@@ -8670,7 +8702,7 @@
         },
         "84": {
           "source": "    return true;",
-          "coverage": 11
+          "coverage": 12
         },
         "85": {
           "source": "",
@@ -8822,11 +8854,11 @@
         },
         "122": {
           "source": "    if(is.isDate(val1) &amp;&amp; is.isDate(val2)) {",
-          "coverage": 18
+          "coverage": 21
         },
         "123": {
           "source": "        return val1.getTime() === val2.getTime();",
-          "coverage": 15
+          "coverage": 16
         },
         "124": {
           "source": "    }",
@@ -8838,7 +8870,7 @@
         },
         "126": {
           "source": "    return false;",
-          "coverage": 3
+          "coverage": 5
         },
         "127": {
           "source": "}",
@@ -8878,7 +8910,7 @@
         },
         "136": {
           "source": "    var compareFn = _strict,",
-          "coverage": 360
+          "coverage": 366
         },
         "137": {
           "source": "        config = c || {},",
@@ -8894,19 +8926,19 @@
         },
         "140": {
           "source": "    if (type === 'deep' || type === 'loose' || type === 'looseRight' || type === undefined) {",
-          "coverage": 360
+          "coverage": 366
         },
         "141": {
           "source": "        if (is.isObject(object)) {",
-          "coverage": 319
+          "coverage": 326
         },
         "142": {
           "source": "            compareFn = type === 'loose' || type === 'looseRight' ? _looseObject : _deepObject;",
-          "coverage": 76
+          "coverage": 79
         },
         "143": {
           "source": "        } else if (is.isArray(object)) {",
-          "coverage": 243
+          "coverage": 247
         },
         "144": {
           "source": "            compareFn = _deepArray;",
@@ -8914,11 +8946,11 @@
         },
         "145": {
           "source": "        } else if (is.isDate(object)) {",
-          "coverage": 218
+          "coverage": 222
         },
         "146": {
           "source": "            compareFn = _date;",
-          "coverage": 15
+          "coverage": 18
         },
         "147": {
           "source": "        }",
@@ -8926,7 +8958,7 @@
         },
         "148": {
           "source": "    } else if (type === 'shallow') {",
-          "coverage": 41
+          "coverage": 40
         },
         "149": {
           "source": "        if (is.isObject(object)) {",
@@ -8958,7 +8990,7 @@
         },
         "156": {
           "source": "    } else if (type !== 'strict') {",
-          "coverage": 35
+          "coverage": 34
         },
         "157": {
           "source": "        //we would be doing a strict comparison on a type-o",
@@ -8982,7 +9014,7 @@
         },
         "162": {
           "source": "    return compareFn;",
-          "coverage": 359
+          "coverage": 365
         },
         "163": {
           "source": "}",
@@ -9186,7 +9218,7 @@
         },
         "213": {
           "source": "    return getCompareFn(val1, config)(val1, val2, config);",
-          "coverage": 360
+          "coverage": 366
         },
         "214": {
           "source": "}",
@@ -9349,9 +9381,9 @@
     },
     {
       "filename": "function.js",
-      "coverage": 97.10144927536231,
-      "hits": 67,
-      "misses": 2,
+      "coverage": 98.55072463768117,
+      "hits": 68,
+      "misses": 1,
       "sloc": 69,
       "source": {
         "1": {
@@ -10600,7 +10632,7 @@
         },
         "312": {
           "source": "    var fn = config ? exports.createAugmenter(f, config) : f,",
-          "coverage": 1
+          "coverage": 2
         },
         "313": {
           "source": "        timeOutId = false;",
@@ -10612,11 +10644,11 @@
         },
         "315": {
           "source": "    if(!millis) {",
-          "coverage": 1
+          "coverage": 2
         },
         "316": {
           "source": "        return fn;",
-          "coverage": 0
+          "coverage": 1
         },
         "317": {
           "source": "    }",
@@ -10978,7 +11010,7 @@
         },
         "12": {
           "source": "    return Array.isArray(obj);",
-          "coverage": 319
+          "coverage": 323
         },
         "13": {
           "source": "}",
@@ -11022,7 +11054,7 @@
         },
         "23": {
           "source": "    return obj &amp;&amp; oToString.call(obj) === '[object Object]';",
-          "coverage": 486
+          "coverage": 499
         },
         "24": {
           "source": "}",
@@ -11066,7 +11098,7 @@
         },
         "34": {
           "source": "    return oToString.call(obj) === '[object Function]';",
-          "coverage": 280
+          "coverage": 281
         },
         "35": {
           "source": "}",
@@ -11110,7 +11142,7 @@
         },
         "45": {
           "source": "    return oToString.call(obj) === '[object Date]';",
-          "coverage": 259
+          "coverage": 269
         },
         "46": {
           "source": "}",
@@ -12867,13 +12899,13 @@
   ],
   "stats": {
     "suites": 7,
-    "tests": 62,
-    "passes": 62,
+    "tests": 106,
+    "passes": 106,
     "pending": 0,
     "failures": 0,
-    "start": "2013-07-05T19:51:59.823Z",
-    "end": "2013-07-05T19:52:00.212Z",
-    "duration": 389
+    "start": "2013-07-09T03:57:47.347Z",
+    "end": "2013-07-09T03:57:47.722Z",
+    "duration": 375
   },
   "tests": [
     {
@@ -12887,69 +12919,229 @@
       "duration": 6
     },
     {
-      "title": "insert",
-      "fullTitle": "Luc Array functions insert",
-      "duration": 26
+      "title": "insert append",
+      "fullTitle": "Luc Array functions insert append",
+      "duration": 4
     },
     {
-      "title": "removeAll",
-      "fullTitle": "Luc Array functions removeAll",
-      "duration": 6
-    },
-    {
-      "title": "removeAllNot",
-      "fullTitle": "Luc Array functions removeAllNot",
-      "duration": 14
-    },
-    {
-      "title": "removeFirst",
-      "fullTitle": "Luc Array functions removeFirst",
-      "duration": 6
-    },
-    {
-      "title": "removeFirstNot",
-      "fullTitle": "Luc Array functions removeFirstNot",
-      "duration": 7
-    },
-    {
-      "title": "findFirst",
-      "fullTitle": "Luc Array functions findFirst",
+      "title": "insert from indexes",
+      "fullTitle": "Luc Array functions insert from indexes",
       "duration": 10
     },
     {
-      "title": "findFirstNot",
-      "fullTitle": "Luc Array functions findFirstNot",
-      "duration": 11
+      "title": "insert arrays are not modified",
+      "fullTitle": "Luc Array functions insert arrays are not modified",
+      "duration": 2
     },
     {
-      "title": "findAll",
-      "fullTitle": "Luc Array functions findAll",
-      "duration": 10
+      "title": "removeAll with single falsy",
+      "fullTitle": "Luc Array functions removeAll with single falsy",
+      "duration": 2
     },
     {
-      "title": "findAllNot",
-      "fullTitle": "Luc Array functions findAllNot",
+      "title": "removeAll all values",
+      "fullTitle": "Luc Array functions removeAll all values",
       "duration": 3
     },
     {
-      "title": "test dynamic array is fns",
-      "fullTitle": "Luc Array functions test dynamic array is fns",
-      "duration": 40
+      "title": "removeAll loose comparison",
+      "fullTitle": "Luc Array functions removeAll loose comparison",
+      "duration": 2
     },
     {
-      "title": "test remove/find with iterator and thisArg",
-      "fullTitle": "Luc Array functions test remove/find with iterator and thisArg",
-      "duration": 5
+      "title": "removeAll deep comparison",
+      "fullTitle": "Luc Array functions removeAll deep comparison",
+      "duration": 2
+    },
+    {
+      "title": "removeAllNot single falsy",
+      "fullTitle": "Luc Array functions removeAllNot single falsy",
+      "duration": 2
+    },
+    {
+      "title": "removeAllNot no matches",
+      "fullTitle": "Luc Array functions removeAllNot no matches",
+      "duration": 3
+    },
+    {
+      "title": "removeAllNot single loose compare",
+      "fullTitle": "Luc Array functions removeAllNot single loose compare",
+      "duration": 1
+    },
+    {
+      "title": "removeFirst first multi array match",
+      "fullTitle": "Luc Array functions removeFirst first multi array match",
+      "duration": 3
+    },
+    {
+      "title": "removeFirst empty array strict",
+      "fullTitle": "Luc Array functions removeFirst empty array strict",
+      "duration": 3
+    },
+    {
+      "title": "removeFirst empty array shallow",
+      "fullTitle": "Luc Array functions removeFirst empty array shallow",
+      "duration": 10
+    },
+    {
+      "title": "removeFirstNot multi array match",
+      "fullTitle": "Luc Array functions removeFirstNot multi array match",
+      "duration": 3
+    },
+    {
+      "title": "removeFirstNot not matches",
+      "fullTitle": "Luc Array functions removeFirstNot not matches",
+      "duration": 1
+    },
+    {
+      "title": "removeFirstNot not strict compare",
+      "fullTitle": "Luc Array functions removeFirstNot not strict compare",
+      "duration": 3
+    },
+    {
+      "title": "findFirst handle loose compare",
+      "fullTitle": "Luc Array functions findFirst handle loose compare",
+      "duration": 1
+    },
+    {
+      "title": "findFirst strict compare",
+      "fullTitle": "Luc Array functions findFirst strict compare",
+      "duration": 1
+    },
+    {
+      "title": "findFirst match all props",
+      "fullTitle": "Luc Array functions findFirst match all props",
+      "duration": 1
+    },
+    {
+      "title": "findFirst all falsys",
+      "fullTitle": "Luc Array functions findFirst all falsys",
+      "duration": 2
+    },
+    {
+      "title": "findFirst dates",
+      "fullTitle": "Luc Array functions findFirst dates",
+      "duration": 1
+    },
+    {
+      "title": "findFirst strict and shallow dates",
+      "fullTitle": "Luc Array functions findFirst strict and shallow dates",
+      "duration": 2
+    },
+    {
+      "title": "findFirstNot matching first key value",
+      "fullTitle": "Luc Array functions findFirstNot matching first key value",
+      "duration": 1
+    },
+    {
+      "title": "findFirstNot falsys",
+      "fullTitle": "Luc Array functions findFirstNot falsys",
+      "duration": 2
+    },
+    {
+      "title": "findFirstNot primitives and non-primitives",
+      "fullTitle": "Luc Array functions findFirstNot primitives and non-primitives",
+      "duration": 1
+    },
+    {
+      "title": "findAll find exact object keys",
+      "fullTitle": "Luc Array functions findAll find exact object keys",
+      "duration": 3
+    },
+    {
+      "title": "findAll find exact array values",
+      "fullTitle": "Luc Array functions findAll find exact array values",
+      "duration": 11
+    },
+    {
+      "title": "findAll falsy values",
+      "fullTitle": "Luc Array functions findAll falsy values",
+      "duration": 3
+    },
+    {
+      "title": "findAll date values",
+      "fullTitle": "Luc Array functions findAll date values",
+      "duration": 0
+    },
+    {
+      "title": "findAllNot match all keys",
+      "fullTitle": "Luc Array functions findAllNot match all keys",
+      "duration": 0
+    },
+    {
+      "title": "findAllNot falsy values",
+      "fullTitle": "Luc Array functions findAllNot falsy values",
+      "duration": 3
+    },
+    {
+      "title": "dynamic findFirstNot",
+      "fullTitle": "Luc Array functions dynamic findFirstNot",
+      "duration": 2
+    },
+    {
+      "title": "dynamic findAllNot",
+      "fullTitle": "Luc Array functions dynamic findAllNot",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeFirstNot",
+      "fullTitle": "Luc Array functions dynamic removeFirstNot",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeAllNot",
+      "fullTitle": "Luc Array functions dynamic removeAllNot",
+      "duration": 10
+    },
+    {
+      "title": "dynamic removeFirst",
+      "fullTitle": "Luc Array functions dynamic removeFirst",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeAll",
+      "fullTitle": "Luc Array functions dynamic removeAll",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeLastNot",
+      "fullTitle": "Luc Array functions dynamic removeLastNot",
+      "duration": 2
+    },
+    {
+      "title": "dynamic removeLast",
+      "fullTitle": "Luc Array functions dynamic removeLast",
+      "duration": 3
+    },
+    {
+      "title": "dynamic findLastNot",
+      "fullTitle": "Luc Array functions dynamic findLastNot",
+      "duration": 3
+    },
+    {
+      "title": "remove/find with iterator and thisArg",
+      "fullTitle": "Luc Array functions remove/find with iterator and thisArg",
+      "duration": 2
+    },
+    {
+      "title": "direct function comparison",
+      "fullTitle": "Luc Array functions direct function comparison",
+      "duration": 1
+    },
+    {
+      "title": "Not remove/find with iterator and thisArg",
+      "fullTitle": "Luc Array functions Not remove/find with iterator and thisArg",
+      "duration": 1
     },
     {
       "title": "find in",
       "fullTitle": "Luc Array functions find in",
-      "duration": 8
+      "duration": 7
     },
     {
       "title": "last",
       "fullTitle": "Luc Array functions last",
-      "duration": 1
+      "duration": 2
     },
     {
       "title": "from index",
@@ -12959,57 +13151,57 @@
     {
       "title": "pluck",
       "fullTitle": "Luc Array functions pluck",
-      "duration": 2
+      "duration": 1
     },
     {
       "title": "Base",
       "fullTitle": "Luc Class Base",
-      "duration": 16
+      "duration": 1
     },
     {
       "title": "simple define",
       "fullTitle": "Luc Class simple define",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "single mixin",
       "fullTitle": "Luc Class single mixin",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "multiple mixins",
       "fullTitle": "Luc Class multiple mixins",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "statics",
       "fullTitle": "Luc Class statics",
-      "duration": 3
+      "duration": 19
     },
     {
       "title": "test get static value",
       "fullTitle": "Luc Class test get static value",
-      "duration": 10
+      "duration": 11
     },
     {
       "title": "$class",
       "fullTitle": "Luc Class $class",
-      "duration": 1
+      "duration": 2
     },
     {
       "title": "super",
       "fullTitle": "Luc Class super",
-      "duration": 7
+      "duration": 4
     },
     {
       "title": "composition",
       "fullTitle": "Luc Class composition",
-      "duration": 4
+      "duration": 6
     },
     {
       "title": "all class options together",
       "fullTitle": "Luc Class all class options together",
-      "duration": 3
+      "duration": 9
     },
     {
       "title": "class options do not get applied to the instance",
@@ -13019,7 +13211,7 @@
     {
       "title": "get composition",
       "fullTitle": "Luc Class get composition",
-      "duration": 2
+      "duration": 3
     },
     {
       "title": "initComposition before and after",
@@ -13044,37 +13236,92 @@
     {
       "title": "test configured plugin constructors",
       "fullTitle": "Luc Class test configured plugin constructors",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "test default plugin destroy",
       "fullTitle": "Luc Class test default plugin destroy",
+      "duration": 2
+    },
+    {
+      "title": "compare empty objects",
+      "fullTitle": "Luc compare fn compare empty objects",
+      "duration": 2
+    },
+    {
+      "title": "compare values",
+      "fullTitle": "Luc compare fn compare values",
       "duration": 1
     },
     {
-      "title": "compare",
-      "fullTitle": "Luc compare fn compare",
-      "duration": 15
+      "title": "compare different object types",
+      "fullTitle": "Luc compare fn compare different object types",
+      "duration": 2
+    },
+    {
+      "title": "compare falsys",
+      "fullTitle": "Luc compare fn compare falsys",
+      "duration": 4
+    },
+    {
+      "title": "deep compare",
+      "fullTitle": "Luc compare fn deep compare",
+      "duration": 2
+    },
+    {
+      "title": "simple deep and shallow compare",
+      "fullTitle": "Luc compare fn simple deep and shallow compare",
+      "duration": 3
+    },
+    {
+      "title": "invalid type throws an exception",
+      "fullTitle": "Luc compare fn invalid type throws an exception",
+      "duration": 2
     },
     {
       "title": "loose compare",
       "fullTitle": "Luc compare fn loose compare",
-      "duration": 7
+      "duration": 6
     },
     {
-      "title": "create augmentor",
-      "fullTitle": "Luc Function utilities create augmentor",
-      "duration": 5
+      "title": "create augmentor append and this",
+      "fullTitle": "Luc Function utilities create augmentor append and this",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor thisArg with append after",
+      "fullTitle": "Luc Function utilities create augmentor thisArg with append after",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor thisArg index and args after",
+      "fullTitle": "Luc Function utilities create augmentor thisArg index and args after",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor this arg and default insert args",
+      "fullTitle": "Luc Function utilities create augmentor this arg and default insert args",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor default insert args",
+      "fullTitle": "Luc Function utilities create augmentor default insert args",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor just arguments",
+      "fullTitle": "Luc Function utilities create augmentor just arguments",
+      "duration": 0
     },
     {
       "title": "create sequence",
       "fullTitle": "Luc Function utilities create sequence",
-      "duration": 4
+      "duration": 3
     },
     {
       "title": "create sequence augmentor config",
       "fullTitle": "Luc Function utilities create sequence augmentor config",
-      "duration": 4
+      "duration": 5
     },
     {
       "title": "create sequenceIf",
@@ -13094,12 +13341,17 @@
     {
       "title": "create deferred no millis",
       "fullTitle": "Luc Function utilities create deferred no millis",
+      "duration": 2
+    },
+    {
+      "title": "create throtteled no millis",
+      "fullTitle": "Luc Function utilities create throtteled no millis",
       "duration": 1
     },
     {
       "title": "create throtteled",
       "fullTitle": "Luc Function utilities create throtteled",
-      "duration": 12
+      "duration": 10
     },
     {
       "title": "isArray",
@@ -13109,7 +13361,7 @@
     {
       "title": "isRegExp",
       "fullTitle": "Luc is isRegExp",
-      "duration": 2
+      "duration": 1
     },
     {
       "title": "isDate",
@@ -13154,7 +13406,7 @@
     {
       "title": "Emitter",
       "fullTitle": "Luc Node functions Emitter",
-      "duration": 2
+      "duration": 3
     },
     {
       "title": "each",
@@ -13179,12 +13431,12 @@
     {
       "title": "filter non ownProperties",
       "fullTitle": "Luc Object functions filter non ownProperties",
-      "duration": 1
+      "duration": 2
     },
     {
       "title": "filter ownProperties",
       "fullTitle": "Luc Object functions filter ownProperties",
-      "duration": 6
+      "duration": 2
     }
   ],
   "failures": [],
@@ -13200,69 +13452,229 @@
       "duration": 6
     },
     {
-      "title": "insert",
-      "fullTitle": "Luc Array functions insert",
-      "duration": 26
+      "title": "insert append",
+      "fullTitle": "Luc Array functions insert append",
+      "duration": 4
     },
     {
-      "title": "removeAll",
-      "fullTitle": "Luc Array functions removeAll",
-      "duration": 6
-    },
-    {
-      "title": "removeAllNot",
-      "fullTitle": "Luc Array functions removeAllNot",
-      "duration": 14
-    },
-    {
-      "title": "removeFirst",
-      "fullTitle": "Luc Array functions removeFirst",
-      "duration": 6
-    },
-    {
-      "title": "removeFirstNot",
-      "fullTitle": "Luc Array functions removeFirstNot",
-      "duration": 7
-    },
-    {
-      "title": "findFirst",
-      "fullTitle": "Luc Array functions findFirst",
+      "title": "insert from indexes",
+      "fullTitle": "Luc Array functions insert from indexes",
       "duration": 10
     },
     {
-      "title": "findFirstNot",
-      "fullTitle": "Luc Array functions findFirstNot",
-      "duration": 11
+      "title": "insert arrays are not modified",
+      "fullTitle": "Luc Array functions insert arrays are not modified",
+      "duration": 2
     },
     {
-      "title": "findAll",
-      "fullTitle": "Luc Array functions findAll",
-      "duration": 10
+      "title": "removeAll with single falsy",
+      "fullTitle": "Luc Array functions removeAll with single falsy",
+      "duration": 2
     },
     {
-      "title": "findAllNot",
-      "fullTitle": "Luc Array functions findAllNot",
+      "title": "removeAll all values",
+      "fullTitle": "Luc Array functions removeAll all values",
       "duration": 3
     },
     {
-      "title": "test dynamic array is fns",
-      "fullTitle": "Luc Array functions test dynamic array is fns",
-      "duration": 40
+      "title": "removeAll loose comparison",
+      "fullTitle": "Luc Array functions removeAll loose comparison",
+      "duration": 2
     },
     {
-      "title": "test remove/find with iterator and thisArg",
-      "fullTitle": "Luc Array functions test remove/find with iterator and thisArg",
-      "duration": 5
+      "title": "removeAll deep comparison",
+      "fullTitle": "Luc Array functions removeAll deep comparison",
+      "duration": 2
+    },
+    {
+      "title": "removeAllNot single falsy",
+      "fullTitle": "Luc Array functions removeAllNot single falsy",
+      "duration": 2
+    },
+    {
+      "title": "removeAllNot no matches",
+      "fullTitle": "Luc Array functions removeAllNot no matches",
+      "duration": 3
+    },
+    {
+      "title": "removeAllNot single loose compare",
+      "fullTitle": "Luc Array functions removeAllNot single loose compare",
+      "duration": 1
+    },
+    {
+      "title": "removeFirst first multi array match",
+      "fullTitle": "Luc Array functions removeFirst first multi array match",
+      "duration": 3
+    },
+    {
+      "title": "removeFirst empty array strict",
+      "fullTitle": "Luc Array functions removeFirst empty array strict",
+      "duration": 3
+    },
+    {
+      "title": "removeFirst empty array shallow",
+      "fullTitle": "Luc Array functions removeFirst empty array shallow",
+      "duration": 10
+    },
+    {
+      "title": "removeFirstNot multi array match",
+      "fullTitle": "Luc Array functions removeFirstNot multi array match",
+      "duration": 3
+    },
+    {
+      "title": "removeFirstNot not matches",
+      "fullTitle": "Luc Array functions removeFirstNot not matches",
+      "duration": 1
+    },
+    {
+      "title": "removeFirstNot not strict compare",
+      "fullTitle": "Luc Array functions removeFirstNot not strict compare",
+      "duration": 3
+    },
+    {
+      "title": "findFirst handle loose compare",
+      "fullTitle": "Luc Array functions findFirst handle loose compare",
+      "duration": 1
+    },
+    {
+      "title": "findFirst strict compare",
+      "fullTitle": "Luc Array functions findFirst strict compare",
+      "duration": 1
+    },
+    {
+      "title": "findFirst match all props",
+      "fullTitle": "Luc Array functions findFirst match all props",
+      "duration": 1
+    },
+    {
+      "title": "findFirst all falsys",
+      "fullTitle": "Luc Array functions findFirst all falsys",
+      "duration": 2
+    },
+    {
+      "title": "findFirst dates",
+      "fullTitle": "Luc Array functions findFirst dates",
+      "duration": 1
+    },
+    {
+      "title": "findFirst strict and shallow dates",
+      "fullTitle": "Luc Array functions findFirst strict and shallow dates",
+      "duration": 2
+    },
+    {
+      "title": "findFirstNot matching first key value",
+      "fullTitle": "Luc Array functions findFirstNot matching first key value",
+      "duration": 1
+    },
+    {
+      "title": "findFirstNot falsys",
+      "fullTitle": "Luc Array functions findFirstNot falsys",
+      "duration": 2
+    },
+    {
+      "title": "findFirstNot primitives and non-primitives",
+      "fullTitle": "Luc Array functions findFirstNot primitives and non-primitives",
+      "duration": 1
+    },
+    {
+      "title": "findAll find exact object keys",
+      "fullTitle": "Luc Array functions findAll find exact object keys",
+      "duration": 3
+    },
+    {
+      "title": "findAll find exact array values",
+      "fullTitle": "Luc Array functions findAll find exact array values",
+      "duration": 11
+    },
+    {
+      "title": "findAll falsy values",
+      "fullTitle": "Luc Array functions findAll falsy values",
+      "duration": 3
+    },
+    {
+      "title": "findAll date values",
+      "fullTitle": "Luc Array functions findAll date values",
+      "duration": 0
+    },
+    {
+      "title": "findAllNot match all keys",
+      "fullTitle": "Luc Array functions findAllNot match all keys",
+      "duration": 0
+    },
+    {
+      "title": "findAllNot falsy values",
+      "fullTitle": "Luc Array functions findAllNot falsy values",
+      "duration": 3
+    },
+    {
+      "title": "dynamic findFirstNot",
+      "fullTitle": "Luc Array functions dynamic findFirstNot",
+      "duration": 2
+    },
+    {
+      "title": "dynamic findAllNot",
+      "fullTitle": "Luc Array functions dynamic findAllNot",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeFirstNot",
+      "fullTitle": "Luc Array functions dynamic removeFirstNot",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeAllNot",
+      "fullTitle": "Luc Array functions dynamic removeAllNot",
+      "duration": 10
+    },
+    {
+      "title": "dynamic removeFirst",
+      "fullTitle": "Luc Array functions dynamic removeFirst",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeAll",
+      "fullTitle": "Luc Array functions dynamic removeAll",
+      "duration": 3
+    },
+    {
+      "title": "dynamic removeLastNot",
+      "fullTitle": "Luc Array functions dynamic removeLastNot",
+      "duration": 2
+    },
+    {
+      "title": "dynamic removeLast",
+      "fullTitle": "Luc Array functions dynamic removeLast",
+      "duration": 3
+    },
+    {
+      "title": "dynamic findLastNot",
+      "fullTitle": "Luc Array functions dynamic findLastNot",
+      "duration": 3
+    },
+    {
+      "title": "remove/find with iterator and thisArg",
+      "fullTitle": "Luc Array functions remove/find with iterator and thisArg",
+      "duration": 2
+    },
+    {
+      "title": "direct function comparison",
+      "fullTitle": "Luc Array functions direct function comparison",
+      "duration": 1
+    },
+    {
+      "title": "Not remove/find with iterator and thisArg",
+      "fullTitle": "Luc Array functions Not remove/find with iterator and thisArg",
+      "duration": 1
     },
     {
       "title": "find in",
       "fullTitle": "Luc Array functions find in",
-      "duration": 8
+      "duration": 7
     },
     {
       "title": "last",
       "fullTitle": "Luc Array functions last",
-      "duration": 1
+      "duration": 2
     },
     {
       "title": "from index",
@@ -13272,57 +13684,57 @@
     {
       "title": "pluck",
       "fullTitle": "Luc Array functions pluck",
-      "duration": 2
+      "duration": 1
     },
     {
       "title": "Base",
       "fullTitle": "Luc Class Base",
-      "duration": 16
+      "duration": 1
     },
     {
       "title": "simple define",
       "fullTitle": "Luc Class simple define",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "single mixin",
       "fullTitle": "Luc Class single mixin",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "multiple mixins",
       "fullTitle": "Luc Class multiple mixins",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "statics",
       "fullTitle": "Luc Class statics",
-      "duration": 3
+      "duration": 19
     },
     {
       "title": "test get static value",
       "fullTitle": "Luc Class test get static value",
-      "duration": 10
+      "duration": 11
     },
     {
       "title": "$class",
       "fullTitle": "Luc Class $class",
-      "duration": 1
+      "duration": 2
     },
     {
       "title": "super",
       "fullTitle": "Luc Class super",
-      "duration": 7
+      "duration": 4
     },
     {
       "title": "composition",
       "fullTitle": "Luc Class composition",
-      "duration": 4
+      "duration": 6
     },
     {
       "title": "all class options together",
       "fullTitle": "Luc Class all class options together",
-      "duration": 3
+      "duration": 9
     },
     {
       "title": "class options do not get applied to the instance",
@@ -13332,7 +13744,7 @@
     {
       "title": "get composition",
       "fullTitle": "Luc Class get composition",
-      "duration": 2
+      "duration": 3
     },
     {
       "title": "initComposition before and after",
@@ -13357,37 +13769,92 @@
     {
       "title": "test configured plugin constructors",
       "fullTitle": "Luc Class test configured plugin constructors",
-      "duration": 3
+      "duration": 2
     },
     {
       "title": "test default plugin destroy",
       "fullTitle": "Luc Class test default plugin destroy",
+      "duration": 2
+    },
+    {
+      "title": "compare empty objects",
+      "fullTitle": "Luc compare fn compare empty objects",
+      "duration": 2
+    },
+    {
+      "title": "compare values",
+      "fullTitle": "Luc compare fn compare values",
       "duration": 1
     },
     {
-      "title": "compare",
-      "fullTitle": "Luc compare fn compare",
-      "duration": 15
+      "title": "compare different object types",
+      "fullTitle": "Luc compare fn compare different object types",
+      "duration": 2
+    },
+    {
+      "title": "compare falsys",
+      "fullTitle": "Luc compare fn compare falsys",
+      "duration": 4
+    },
+    {
+      "title": "deep compare",
+      "fullTitle": "Luc compare fn deep compare",
+      "duration": 2
+    },
+    {
+      "title": "simple deep and shallow compare",
+      "fullTitle": "Luc compare fn simple deep and shallow compare",
+      "duration": 3
+    },
+    {
+      "title": "invalid type throws an exception",
+      "fullTitle": "Luc compare fn invalid type throws an exception",
+      "duration": 2
     },
     {
       "title": "loose compare",
       "fullTitle": "Luc compare fn loose compare",
-      "duration": 7
+      "duration": 6
     },
     {
-      "title": "create augmentor",
-      "fullTitle": "Luc Function utilities create augmentor",
-      "duration": 5
+      "title": "create augmentor append and this",
+      "fullTitle": "Luc Function utilities create augmentor append and this",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor thisArg with append after",
+      "fullTitle": "Luc Function utilities create augmentor thisArg with append after",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor thisArg index and args after",
+      "fullTitle": "Luc Function utilities create augmentor thisArg index and args after",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor this arg and default insert args",
+      "fullTitle": "Luc Function utilities create augmentor this arg and default insert args",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor default insert args",
+      "fullTitle": "Luc Function utilities create augmentor default insert args",
+      "duration": 1
+    },
+    {
+      "title": "create augmentor just arguments",
+      "fullTitle": "Luc Function utilities create augmentor just arguments",
+      "duration": 0
     },
     {
       "title": "create sequence",
       "fullTitle": "Luc Function utilities create sequence",
-      "duration": 4
+      "duration": 3
     },
     {
       "title": "create sequence augmentor config",
       "fullTitle": "Luc Function utilities create sequence augmentor config",
-      "duration": 4
+      "duration": 5
     },
     {
       "title": "create sequenceIf",
@@ -13407,12 +13874,17 @@
     {
       "title": "create deferred no millis",
       "fullTitle": "Luc Function utilities create deferred no millis",
+      "duration": 2
+    },
+    {
+      "title": "create throtteled no millis",
+      "fullTitle": "Luc Function utilities create throtteled no millis",
       "duration": 1
     },
     {
       "title": "create throtteled",
       "fullTitle": "Luc Function utilities create throtteled",
-      "duration": 12
+      "duration": 10
     },
     {
       "title": "isArray",
@@ -13422,7 +13894,7 @@
     {
       "title": "isRegExp",
       "fullTitle": "Luc is isRegExp",
-      "duration": 2
+      "duration": 1
     },
     {
       "title": "isDate",
@@ -13467,7 +13939,7 @@
     {
       "title": "Emitter",
       "fullTitle": "Luc Node functions Emitter",
-      "duration": 2
+      "duration": 3
     },
     {
       "title": "each",
@@ -13492,12 +13964,12 @@
     {
       "title": "filter non ownProperties",
       "fullTitle": "Luc Object functions filter non ownProperties",
-      "duration": 1
+      "duration": 2
     },
     {
       "title": "filter ownProperties",
       "fullTitle": "Luc Object functions filter ownProperties",
-      "duration": 6
+      "duration": 2
     }
   ]
 }

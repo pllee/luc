@@ -26,11 +26,37 @@
   <div id="header-content">Luc</div>
   <div id='welcome-content' style='display:none'><div class="markdown"><h1>Luc</h1>
 
-<p>Docs and support coming soon.</p>
-
 <p><a href="https://ci.testling.com/pllee/luc"><img src="https://ci.testling.com/pllee/luc.png" alt="browser support" /></a></p>
 
 <p><a href="http://travis-ci.org/pllee/luc"><img src="https://secure.travis-ci.org/pllee/luc.png" alt="Build Status" /></a></p>
+
+<h1>What is Luc?</h1>
+
+<p>Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to <a href="https://github.com/substack/node-browserify">Browserify</a>.   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  Along with that it comes with the ability to add EventEmmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight and unobtrusive it has zero dependencies and currently sits at 650 SLOC and less than 8Kb minified and gzipped.</p>
+
+<h1>Getting started</h1>
+
+<p>Check out our <a href="http://pllee.github.io/luc/pages/docs/">docs</a>, they show everything that Luc as to offer and they are loaded with examples.    <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.define">Luc.define</a> covers the class system while <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array">Luc.Array</a>, <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Object">Luc.Object</a>, <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function">Luc.Function</a>  cover most of the utils.  Luc also comes packed with node's EventEmitter for browser code.</p>
+
+<h1>Node</h1>
+
+<p>npm install luc</p>
+
+<h1>Browser</h1>
+
+<p>Source maps come packaged with the non minified versions.</p>
+
+<h1>Where does Luc sit now?</h1>
+
+<p>Luc is now in its first official release.  It still sits at version 0.<em> and follows the http://semver.org/ versioning spec.  We want to get input on what you guys think about the API and functionality Luc provides.  Luc will officially release an unchanging API after taking account for everyone's input.  Once input has been gathered a 1.</em> version will be released.</p>
+
+<h1>The future</h1>
+
+<p>Right now Luc provides the the building blocks for small and large scale applications.  It does not have any dom or html building functionality.  We want to add this functionality as a submodule down the road if Luc takes off.   For the most part Luc's core API should be pretty set now.  Any functionality that we want to add down the road will be done through submodules.</p>
+
+<h1>Issues/Discussion</h1>
+
+<p>Log [issues] (https://github.com/pllee/luc/issue) with the appropriate tag.  For discussions about the API or documentation use the discussion tag.  Please read the known caveats of <a href="https://github.com/kriskowal/es5-shim/issues/114">es5-shim</a>.</p>
 </div></div>
           <div id='categories-content' style='display:none'>
             <div class='section'>
@@ -84,7 +110,7 @@
 
   
   
-  <div id='footer-content' style='display: none'>Generated on Mon 08 Jul 2013 21:02:16 by <a href='https://github.com/senchalabs/jsduck'>JSDuck</a> 4.10.4.</div>
+  <div id='footer-content' style='display: none'>Generated on Mon 08 Jul 2013 22:57:26 by <a href='https://github.com/senchalabs/jsduck'>JSDuck</a> 4.10.4.</div>
 
   
 
