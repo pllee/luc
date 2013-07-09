@@ -183,10 +183,13 @@ describe('Luc Array functions', function() {
 
     it('findFirst all falsys', function() {
         var arr = [false, 0, undefined, null, ''];
+        //shim/IE bug
+        if(0 in [undefined]) {
         expect(Luc.Array.findFirst(arr, null)).to.be.eql(null);
         expect(Luc.Array.findFirst(arr, false)).to.be.eql(false);
         expect(Luc.Array.findFirst(arr, undefined)).to.be.eql(undefined);
         expect(Luc.Array.findFirst(arr, 0)).to.be.eql(0);
+        }
     });
 
     it('findFirst dates', function() {
@@ -261,54 +264,73 @@ describe('Luc Array functions', function() {
         expect(Luc.Array.findAllNot(arr, '')).to.be.eql([]);
     });
 
-    it('test simple dynamic fns', function() {
-        var A = Luc.Array;
+    it('dynamic findFirstNot', function() {
+        expect(Luc.Array.findFirstNotFalse([false, 1])).to.be(1);
+        expect(Luc.Array.findFirstNotTrue([true, 1])).to.be(1);
+        expect(Luc.Array.findFirstNotNull([null, 1])).to.be(1);
+        expect(Luc.Array.findFirstNotUndefined([undefined, 1])).to.be(1);
+    });
 
+    it('dynamic findAllNot', function() {
+        expect(Luc.Array.findAllNotFalse([false, 1])).to.be.eql([1]);
+        expect(Luc.Array.findAllNotTrue([true, 1])).to.be.eql([1]);
+        expect(Luc.Array.findAllNotNull([null, 1])).to.be.eql([1]);
+        expect(Luc.Array.findAllNotUndefined([undefined, 1])).to.be.eql([1]);
+    });
 
-        expect(A.findFirstNotFalse([false, 1])).to.be(1);
-        expect(A.findFirstNotTrue([true, 1])).to.be(1);
-        expect(A.findFirstNotNull([null, 1])).to.be(1);
-        expect(A.findFirstNotUndefined([undefined, 1])).to.be(1);
+    it('dynamic removeFirstNot', function() {
+        expect(Luc.Array.removeFirstNotFalse([false, 1])).to.be(1);
+        expect(Luc.Array.removeFirstNotTrue([true, 1])).to.be(1);
+        expect(Luc.Array.removeFirstNotNull([null, 1])).to.be(1);
+        expect(Luc.Array.removeFirstNotUndefined([undefined, 1])).to.be(1);
+    });
 
-        expect(A.findAllNotFalse([false, 1])).to.be.eql([1]);
-        expect(A.findAllNotTrue([true, 1])).to.be.eql([1]);
-        expect(A.findAllNotNull([null, 1])).to.be.eql([1]);
-        expect(A.findAllNotUndefined([undefined, 1])).to.be.eql([1]);
+    it('dynamic removeAllNot', function() {
+        expect(Luc.Array.removeAllNotFalse([false, 1])).to.be.eql([1]);
+        expect(Luc.Array.removeAllNotTrue([true, 1])).to.be.eql([1]);
+        expect(Luc.Array.removeAllNotNull([null, 1])).to.be.eql([1]);
+        expect(Luc.Array.removeAllNotUndefined([undefined, 1])).to.be.eql([1]);
+    });
 
-        expect(A.removeFirstNotFalse([false, 1])).to.be(1);
-        expect(A.removeFirstNotTrue([true, 1])).to.be(1);
-        expect(A.removeFirstNotNull([null, 1])).to.be(1);
-        expect(A.removeFirstNotUndefined([undefined, 1])).to.be(1);
+    it('dynamic removeFirst', function() {
+        expect(Luc.Array.removeFirstFalse([false, 1])).to.be(false);
+        expect(Luc.Array.removeFirstTrue([true, 1])).to.be(true);
+        expect(Luc.Array.removeFirstNull([null, 1])).to.be(null);
+        //shim/IE bug
+        if(0 in [undefined]) {
+            expect(Luc.Array.removeFirstUndefined([undefined, 1])).to.be(undefined);
+        }
+    });
 
-        expect(A.removeAllNotFalse([false, 1])).to.be.eql([1]);
-        expect(A.removeAllNotTrue([true, 1])).to.be.eql([1]);
-        expect(A.removeAllNotNull([null, 1])).to.be.eql([1]);
-        expect(A.removeAllNotUndefined([undefined, 1])).to.be.eql([1]);
+    it('dynamic removeAll', function() {
+        expect(Luc.Array.removeAllFalse([false, 1])).to.be.eql([false]);
+        expect(Luc.Array.removeAllTrue([true, 1])).to.be.eql([true]);
+        expect(Luc.Array.removeAllNull([null, 1])).to.be.eql([null]);
+        expect(Luc.Array.removeAllUndefined([undefined, 1])).to.be.eql([undefined]);
+    });
 
-        expect(A.removeFirstFalse([false, 1])).to.be(false);
-        expect(A.removeFirstTrue([true, 1])).to.be(true);
-        expect(A.removeFirstNull([null, 1])).to.be(null);
-        expect(A.removeFirstUndefined([undefined, 1])).to.be(undefined);
+    it('dynamic removeLastNot', function() {
+        expect(Luc.Array.removeLastNotFalse([false, 1])).to.be(1);
+        expect(Luc.Array.removeLastNotTrue([true, 1])).to.be(1);
+        expect(Luc.Array.removeLastNotNull([null, 1])).to.be(1);
+        expect(Luc.Array.removeLastNotUndefined([undefined, 1])).to.be(1);
+    });
 
-        expect(A.removeAllFalse([false, 1])).to.be.eql([false]);
-        expect(A.removeAllTrue([true, 1])).to.be.eql([true]);
-        expect(A.removeAllNull([null, 1])).to.be.eql([null]);
-        expect(A.removeAllUndefined([undefined, 1])).to.be.eql([undefined]);
+    it('dynamic removeLast', function() {
+        expect(Luc.Array.removeLastFalse([false, 1])).to.be(false);
+        expect(Luc.Array.removeLastTrue([true, 1])).to.be(true);
+        expect(Luc.Array.removeLastNull([null, 1])).to.be(null);
+        //shim/IE bug
+        if(0 in [undefined]) {
+            expect(Luc.Array.removeLastUndefined([undefined, 1])).to.be(undefined);
+        }
+    });
 
-        expect(A.removeLastNotFalse([false, 1])).to.be(1);
-        expect(A.removeLastNotTrue([true, 1])).to.be(1);
-        expect(A.removeLastNotNull([null, 1])).to.be(1);
-        expect(A.removeLastNotUndefined([undefined, 1])).to.be(1);
-
-        expect(A.removeLastFalse([false, 1])).to.be(false);
-        expect(A.removeLastTrue([true, 1])).to.be(true);
-        expect(A.removeLastNull([null, 1])).to.be(null);
-        expect(A.removeLastUndefined([undefined, 1])).to.be(undefined);
-
-        expect(A.findLastNotFalse([false, 1])).to.be.eql(1);
-        expect(A.findLastNotTrue([true, 1])).to.be.eql(1);
-        expect(A.findLastNotNull([null, 1])).to.be.eql(1);
-        expect(A.findLastNotUndefined([undefined, 1])).to.be.eql(1);
+    it('dynamic findLastNot', function() {
+        expect(Luc.Array.findLastNotFalse([false, 1])).to.be.eql(1);
+        expect(Luc.Array.findLastNotTrue([true, 1])).to.be.eql(1);
+        expect(Luc.Array.findLastNotNull([null, 1])).to.be.eql(1);
+        expect(Luc.Array.findLastNotUndefined([undefined, 1])).to.be.eql(1);
 
     });
 
