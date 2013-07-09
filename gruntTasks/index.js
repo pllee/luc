@@ -1,26 +1,28 @@
 var exec = require('child_process').exec,
     wrench = require('wrench'),
+    Luc = require('../lib/luc'),
     fs = require('fs');
 
 function clean(dirs) {
-    dirs.forEach(function(dir) {
+    Luc.Array.each(dirs, function(dir) {
         wrench.rmdirSyncRecursive(dir, true);
     });
 }
 
 function buildCoverage(done) {
+    var tempDir = 'tempTestCoverage';
     fs.mkdirSync('pages/coverage');
+    wrench.copyDirSyncRecursive('test', tempDir);
+    fs.writeFileSync(tempDir +'/lucTestLib.js', "module.exports = require('../lib-cov/luc');",{
+        forceDelete: true
+    });
+
     exec('jscoverage lib lib-cov', function(error, stdout, stderr) {
-        exec('mocha -R html-cov > pages/coverage/index.html', {
-            env: {
-                COVERAGE: 1
-            }
+        exec('mocha ' + tempDir +' -R html-cov > pages/coverage/index.html', {
         }, function() {
-            exec('mocha -R json-cov > pages/coverage/coverage.json', {
-                env: {
-                    COVERAGE: 1
-                }
+            exec('mocha ' + tempDir +' -R json-cov > pages/coverage/coverage.json', {
             }, function() {
+                clean(tempDir);
                 done();
             });
         });

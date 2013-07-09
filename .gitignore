@@ -3,3 +3,4 @@ pages/*
 !pages/testRunner
 !pages/docsResources
 gruntTasks/generatedDocs/*
+lib-cov/
