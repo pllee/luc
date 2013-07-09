@@ -36,6 +36,7 @@ module.exports.buildDocs = function(done) {
     require('./docGenerator');
 
     exec('jsduck gruntTasks/generatedDocs', function() {
+        fs.unlink('pages/docs/favicon.ico');
         done();
     });
 };

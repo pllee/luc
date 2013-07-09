@@ -1,0 +1,12 @@
+#north-region {
+    background: #200000;
+    background: -webkit-gradient(linear,left top,left bottom,from(black),to(#200000));
+    background: -moz-linear-gradient(top,black,#200000);
+}
+#header-content {
+    background: none;
+}
+
+#center-container h1, #center-container h1 .class-source-link, #welcomeindex .markdown h1 {
+    color: black;
+}
