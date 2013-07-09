@@ -4,11 +4,13 @@ var Luc = require('./lucTestLib'),
 
 describe('Luc Function utilities', function() {
 
-    it('create augmentor', function() {
+    
         function testFn() {
             var arr = arraySlice.call(arguments);
             return this.str + arr.join('');
         }
+
+    it('create augmentor append and this', function() {
 
         var appendAndThis = Luc.Function.createAugmenter(testFn, {
             thisArg: {
@@ -18,8 +20,10 @@ describe('Luc Function utilities', function() {
             index: true
         });
 
-        expect(appendAndThis(2,3)).to.be('12345');
+        expect(appendAndThis(2, 3)).to.be('12345');
+    });
 
+    it('create augmentor thisArg with append after', function() {
         var appendAndThisArgumentsAfter = Luc.Function.createAugmenter(testFn, {
             thisArg: {
                 str: '1'
@@ -30,7 +34,9 @@ describe('Luc Function utilities', function() {
         });
 
         expect(appendAndThisArgumentsAfter(2,3)).to.be('14523');
+    });
 
+    it('create augmentor thisArg index and args after', function() {
         var argumentsAfter = Luc.Function.createAugmenter(testFn, {
             thisArg: {
                 str: '1'
@@ -41,7 +47,9 @@ describe('Luc Function utilities', function() {
         });
 
         expect(argumentsAfter(2,3)).to.be('14235');
+    });
 
+    it('create augmentor this arg and default insert args', function() {
         var argumentsInsert = Luc.Function.createAugmenter(testFn, {
             thisArg: {
                 str: '1'
@@ -51,14 +59,18 @@ describe('Luc Function utilities', function() {
         });
 
         expect(argumentsInsert(2,3)).to.be('12453');
+    });
 
+    it('create augmentor default insert args', function() {
         var noThisArg = Luc.Function.createAugmenter(testFn, {
             args: [4, 5],
             index: 1
         });
 
         expect(noThisArg.apply({str: '2'},[2,3])).to.be('22453');
+    });
 
+    it('create augmentor just arguments', function() {
         var justArgs = Luc.Function.createAugmenter(testFn, {
             args: [4, 5]
         });
@@ -195,6 +207,20 @@ describe('Luc Function utilities', function() {
     it('create deferred no millis', function(done) {
         var hasDefered = false;
         var deferred = Luc.Function.createDeferred(function(a,b){
+            hasDefered = true;
+            expect(a).to.be(1);
+            expect(b).to.be(undefined);
+            done();
+        }, 0);
+
+        deferred(1);
+
+        expect(hasDefered).to.be(true);
+    });
+
+    it('create throtteled no millis', function(done) {
+        var hasDefered = false;
+        var deferred = Luc.Function.createThrottled(function(a,b){
             hasDefered = true;
             expect(a).to.be(1);
             expect(b).to.be(undefined);
