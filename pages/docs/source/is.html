@@ -16,24 +16,11 @@
 </head>
 <body onload="prettyPrint(); highlight();">
   <pre class="prettyprint lang-js">var oToString = Object.prototype.toString;
-<span id='Luc-is'>/**
-</span> * @class Luc.is 
- * This actually apart of the Luc namespace, not Luc.is.isEmpty.   Package for 
- * determining the types of objects it also has an Luc.isEmpty and Luc.isFalsy functions.
- * You can see that we don't have an 
- * isNull isUndefined or isNaN.  We prefer to use:
- 
-    obj === null
-    obj === undefined
-    isNaN(obj)
-
- * I'm sure there a is a use case for isBoolean
- * but we will leave you on your own for that.
- */
 
 
-<span id='Luc-is-method-isArray'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isArray'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type {@link Array Array}
  * @param  {Object}  obj 
  * @return {Boolean}
@@ -42,18 +29,20 @@ function isArray(obj) {
     return Array.isArray(obj);
 }
 
-<span id='Luc-is-method-isObject'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isObject'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type {@link Object Object}
  * @param  {Object}  obj 
  * @return {Boolean}
  */
 function isObject(obj) {
-    return oToString.call(obj) === '[object Object]';
+    return obj &amp;&amp; oToString.call(obj) === '[object Object]';
 }
 
-<span id='Luc-is-method-isFunction'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isFunction'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type {@link Function Function}
  * @param  {Object}  obj 
  * @return {Boolean}
@@ -62,8 +51,9 @@ function isFunction(obj) {
     return oToString.call(obj) === '[object Function]';
 }
 
-<span id='Luc-is-method-isDate'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isDate'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type {@link Date Date}
  * @param  {Object}  obj 
  * @return {Boolean}
@@ -72,8 +62,9 @@ function isDate(obj) {
     return oToString.call(obj) === '[object Date]';
 }
 
-<span id='Luc-is-method-isRegExp'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isRegExp'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type {@link RegExp RegExp}
  * @param  {Object}  obj 
  * @return {Boolean}
@@ -82,8 +73,9 @@ function isRegExp(obj) {
     return oToString.call(obj) === '[object RegExp]';
 }
 
-<span id='Luc-is-method-isNumber'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isNumber'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type {@link Number Number}
  * @param  {Object}  obj 
  * @return {Boolean}
@@ -92,8 +84,9 @@ function isNumber(obj) {
     return oToString.call(obj) === '[object Number]';
 }
 
-<span id='Luc-is-method-isString'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isString'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type {@link String String}
  * @param  {Object}  obj 
  * @return {Boolean}
@@ -102,19 +95,21 @@ function isString(obj) {
     return oToString.call(obj) === '[object String]';
 }
 
-<span id='Luc-is-method-isArguments'>/**
-</span> * Return true if the passed in object is of
+<span id='Luc-method-isArguments'>/**
+</span> * @member Luc
+ * Return true if the passed in object is of
  * the type arguments.
  * 
  * @param  {Object}  obj 
  * @return {Boolean}
  */
 function isArguments(obj) {
-    return oToString.call(obj) === '[object Arguments]';
+    return oToString.call(obj) === '[object Arguments]' || obj &amp;&amp; !!obj.callee;
 }
 
-<span id='Luc-is-method-isFalsy'>/**
-</span> * Return true if the object is falsy but not zero.  If
+<span id='Luc-method-isFalsy'>/**
+</span> * @member Luc
+ * Return true if the object is falsy but not zero.  If
  * you want falsy check that includes zero use a goram 
  * if statement :)
  * @param  {Object}  obj
@@ -124,8 +119,9 @@ function isFalsy(obj) {
     return (!obj &amp;&amp; obj !== 0);
 }
 
-<span id='Luc-is-method-isEmpty'>/**
-</span> * Return true if the object is empty.
+<span id='Luc-method-isEmpty'>/**
+</span> * @member Luc
+ * Return true if the object is empty.
  * {}, [], '',false, null, undefined, NaN 
  * Are all treated as empty.
  * @param  {Object}  obj

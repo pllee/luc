@@ -20,7 +20,7 @@
 
 <span id='Luc-Base'>/**
 </span> * @class Luc.Base
- * Simple class that by default applies the 
+ * Simple class that by default {@link Luc#apply applies} the 
  * first argument to the instance and then calls
  * Luc.Base.init.
  *
@@ -91,7 +91,7 @@ Base.prototype = {
 <span id='Luc-Base-method-init'>    /**
 </span>     * @method
      * Simple hook to initialize
-     * the class.
+     * the class.  Defaults to Luc.emptyFn
      */
     init: emptyFn
 };

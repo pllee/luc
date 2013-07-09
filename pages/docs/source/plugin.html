@@ -20,13 +20,26 @@
     emptyFn = require('../function').emptyFn,
     apply = obj.apply;
 
-
+<span id='Luc-Plugin'>/**
+</span> * @class Luc.Plugin
+ * Simple class that is the default plugin type for Luc.PluginManager
+ */
 function Plugin(config) {
     apply(this, config);
 }
 
 Plugin.prototype = {
+<span id='Luc-Plugin-method-init'>    /**
+</span>     * @method
+     * @param {Object} owner the owner instance
+     * Simple hook to initialize the plugin
+     * Defaults to Luc.emptyFn.
+     */
     init: emptyFn,
+<span id='Luc-Plugin-method-Defaults'>    /**
+</span>     * @method Defaults to Luc.emptyFn.
+     * Called when the plugin is being {@link Luc.PluginManager#destroyPlugin destroyed}.
+     */
     destroy: emptyFn
 };
 

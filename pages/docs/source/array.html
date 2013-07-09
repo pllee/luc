@@ -49,7 +49,7 @@ function _createIteratorNotFn(fn, config) {
 </span> * @class Luc.Array 
  * Package for Array methods. &lt;br&gt;
  * 
- * Keep in mind that Luc is optionally packaged with es5 shim so you can target non-es5 browsers.
+ * Keep in mind that Luc is optionally packaged with es5 shim so you can write es5 code in non es5 browsers.
  * It comes with your favorite {@link Array Array} methods such as Array.forEach, Array.filter, Array.some, Array.every Array.reduceRight ..
  *
  * Also don't forget about Luc.Array.each and Luc.Array.toArray, they are great utility methods
@@ -62,17 +62,21 @@ function _createIteratorNotFn(fn, config) {
  *  \*Not functions only do the following actions if the comparison is not true.
  *  All remove\* / find\* take the following api: array, objectToCompareOrIterator, compareConfigOrThisArg for example:
  *
+    //most common use case
     Luc.Array.findFirst([1,2,3, {}], {});
     &gt;Object {}
 
+    //pass in option config for a strict === comparison
     Luc.Array.findFirst([1,2,3,{}], {}, {type: 'strict'});
     &gt;false
 
+    //pass in an iterator and thisArg
     Luc.Array.findFirst([1,2,3,{}], function(val, index, array){
         return val === 3 || this.num === val;
     }, {num: 1});
     &gt;1
-
+    
+    //you can see remove modifies the passed in array.
     var arr = [1,2,{a:1},1, {a:1}];
     Luc.Array.removeFirst(arr, {a:1})
     &gt;{a:1}
@@ -82,7 +86,13 @@ function _createIteratorNotFn(fn, config) {
     &gt;1
     arr;
     &gt;[1,2, {a:1}]
-
+    
+    
+    Luc.Array.findAll([1,2,3, {a:1,b:2}], function() {return true;})
+    &gt; [1,2,3, {a:1,b:2}]
+    //show how not works with an iterator
+    Luc.Array.findAllNot([1,2,3, {a:1,b:2}], function() {return true;})
+    &gt;[]
  *
  * For commonly used find/remove functions check out Luc.ArrayFns for example a
  * &quot;compact&quot; like function
@@ -159,13 +169,13 @@ function pluck(arr, key) {
 <span id='Luc-Array-method-fromIndex'>/**
 </span> * Return the items inbetween the passed in index
  * and the end of the array.
- * 
+ *
+    Luc.Array.fromIndex([1,2,3,4,5], 1)
+    &gt;[2, 3, 4, 5]
+
  * @param  {Array/arguments} arr 
  * @param  {Number} index 
  * @return {Array} the new array.
- * 
-    Luc.Array.fromIndex([1,2,3,4,5], 1)
-    &gt;[2, 3, 4, 5]
  * 
  */
 function fromIndex(a, index) {
@@ -175,10 +185,6 @@ function fromIndex(a, index) {
 
 <span id='Luc-Array-method-each'>/**
 </span> * Runs an Array.forEach after calling Luc.Array.toArray on the item.
- * @param  {Object}   item
- * @param  {Function} callback
- * @param  {Object}   thisArg   
- *
   It is very useful for setting up flexible api's that can handle none one or many.
 
     Luc.Array.each(this.items, function(item) {
@@ -196,6 +202,10 @@ function fromIndex(a, index) {
         this._addItem(this.items);
     }
 
+ * @param  {Object}   item
+ * @param  {Function} callback
+ * @param  {Object}   thisArg   
+ *
  */
 function each(item, fn, thisArg) {
     var arr = toArray(item);
@@ -212,15 +222,15 @@ function each(item, fn, thisArg) {
  * @param  {Number/true} indexOrAppend true to append 
  * the second array to the end of the first one.  If it is a number
  * insert the secondArray into the first one at the passed in index.
-   
+ * @return {Array} the newly created array.
+ *
     Luc.Array.insert([0,4], [1,2,3], 1);
     &gt;[0, 1, 2, 3, 4]
     Luc.Array.insert([0,4], [1,2,3], true);
     &gt;[0, 4, 1, 2, 3]
     Luc.Array.insert([0,4], [1,2,3], 0);
     &gt;[1, 2, 3, 0, 4]
- 
- * @return {Array}
+ *
  */
 function insert(firstArrayOrArgs, secondArrayOrArgs, indexOrAppend) {
     var firstArray = arraySlice.call(firstArrayOrArgs),
@@ -242,6 +252,13 @@ function insert(firstArrayOrArgs, secondArrayOrArgs, indexOrAppend) {
  * @param  {Array} arr
  * @param  {Number} index
  * @return {Object} the item removed.
+ *
+    var arr = [1,2,3];
+    Luc.Array.removeAtIndex(arr, 1);
+    &gt;2
+    arr;
+    &gt;[1,3]
+
  */
 function removeAtIndex(arr, index) {
     var item = arr[index];
@@ -273,24 +290,22 @@ function _removeFirst(arr, fn) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Object} the object that was removed
  * false if no object was removed;
@@ -311,24 +326,22 @@ function removeFirst(arr, obj, config) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Object} the object that was removed
  * false if no object was removed;
@@ -368,24 +381,22 @@ function _removeAll(arr, fn) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Array} an array of items removed
  
@@ -406,24 +417,22 @@ function removeAllNot(arr, obj, config) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Array} an array of items removed
  
@@ -456,24 +465,22 @@ function _findFirst(arr, fn) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Object} the object that was found
  * false if no object was found;
@@ -494,24 +501,22 @@ function findFirst(arr, obj, config) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Object} the object that was found
  * false if no object was found;
@@ -527,7 +532,7 @@ function _findAll(arr, fn) {
 }
 
 <span id='Luc-Array-method-findAll'>/**
-</span> * Find the all the items from the passed in array
+</span> * Find all of the the items from the passed in array
  * that {@link Luc#compare matches} the passed in object.  Instead of 
  * comparing an object an iterator function can be
  * used.
@@ -537,24 +542,22 @@ function _findAll(arr, fn) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Array} an array of items found
  */
@@ -564,7 +567,7 @@ function findAll(arr, obj, config) {
 }
 
 <span id='Luc-Array-method-findAllNot'>/**
-</span> * Find the all the items from the passed in array
+</span> * Find all of the the items from the passed in array
  * that do not {@link Luc#compare match} the passed in object.  Instead of 
  * comparing an object an iterator function can be
  * used.
@@ -574,24 +577,22 @@ function findAll(arr, obj, config) {
  * is {@link Luc#compare equal} to or the iterator returns true remove the 
  * object from the array.
  * 
- * If an iterator function is passed it will be called with the following 
- * parameters.  The same parameter to Array.forEach
- * 
- * @param {Object} objectOrIterator.value 
- * @param {Number} objectOrIterator.number
- * @param {Array} objectOrIterator.array
+ * If an iterator function is passed it will be called with the same 
+ * parameters to Array.forEach.
  *
- * 
  * @param  {Object} [configOrthisArg]
  * 
  * thisArg for the iterator function an iterator is
  * used.
  * 
- * Option config object for Luc.compare if an iterator
- * function is not passed in.  The default is to do a loose comparison.
+ * Optional config object for Luc.compare if an iterator
+ * function is not passed in.  The default is to do a loose {@link Luc#compare comparison}.
  * If you want to actually want to do a direct equality comparison 
  * on a function instead of using it as an iterator pass in {type: 'strict'}
- * 
+ * The loose default allows you to find things like:
+
+    Luc.Array.findFirst([1,2,3, {a:1,b:2}], {a:1})
+    &gt; {a:1, b:2}
 
  * @return {Array} an array of items found
  */

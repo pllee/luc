@@ -27,7 +27,7 @@
     var C = Luc.define({
         $compositions: {
             defaults: Luc.compositionEnums.EventEmitter,
-            filterKeys: ['emit']
+            methods: ['emit']
         }
     });
 
@@ -46,7 +46,7 @@
 module.exports.EventEmitter = {
     Constructor: EventEmitter,
     name: 'emitter',
-    filterKeys: 'allMethods'
+    methods: 'allMethods'
 };
 
 
@@ -65,7 +65,8 @@ module.exports.PluginManager = {
 
         return manager;
     },
-    filterKeys: 'publicMethods'
+    ignoreMethods: 'defaultPlugin',
+    methods: 'publicMethods'
 };</pre>
 </body>
 </html>

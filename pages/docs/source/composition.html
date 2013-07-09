@@ -16,6 +16,7 @@
 </head>
 <body onload="prettyPrint(); highlight();">
   <pre class="prettyprint lang-js">var obj = require('../object'),
+    array = require('../array'),
     apply = obj.apply,
     mix = obj.mix,
     oFilter = obj.filter,
@@ -25,16 +26,16 @@
 <span id='Luc-Composition'>/**
 </span> * @class  Luc.Composition
  * @protected
- * class that wraps $composition config objects
- * to conform to an api. The config object
- * will override any protected methods and default configs.  defaults
+ * Class that wraps {@link Luc.define#$compositions composition} config objects
+ * to conform to an api. This class is not available externally.  The config object
+ * will override any protected methods and default configs.  Defaults
  * can be used for often used configs, keys that are not defaults will
- * override the defaults
+ * override the defaults.
  *
     var C = Luc.define({
         $compositions: {
             defaults: Luc.compositionEnums.EventEmitter,
-            filterKeys: ['emit']
+            methods: ['emit']
         }
     });
 
@@ -45,7 +46,7 @@
     &gt;&quot;undefined&quot;
  *
  * If you want to add your own composition all you need to have is
- * a name and a Constructor, the rest of the configs and Luc.Composition.create
+ * a name and a Constructor, the rest of the configs of this class and Luc.Composition.create
  * can be used to inject behavior if needed.
  * 
      function Counter() {
@@ -65,7 +66,7 @@
             $compositions: {
                 name: 'counter',
                 Constructor: Counter,
-                filterKeys: 'allMethods'
+                methods: 'allMethods'
             }
     });
 
@@ -93,7 +94,8 @@ function Composition(c) {
 
 Composition.prototype = {
 <span id='Luc-Composition-cfg-name'>    /**
-</span>     * @cfg {String} name (required) the name
+</span>     * @cfg {String} name (required) the name which the composition
+     * will be referred to by the instance.
      */
     
 <span id='Luc-Composition-cfg-defaults'>    /**
@@ -169,17 +171,17 @@ Composition.prototype = {
         }
     },
 
-<span id='Luc-Composition-property-filterFns'>    /**
-</span>     * @property filterFns
+<span id='Luc-Composition-property-filterMethodFns'>    /**
+</span>     * @property filterMethodFns
      * @type {Object}
-     * @property filterFns.allMethods return all methods from the
+     * @property filterMethodFns.allMethods return all methods from the
      * constructors prototype
-     * @property {filterFns.public} retrurn all methods that don't
+     * @property filterMethodFns.public return all methods that don't
      * start with _.  We know not everyone follows this convention, but we
      * do and so do many others.
      * @type {Function}
      */
-    filterFns: {
+    filterMethodFns: {
         allMethods: function(key, value) {
             return is.isFunction(value);
         },
@@ -188,8 +190,8 @@ Composition.prototype = {
         }
     },
 
-<span id='Luc-Composition-cfg-filterKeys'>    /**
-</span>     * @cfg {Function/String/Array[]} filterKeys
+<span id='Luc-Composition-cfg-methods'>    /**
+</span>     * @cfg {Function/String/Array[]} methods
      * The keys to add to the definers prototype that will in turn call
      * the compositions method.
      * 
@@ -197,7 +199,7 @@ Composition.prototype = {
      * If an array is passed it will just use that Array.
      * 
      * If a string is passed and matches a method from 
-     * Luc.Composition.filterFns it will call that instead.
+     * Luc.Composition.filterMethodFns it will call that instead.
      * 
      * If a function is defined it
      * will get called while iterating over each key value pair of the 
@@ -210,7 +212,7 @@ Composition.prototype = {
      
         $compositions: {
             Constructor: Luc.EventEmitter,
-            filterKeys: function(key, value) {
+            methods: function(key, value) {
                 return key === 'emit';
             },
             name: 'emitter'
@@ -219,30 +221,57 @@ Composition.prototype = {
      * 
         $compositions: {
             Constructor: Luc.EventEmitter,
-            filterKeys: ['emitter'],
+            methods: ['emitter'],
             name: 'emitter'
         }
      * 
      */
-    filterKeys: emptyFn,
+    methods: emptyFn,
+
+<span id='Luc-Composition-cfg-ignoreMethods'>    /**
+</span>     * @cfg {String[]/String} ignoreMethods methods that will always
+     * be ignored if methods is not an Array.
+     *
+        
+        var C = Luc.define({
+                $compositions: {
+                    defaults: Luc.compositionEnums.EventEmitter,
+                    methods: 'allMethods',
+                    ignoreMethods: ['emit']
+                }
+            });
+
+            var c = new C();
+            typeof c.emit
+            &gt;&quot;undefined&quot;
+     */
+    ignoreMethods: undefined,
 
     getObjectWithMethods: function() {
-        return this.Constructor &amp;&amp; this.Constructor.prototype;
+        var methodsObj = this.Constructor &amp;&amp; this.Constructor.prototype;
+        if (this.ignoreMethods) {
+            methodsObj = apply({}, methodsObj);
+            array.each(this.ignoreMethods, function(value) {
+                delete methodsObj[value];
+            });
+        }
+
+        return methodsObj;
     },
 
     getMethodsToCompose: function() {
-        var filterKeys = this.filterKeys,
+        var methods = this.methods,
             pairsToAdd,
             filterFn;
 
 
-        if (is.isArray(filterKeys)) {
-            pairsToAdd = filterKeys;
+        if (is.isArray(methods)) {
+            pairsToAdd = methods;
         } else {
-            filterFn = filterKeys;
+            filterFn = methods;
 
-            if (is.isString(filterKeys)) {
-                filterFn = this.filterFns[filterKeys];
+            if (is.isString(methods)) {
+                filterFn = this.filterMethodFns[methods];
             }
 
             //Constructors are not needed if create is overwritten

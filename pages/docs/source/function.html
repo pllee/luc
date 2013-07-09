@@ -21,10 +21,12 @@
 
 <span id='Luc-Function'>/**
 </span> * @class Luc.Function
- * Package for function methods.
+ * Package for function methods.  Most of them follow the same api:
+ * function or function[], relevant args ... with an optional config
+ * to Luc.Function.createAutmenter as the last argument.
  */
 
-function augmentArgs(config, callArgs) {
+function _augmentArgs(config, callArgs) {
     var configArgs = config.args,
         index = config.index,
         argsArray;
@@ -59,7 +61,7 @@ exports.abstractFn = function() {
 };
 
 <span id='Luc-Function-method-createAugmenter'>/**
-</span> * Augment the passed in function's thisArg and or aguments object 
+</span> * Augment the passed in function's thisArg and or arguments object 
  * based on the passed in config.
  * 
  * @param  {Function} fn the function to call
@@ -85,7 +87,8 @@ exports.abstractFn = function() {
         console.log(this)
         console.log(arguments)
     }
-
+    
+    //Luc.Array.insert([4], [1,2,3], 0)
     Luc.Function.createAugmenter(fn, {
         thisArg: {configedThisArg: true},
         args: [1,2,3],
@@ -95,6 +98,7 @@ exports.abstractFn = function() {
     &gt;Object {configedThisArg: true}
     &gt;[1, 2, 3, 4]
 
+    //Luc.Array.insert([1,2,3], [4], 0)
     Luc.Function.createAugmenter(fn, {
         thisArg: {configedThisArg: true},
         args: [1,2,3],
@@ -105,7 +109,7 @@ exports.abstractFn = function() {
     &gt;Object {configedThisArg: true}
     &gt;[4, 1, 2, 3]
 
-
+    Luc.Array.insert([4], [1,2,3],  true)
     var f = Luc.Function.createAugmenter(fn, {
         args: [1,2,3],
         index: true
@@ -122,11 +126,11 @@ exports.createAugmenter = function(fn, config) {
     var thisArg = config.thisArg;
 
     return function() {
-        return fn.apply(thisArg || this, augmentArgs(config, arguments));
+        return fn.apply(thisArg || this, _augmentArgs(config, arguments));
     };
 };
 
-function initSequenceFunctions(fns, config) {
+function _initSequenceFunctions(fns, config) {
     var toRun = [];
     aEach(fns, function(f) {
         var fn = f;
@@ -145,7 +149,7 @@ function initSequenceFunctions(fns, config) {
 </span> * Return a function that runs the passed in functions
  * and returns the result of the last function called.
  * 
- * @param  {Function/Function[]} fns 
+ * @param  {Function[]} fns 
  * @param  {Object} [config] Config object
  * for Luc.Function.createAugmenter.  If defined all of the functions
  * will get created with the passed in config;
@@ -172,7 +176,7 @@ function initSequenceFunctions(fns, config) {
  * @return {Function}
  */
 exports.createSequence = function(fns, config) {
-    var functions = initSequenceFunctions(fns, config);
+    var functions = _initSequenceFunctions(fns, config);
 
     return function() {
         var i = 0,
@@ -193,11 +197,6 @@ exports.createSequence = function(fns, config) {
  *
  * If no false is returned the value of the last function return will be returned
  * 
- * @param  {Function/Function[]} fns 
- * @param  {Object} [config] Config object
- * for Luc.Function.createAugmenter.  If defined all of the functions
- * will get created with the passed in config;
-
     Luc.Function.createSequenceIf([
         function() {
             console.log(1)
@@ -221,10 +220,16 @@ exports.createSequence = function(fns, config) {
     &gt;3
     &gt;finished logging
     &gt;false
+ *
+ * 
+ * @param  {Function[]} fns 
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmenter.  If defined all of the functions
+ * will get created with the passed in config;
  * @return {Function}
  */
 exports.createSequenceIf = function(fns, config) {
-    var functions = initSequenceFunctions(fns, config);
+    var functions = _initSequenceFunctions(fns, config);
 
     return function() {
         var value,
@@ -246,10 +251,6 @@ exports.createSequenceIf = function(fns, config) {
  * for the next function.  The value of the last function 
  * return will be returned.
  * 
- * @param  {Function/Function[]} fns 
- * @param  {Object} [config] Config object
- * for Luc.Function.createAugmenter.  If defined all of the functions
- * will get created with the passed in config;
      
      Luc.Function.createRelayer([
         function(str) {
@@ -265,10 +266,14 @@ exports.createSequenceIf = function(fns, config) {
 
     &gt;&quot;abcd&quot;
 
+ * @param  {Function[]} fns 
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmenter.  If defined all of the functions
+ * will get created with the passed in config;
  * @return {Function}
  */
 exports.createRelayer = function(fns, config) {
-    var functions = initSequenceFunctions(fns, config);
+    var functions = _initSequenceFunctions(fns, config);
 
     return function() {
         var value,
@@ -289,15 +294,8 @@ exports.createRelayer = function(fns, config) {
 <span id='Luc-Function-method-createThrottled'>/**
 </span> * Create a throttled function from the passed in function
  * that will only get called once the passed number of miliseconds
- * have been execeeded.  
+ * have been exceeded.
  * 
- * @param  {Function} fn
- * @param  {Number} [millis] Number of milliseconds to
- * throttle the function.
- * @param  {Object} [config] Config object
- * for Luc.Function.createAugmenter.  If defined all of the functions
- * will get created with the passed in config;
- *
     var logArgs  = function() {
         console.log(arguments)
     };
@@ -319,6 +317,12 @@ exports.createRelayer = function(fns, config) {
     &gt;[1]
     &gt;[2]
  * 
+ * @param  {Function} fn
+ * @param  {Number} millis Number of milliseconds to
+ * throttle the function.
+ * @param  {Object} [config] Config object
+ * for Luc.Function.createAugmenter.  If defined all of the functions
+ * will get created with the passed in config;
  * @return {Function}
  */
 exports.createThrottled = function(f, millis, config) {
@@ -348,7 +352,7 @@ exports.createThrottled = function(f, millis, config) {
  * milliseconds.
  * 
  * @param  {Function} fn
- * @param  {Number} [millis] Number of milliseconds to
+ * @param  {Number} millis Number of milliseconds to
  * defer
  * @param  {Object} [config] Config object
  * for Luc.Function.createAugmenter.  If defined all of the functions

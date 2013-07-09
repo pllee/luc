@@ -30,12 +30,62 @@ function PluginManager(config) {
 <span id='Luc-PluginManager'>/**
 </span> * @protected
  * @class Luc.PluginManager
- * By {@link Luc.compositionEnums#PluginManager default} add
- * all of these public methods to the instance.  The protected methods will
- * not be but if PluginManager doesn't do exactly what you need it do it
- * is designed to be subclassed to fit any domain.
+ * This class is used by Luc.compositionEnums#PluginManager to add its functionality 
+ * to any class.   By {@link Luc.compositionEnums#PluginManager default} it adds
+ * all of these public methods to the instance.This class is designed to work as a composition, 
+ * it is exposed as not private so it can be extended if needed.   Check &quot;protected&quot; which
+ * is a part of the Show v dropdown on the right to see the protected methods.
+ *
+    function MyPlugin() {
+        this.myCoolName = 'coo';
+
+        this.init = function() {
+            console.log('im getting initted');
+        }
+        this.destroy = function() {
+            console.log('MyPlugin instance being destroyed')
+        }
+    }
+
+    var C = Luc.define({
+        $compositions: Luc.compositionEnums.PluginManager
+    });
+
+    var c = new C({
+        plugins: [{
+                Constructor: MyPlugin,
+                myCoolName: 'coo'
+            }
+        ]
+    });
+
+    &gt;im getting initted
+
+    var plugInstance = c.addPlugin({
+        destroy: function() {
+            console.log('Im getting destroyed')
+        }
+    });
+
+    c.getPlugin(Luc.Plugin)
+    &gt; Plugin {destroy: function, owner: MyClass, init: function, destroy: function}
+
+    c.getPlugin(MyPlugin)
+    &gt; MyPlugin {myCoolName: &quot;coo&quot;, init: function, destroy: function}
+
+    c.destroyAllPlugins()
+
+    &gt;MyPlugin instance being destroyed
+    &gt;Im getting destroyed
+
+    c.getPlugin(MyPlugin)
+    &gt;false
+
  */
 PluginManager.prototype = {
+<span id='Luc-PluginManager-cfg-defaultPlugin'>   /**
+</span>    * @cfg {Constructor} defaultPlugin
+    */
     defaultPlugin: Plugin,
 
 <span id='Luc-PluginManager-method-_init'>    /**
@@ -112,7 +162,7 @@ PluginManager.prototype = {
 
 <span id='Luc-PluginManager-method-destroyAllPlugins'>    /**
 </span>     * Call destroy on all of the plugins
-     * and remove them from the array.
+     * and remove them.
      */
     destroyAllPlugins: function() {
         this.plugins.forEach(function(plugin) {
@@ -129,8 +179,7 @@ PluginManager.prototype = {
     },
 
 <span id='Luc-PluginManager-method-destroyPlugin'>    /**
-</span>     * Remove the plugin from the plugins array and 
-     * if found destroy it.
+</span>     * Remove the plugin and if found destroy it.
      * @param  {Object/Constructor} object to use to match 
      * the plugin to remove.
      * @return {Object} the destroyed plugin.
@@ -147,7 +196,13 @@ PluginManager.prototype = {
     },
 
 <span id='Luc-PluginManager-method-getPlugin'>    /**
-</span>     * Get a plugin instance.
+</span>     * Get a plugin instance.  A Constructor or an object can be used
+     * to find a plugin.
+     *
+          c.addPlugin({a:1})
+          c.getPlugin({a:1})
+          &gt;Luc.Plugin({a:1})
+
      * @param  {Object} obj 
      * @return {Object} the plugin instance if found.
      */
