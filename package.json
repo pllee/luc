@@ -5,7 +5,7 @@
     "type": "git",
     "url": "git://github.com/pllee/luc.git"
   },
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "a small javascript framework",
   "main": "lib/luc.js",
   "devDependencies": {
