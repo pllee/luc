@@ -398,7 +398,7 @@ module.exports = ClassDefiner;
  */
 
 <span id='Luc-define-property-S-class'>/**
-</span> * @property {Function} $class reference to the instances own constructor.  This
+</span> * @property {Function} $class reference to the instance's own constructor.  This
  * will get added to any class that is defined with Luc.define.
  * 
     var C = Luc.define()
@@ -408,7 +408,7 @@ module.exports = ClassDefiner;
  *
  * There are some really good use cases to have a reference to it's
  * own constructor.  &lt;br&gt; Add functionality to an instance in a simple
- * and generic way.
+ * and generic way:
  *
     var C = Luc.define({
         add: function(a,b) {
@@ -537,7 +537,7 @@ module.exports = ClassDefiner;
 
     
 <span id='Luc-define-property-getComposition'>/**
-</span> * @property {Function} getComposition this method will be
+</span> * @property {Function} getComposition this method will be added
  * to instances that use the {@link Luc.define#$compositions $compositions}  config
  *
  *  This will return the composition instance based off the composition {@link Luc.Composition#name name}
@@ -590,7 +590,7 @@ module.exports = ClassDefiner;
 
 <span id='Luc-define-property-S-superclass'>/**
 </span> * @property {Function} [$superclass] If $super is defined it
- * will the prototype of $super.  It can be used to call parent's
+ * will be the prototype of $super.  It can be used to call parent's
  * method
  * 
     function MyCoolClass() {}
