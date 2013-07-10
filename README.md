@@ -24,6 +24,233 @@ Browser
 [Download](http://pllee.github.io/luc/luc.zip) the zip or check out the hosted build files [luc](http://pllee.github.io/luc/build/luc.js), [luc-es5-shim](http://pllee.github.io/luc/build/luc-es5-shim.js).  Source maps come packaged with the non minified versions.
 
 
+Examples
+===
+
+Class System
+---
+###Simple define
+Luc.define just takes the passed in config and puts the properties on the prototype and returns a Constructor.
+```js
+var C = Luc.define({
+    a: 1,
+    doLog: true,
+    logA: function() {
+        if (this.doLog) {
+            console.log(this.a);
+        }
+    }
+});
+var c = new C();
+c.logA();
+>1
+c.a = 45;
+c.logA();
+>45
+c.doLog = false;
+c.logA();
+
+new C().logA()
+>1
+```
+Simple super class
+
+```js
+function Counter() {
+    this.count = 0;
+ };
+
+ Counter.prototype = {
+    getCount: function() {
+        return this.count;
+    },
+    increaseCount: function() {
+        this.count++;
+    }
+ }
+
+ var C = Luc.define({
+    $super:Counter
+});
+
+var c = new C()
+
+c instanceof Counter
+>true
+c.increaseCount();
+c.getCount();
+>1
+c.count
+>1
+```
+
+
+
+
+###Compositions
+
+Compositions allow the ability to add functionality
+to any class without changing or messing up the inheritance chain.
+They are more powerful than mixins because they don't have to worry about putting a 
+state on classes using them or have to know that they may be a mixin or a 
+standalone class.
+
+```js
+    var C = Luc.define({
+        $compositions: {
+            Constructor: Luc.EventEmitter,
+            name: 'emitter',
+            methods: 'allMethods'
+        }
+    });
+
+    //Or simply (EventEmitter comes as a packaged composition)
+    var C = Luc.define({
+            $compositions: Luc.compositionEnums.EventEmitter
+    });
+
+    var c = new C();
+
+    c.on('hey', function() {
+        console.log(arguments);
+    });
+
+    c.emit('hey', 1,2,3, 'a');
+    >[1, 2, 3, "a"]
+    c instanceof Luc.EventEmitter
+    >false
+    c._events
+    >undefined
+```
+###Mixins
+
+Mixins are a way to add functionality to a class that should not add state to the instance unknowingly.  Mixins can be either objects or Constructors.
+
+```js
+    function Logger() {}
+    Logger.prototype.log = function() {
+        console.log(arguments)
+    }
+
+    var C = Luc.define({
+        $mixins: [Logger, {
+            warn: function() {
+                console.warn(arguments)
+            }
+        }]
+    });
+
+    var c = new C();
+
+    c.log(1,2)
+    >[1,2]
+
+    c.warn(3,4)
+    >[3,4]
+```
+
+###Statics
+Statics are good for defining default configs.
+
+```js
+var C = Luc.define({
+        $statics: {
+            number: 1
+        }
+    });
+
+    var c = new C();
+    c.number
+    >undefined
+    C.number
+    >1
+```
+
+Using statics prevent subclasses and instances from unknowingly modifying
+all instances.
+
+```js
+    var C = Luc.define({
+        cfg: {
+            a: 1
+        }
+    });
+
+    var c = new C();
+    c.cfg.a
+    >1
+    c.cfg.a = 5
+    new C().cfg.a
+    >5
+```
+
+###$class
+Every class defined with Luc.define will get a reference to the instance's own constructor.
+
+```js
+    var C = Luc.define()
+    var c = new C()
+    c.$class === C
+    >true
+```
+
+ There are some really good use cases to have a reference to it's
+own constructor.  <br> Add functionality to an instance in a simple
+and generic way:
+
+```js
+    var C = Luc.define({
+        add: function(a,b) {
+            return a + b;
+        }
+    });
+
+    //Luc.Base applies first 
+    //arg to the instance
+
+    var c = new C({
+        add: function(a,b,c) {
+            return this.$class.prototype.add.call(this, a,b) + c;
+        }
+    });
+
+    c.add(1,2,3)
+    >6
+    new C().add(1,2,3)
+    >3
+```
+Or have a simple generic clone method :
+
+```js
+    var C = Luc.define({
+        clone: function() {
+            var myOwnProps = {};
+            Luc.Object.each(this, function(key, value) {
+                myOwnProps[key] = value;
+            });
+
+            return new this.$class(myOwnProps);
+        }
+    });
+
+    var c = new C({a:1,b:2,c:3});
+    c.d = 4;
+    var clone = c.clone();
+
+    clone === c
+    >false
+
+    clone.a
+    >1
+    clone.b
+    >2
+    clone.c
+    >3
+    clone.d
+    >4
+```
+
+
 Where does Luc sit now?
 ====
 Luc is now in its first official release.  It still sits at version 0.\* and follows the http://semver.org/ versioning spec.  We want to get input on what you guys think about the API and functionality Luc provides.  Luc will officially release an unchanging API after taking account for everyone's input.  Once input has been gathered a 1.\* version will be released.

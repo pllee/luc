@@ -4,3 +4,4 @@ test
 Gruntfile.js
 .travis.yml
 jsduck.json
+lib-cov
