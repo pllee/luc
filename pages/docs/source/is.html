@@ -109,9 +109,11 @@ function isArguments(obj) {
 
 <span id='Luc-method-isFalsy'>/**
 </span> * @member Luc
- * Return true if the object is falsy but not zero.  If
- * you want falsy check that includes zero use a goram 
- * if statement :)
+ * Return true if the object is falsy but not zero.
+    Luc.isFalsy(false)
+    &gt;true
+    Luc.isFalsy(0)
+    &gt;false
  * @param  {Object}  obj
  * @return {Boolean}     
  */
@@ -123,7 +125,13 @@ function isFalsy(obj) {
 </span> * @member Luc
  * Return true if the object is empty.
  * {}, [], '',false, null, undefined, NaN 
- * Are all treated as empty.
+ * are all treated as empty.
+ * 
+    Luc.isEmpty(true)
+    &gt;false
+    Luc.isEmpty([])
+    &gt;true
+    
  * @param  {Object}  obj
  * @return {Boolean}
  */
