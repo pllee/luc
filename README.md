@@ -1,14 +1,15 @@
 Luc
 ====
 
-
+<!--
 [![browser support](https://ci.testling.com/pllee/luc.png)](https://ci.testling.com/pllee/luc)
+-->
 
 [![Build Status](https://secure.travis-ci.org/pllee/luc.png)](http://travis-ci.org/pllee/luc)
 
 What is Luc?
 ====
-Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to [Browserify](https://github.com/substack/node-browserify).   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  Along with that it comes with the ability to add EventEmmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight and unobtrusive it has zero dependencies and currently sits at less than 650 SLOC and it is less than 8Kb minified and gzipped.
+Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to [Browserify](https://github.com/substack/node-browserify).   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  Along with that it comes with the ability to add EventEmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight and unobtrusive it has zero dependencies and currently sits at less than 650 SLOC and it is less than 8Kb minified and gzipped.
 
 
 Node
@@ -18,6 +19,15 @@ npm install luc
 Browser
 ====
 [Download](http://pllee.github.io/luc/luc.zip) the zip or check out the hosted build files [luc](http://pllee.github.io/luc/build/luc.js), [luc-es5-shim](http://pllee.github.io/luc/build/luc-es5-shim.js).  Source maps come packaged with the non minified versions.
+
+Supported Browsers
+===
+* IE8 - latest with tentative support for IE6/7 (Our tests currently pass in them now)
+* FF3 - latest
+* Chrome
+* Opera
+* Safari 5.1 - latest
+* Tentative support for mobile (Our tests pass for the platforms that we are [testing](https://ci.testling.com/pllee/luc))
 
 
 Examples/Code
@@ -102,7 +112,105 @@ standalone class.
         }
     });
 
-    //Or simply (EventEmitter comes as a packaged composition)
+    var c = new C();
+
+    c.on('hey', function() {
+        console.log(arguments);
+    });
+
+    c.emit('hey', 1,2,3, 'a');
+    >[1, 2, 3, "a"]
+    c instanceof Luc.EventEmitter
+    >false
+```
+###Default Compositions
+Luc comes with two default composition objects.
+
+##[Luc.compositionEnums.PluginManager](http://localhost:9999/git/luc/pages/docs/#!/api/Luc.compositionEnums-property-PluginManager)
+
+The PluginManager adds a plugin functionality to any Class.  Check out the methods that get added to
+the instance and more info in the [docs](http://localhost:9999/git/luc/pages/docs/#!/api/Luc.PluginManager)
+
+A plugin follows the following lifecycle: 
+<br>
+plugin is added to the instance -> plugin is created -> plugin init is called with instance -> if needed destroy called by instance -> destroy called on plugin 
+<br> Here is the most basic example using the default plugin.
+
+```js
+
+    var C = Luc.define({
+        $compositions: Luc.compositionEnums.PluginManager
+    });
+
+    var c = new C({
+        plugins: [{
+                init: function() {
+                    console.log('im getting initted')
+                },
+                myCoolName: 'cool'
+            }
+        ]
+    });
+
+    >im getting initted
+
+    c.getPlugin({myCoolName: 'coo'}) instanceof Luc.Plugin
+    > true
+```
+Plugins can be of any class and can be added with addPlugin
+
+```js
+
+    function MyPlugin(){}
+
+    var C = Luc.define({
+        $compositions: Luc.compositionEnums.PluginManager
+    });
+
+    var c = new C();
+
+    c.addPlugin({Constructor: MyPlugin});
+    //getPlugin takes a Constructor or match object
+    c.getPlugin(MyPlugin) instanceof MyPlugin
+    >true
+    c.getPlugin(Luc.Plugin)
+    >false
+```
+Plugins can also be destroyed individually or all of them at once.
+
+```js
+
+    var C = Luc.define({
+        $compositions: Luc.compositionEnums.PluginManager
+    });
+
+    var c = new C({
+        plugins: [{
+            init: function() {
+                console.log('im getting initted ' + this.name)
+            },
+            destroy: function() {
+                console.log('destroyed : ' + this.name)
+            },
+            name: '1'
+        },{
+            init: function() {
+                console.log('im getting initted ' + this.name)
+            },
+            destroy: function() {
+                console.log('destroyed : ' + this.name)
+            },
+            name: '2'
+        }]
+    });
+```
+
+##[Luc.compositionEnums.EventEmitter](http://localhost:9999/git/luc/pages/docs/#!/api/Luc.compositionEnums-property-EventEmitter)
+
+Luc.EventEmitter is preferred as a composition over a mixin because it adds a state "_events" to the this instance when on is called.
+
+```js
+
     var C = Luc.define({
             $compositions: Luc.compositionEnums.EventEmitter
     });
@@ -120,6 +228,7 @@ standalone class.
     c._events
     >undefined
 ```
+
 ###[Mixins](http://pllee.github.io/luc/pages/docs/#!/api/Luc.define-cfg-S-mixins)
 
 Mixins are a way to add functionality to a class that should not add state to the instance unknowingly.  Mixins can be either objects or Constructors.
@@ -605,8 +714,13 @@ These functions have a consistent api that should make sense what they do from t
 Luc.Array.findAllNotFalsy([false, true, null, undefined, 0, '', [], [1]])
   > [true, 0, [], [1]]
 
-  Luc.Array.findAllNotFalsy([false, true, null, undefined, 0, '', [], [1]])
-  > [true, 0, [], [1]]
+    //Or remove all empty items
+    var arr = ['', 0 , [], {a:1}, true, {}, [1]]
+    Luc.Array.removeAllEmpty(arr)
+    >['', [], {}]
+    arr
+    >[0, {a:1}, true, [1]]
+
 
   Luc.Array.findFirstNotString([1,2,3,'5'])
   >1
@@ -811,7 +925,7 @@ Return a unique id.  A prefix is an optional argument
 
 Where does Luc sit now?
 ====
-Luc is now in its first official release.  It still sits at version 0.\* and follows the http://semver.org/ versioning spec.  We want to get input on what you guys think about the API and functionality Luc provides.  Luc will officially release an unchanging API after taking account for everyone's input.  Once input has been gathered a 1.\* version will be released.
+Luc is now in its first official release.  It still sits at version 0.\* and follows the http://semver.org/ versioning spec.  We want to get input on what the community thinks about the API and functionality Luc provides.  Luc will officially release an unchanging API after taking account for everyone's input.  Once input has been gathered a 1.\* version will be released.
 
 
 The future
@@ -821,3 +935,16 @@ Right now Luc provides the the building blocks for small and large scale applica
 Issues/Discussion
 === 
 Log [issues](https://github.com/pllee/luc/issues) with the appropriate tag.  For discussions about the API or documentation use the discussion tag.  Please read the known caveats of [es5-shim](https://github.com/kriskowal/es5-shim/issues/114).  
+
+FAQ
+===
+*  How does Luc support Node and IE6?
+    -  Luc uses [es5-shim](https://github.com/kriskowal/es5-shim) and [browserify](https://github.com/substack/node-browserify) to write pure node code with all of its es5 goodness and it just works on all browsers.
+*  Can I run the tests and see code coverage?
+    -  Feel free to run the [tests](http://pllee.github.io/luc/pages/testRunner/) in your favorite or least favorite browser.  [Coverage](http://pllee.github.io/luc/pages/coverage/)
+*  Why do some tests show failing in [testling](https://ci.testling.com/pllee/luc)
+    - Not sure we are talking to them for support.  There are currently only two failure but they are timing out or all the tests pass but they show as failed.
+*  How do you pronounce Luc?
+    - It is pronounced like the name Luke
+*  What is Luc named after?
+    - Everyone's favorite former Milwaukee Bucks Forward and Cameroonian Prince [Luc Richard Mbah a Moute](http://en.wikipedia.org/wiki/Luc_Mbah_a_Moute)
