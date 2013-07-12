@@ -9,7 +9,7 @@ Luc
 
 What is Luc?
 ====
-Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to [Browserify](https://github.com/substack/node-browserify).   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  Along with that it comes with the ability to add EventEmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight and unobtrusive it has zero dependencies and currently sits at less than 650 SLOC and it is less than 7.5Kb minified and gzipped.
+Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to [Browserify](https://github.com/substack/node-browserify).   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  It also comes with the ability to add EventEmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight it has zero dependencies and currently sits at less than 650 SLOC and it is less than 7.5Kb minified and gzipped.
 
 
 Node
@@ -203,6 +203,19 @@ Plugins can also be destroyed individually or all of them at once.
             name: '2'
         }]
     });
+
+    >im getting initted 1
+    >im getting initted 2
+
+    c.destroyPlugin({name: '1'});
+    >destroyed : 1
+    >Plugin {init: function, destroy: function, name: "1", owner: Object, init: function…}
+
+    c.destroyPlugin({name: '1'});
+    >false
+
+    c.destroyAllPlugins();
+    >destroyed : 2
 ```
 
 ##[Luc.compositionEnums.EventEmitter](http://pllee.github.io/luc/pages/docs/#!/api/Luc.compositionEnums-property-EventEmitter)
@@ -461,36 +474,6 @@ obj === undefined
 isNaN(obj)
 ```
 
-
-[Luc.compare](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-compare)
----
-Return true if the values are equal to each other. By default a deep comparison is done on arrays, dates and objects and a strict comparison is done on other types.  Pass in 'shallow' for a shallow comparison, 'deep' (default) for a deep comparison 'strict' for a strict === comparison for all objects or 'loose' for a loose comparison on objects. A loose comparison will compare the keys and values of val1 to val2 and does not check if keys from val2 do not exist in val1.
-```js
-Luc.compare('1', 1)
->false
-Luc.compare({a: 1}, {a: 1})
->true
-Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type:'shallow'})
->false
-Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type: 'deep'})
->true
-Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type: 'strict'})
->false
-Luc.compare({a: 1}, {a:1,b:1})
->false
-Luc.compare({a: 1}, {a:1,b:1}, {type: 'loose'})
->true
-Luc.compare({a: 1}, {a:1,b:1}, {type: 'loose'})
->true
-Luc.compare([{a: 1}], [{a:1,b:1}], {type: 'loose'})
->true
-Luc.compare([{a: 1}, {}], [{a:1,b:1}], {type: 'loose'})
->false
-Luc.compare([{a: 1}, {}], [{a:1,b:1}, {}], {type: 'loose'})
->true
-Luc.compare([{a:1,b:1}], [{a: 1}], {type: 'loose'})
->false
-```
 Luc.Object
 ---
 
@@ -637,7 +620,7 @@ vs.
 myLongArrayNameForThingsThatIWantToKeepTrackOf[myLongArrayNameForThingsThatIWantToKeepTrackOf.length -1]
 ```
 ###[Luc.Array.removeAtIndex](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeAtIndex)
-Remove an item from an the passed in arr from the index.
+Remove an item from the passed in arr from the index.
 ```js
 var arr = [1,2,3];
 Luc.Array.removeAtIndex(arr, 1);
@@ -668,14 +651,14 @@ Luc.Array.fromIndex([1,2,3,4,5], 1)
 *  [Luc.Array.removeLast](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeLast)
 *  [Luc.Array.removeLastNot](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeLastNot)
 
-All remove\* / find\* methods follow the same api. \*All functions will return an array of removed or found items. The items will be added to the array in the order they are found. \*First functions will return the first item and stop iterating after that, if none is found false is returned. remove\* functions will directly change the passed in array. \*Not functions only do the following actions if the comparison is not true. All remove\* / find\* take the following api: array, objectToCompareOrIterator, compareConfigOrThisArg for example:
+All remove\* / find\* methods follow the same api. \*All functions will return an array of removed or found items. The items will be added to the array in the order they are found. \*First functions will return the first item and stop iterating after that, if none is found false is returned. remove\* functions will directly change the passed in array. \*Not functions only do the following actions if the comparison is not true. All remove\* / find\* take the following api: array, objectToCompareOrIterator, compareConfigOrThisArg <br> for example:
 
 ```js
 //most common use case
 Luc.Array.findFirst([1,2,3, {}], {});
 >Object {}
 
-//pass in option config for a strict === comparison
+//pass in optional config for a strict === comparison
 Luc.Array.findFirst([1,2,3,{}], {}, {type: 'strict'});
 >false
 
@@ -704,7 +687,7 @@ Luc.Array.findAllNot([1,2,3, {a:1,b:2}], function() {return true;})
 >[]
 ```
 
-The arrays functions are also combined with the Luc.is\* functions.  There are over 150 matching functions.
+The Array functions are also combined with the Luc.is\* functions.  There are over 150 matching functions.
 Almost every public method of Luc.is\* is available it uses the following grammar Luc.Array["methodName""isMethodName"]
 These functions have a consistent api that should make sense what they do from the function name.  [Docs](http://pllee.github.io/luc/pages/docs/#!/api/Luc.ArrayFns)
 
@@ -759,7 +742,7 @@ Luc.Array.findAllIn([1,2,3, {a:1, b:2}], [1,{a:1}], {type: 'deep'})
 
 Luc.Function
 ---
-Most of them follow the same api: function or function[], relevant args ... with an optional config to Luc.Function.createAutmenter as the last argument.
+Most of these functions follow the same api: function or function[], relevant args ... with an optional config to Luc.Function.createAutmenter as the last argument.
 
 ###[Luc.Function.createAugmenter](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createAugmenter)
 
@@ -804,7 +787,7 @@ f.apply({config: false}, [4])
 ```
 
 ###[Luc.Function.createThrottled](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createThrottled)
-Create a throttled function from the passed in function that will only get called once the passed number of milliseconds have been exceeded.
+Create a throttled function from the passed in function that will only get called once the number of milliseconds have been exceeded.
 Read the docs to understand all of the config options.
 ```js
 var logArgs  = function() {
@@ -871,7 +854,7 @@ Luc.Function.createSequence([
 ```
 
 ###[Luc.Function.createSequenceIf](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createSequenceIf)
-Return a function that runs the passed in functions if one of the functions results false the rest of the functions won't run and false will be returned.
+Return a function that runs the passed in functions if one of the functions returns false the rest of the functions won't run and false will be returned.
 Read the docs to understand all of the config options.
 ```js
 Luc.Function.createSequenceIf([
@@ -907,6 +890,36 @@ A reusable empty function
 
 ###[Luc.Function.abstractFn](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-abstractFn)  / Luc.abstractFn
 A function that throws an error when called. Useful when defining abstract like classes
+
+[Luc.compare](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-compare)
+---
+Return true if the values are equal to each other. By default a deep comparison is done on arrays, dates and objects and a strict comparison is done on other types.  Pass in 'shallow' for a shallow comparison, 'deep' (default) for a deep comparison 'strict' for a strict === comparison for all objects or 'loose' for a loose comparison on objects. A loose comparison will compare the keys and values of val1 to val2 and does not check if keys from val2 are equal to the keys in val1.
+```js
+Luc.compare('1', 1)
+>false
+Luc.compare({a: 1}, {a: 1})
+>true
+Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type:'shallow'})
+>false
+Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type: 'deep'})
+>true
+Luc.compare({a: 1, b: {}}, {a: 1, b: {} }, {type: 'strict'})
+>false
+Luc.compare({a: 1}, {a:1,b:1})
+>false
+Luc.compare({a: 1}, {a:1,b:1}, {type: 'loose'})
+>true
+Luc.compare({a: 1}, {a:1,b:1}, {type: 'loose'})
+>true
+Luc.compare([{a: 1}], [{a:1,b:1}], {type: 'loose'})
+>true
+Luc.compare([{a: 1}, {}], [{a:1,b:1}], {type: 'loose'})
+>false
+Luc.compare([{a: 1}, {}], [{a:1,b:1}, {}], {type: 'loose'})
+>true
+Luc.compare([{a:1,b:1}], [{a: 1}], {type: 'loose'})
+>false
+```
 
 [Luc.id](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-id)
 ---
