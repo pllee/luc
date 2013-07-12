@@ -126,12 +126,12 @@ standalone class.
 ###Default Compositions
 Luc comes with two default composition objects.
 
-##[Luc.compositionEnums.PluginManager](http://localhost:9999/git/luc/pages/docs/#!/api/Luc.compositionEnums-property-PluginManager)
+##[Luc.compositionEnums.PluginManager](http://pllee.github.io/luc/pages/docs/#!/api/Luc.compositionEnums-property-PluginManager)
 
 The PluginManager adds a plugin functionality to any Class.  Check out the methods that get added to
-the instance and more info in the [docs](http://localhost:9999/git/luc/pages/docs/#!/api/Luc.PluginManager)
+the instance and more info in the [docs](http://pllee.github.io/luc/pages/docs/#!/api/Luc.PluginManager)
 
-A plugin follows the following lifecycle: 
+A plugin follows the following life-cycle: 
 <br>
 plugin is added to the instance -> plugin is created -> plugin init is called with instance -> if needed destroy called by instance -> destroy called on plugin 
 <br> Here is the most basic example using the default plugin.
@@ -205,7 +205,7 @@ Plugins can also be destroyed individually or all of them at once.
     });
 ```
 
-##[Luc.compositionEnums.EventEmitter](http://localhost:9999/git/luc/pages/docs/#!/api/Luc.compositionEnums-property-EventEmitter)
+##[Luc.compositionEnums.EventEmitter](http://pllee.github.io/luc/pages/docs/#!/api/Luc.compositionEnums-property-EventEmitter)
 
 Luc.EventEmitter is preferred as a composition over a mixin because it adds a state "_events" to the this instance when on is called.
 
@@ -646,7 +646,7 @@ arr;
 >[1,3]
 ```
 ###[Luc.Array.fromIndex](http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-fromIndex)
-Return the items inbetween the passed in index and the end of the array.
+Return the items in between the passed in index and the end of the array.
 ```js
 Luc.Array.fromIndex([1,2,3,4,5], 1)
 >[2, 3, 4, 5]
