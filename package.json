@@ -16,7 +16,8 @@
     "mocha": "~1.11.0",
     "es5-shim-sham": "0.0.0",
     "wrench": "~1.5.1",
-    "grunt-cli": "~0.1.9"
+    "grunt-cli": "~0.1.9",
+    "grunt-devtools": "0.1.0-7"
   },
   "testling": {
     "browsers": [

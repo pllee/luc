@@ -43,7 +43,8 @@ module.exports = function(grunt) {
       }
     }
   });
-
+  
+  grunt.loadNpmTasks('grunt-devtools');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['exec', 'uglify']);
