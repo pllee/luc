@@ -192,7 +192,7 @@ exports.createSequence = function(fns, config) {
 
 <span id='Luc-Function-method-createSequenceIf'>/**
 </span> * Return a function that runs the passed in functions
- * if one of the functions results false the rest of the 
+ * if one of the functions returns false the rest of the 
  * functions won't run and false will be returned.
  *
  * If no false is returned the value of the last function return will be returned
@@ -293,7 +293,7 @@ exports.createRelayer = function(fns, config) {
 
 <span id='Luc-Function-method-createThrottled'>/**
 </span> * Create a throttled function from the passed in function
- * that will only get called once the passed number of milliseconds
+ * that will only get called once the number of milliseconds
  * have been exceeded.
  * 
     var logArgs  = function() {

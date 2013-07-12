@@ -61,8 +61,12 @@ module.exports = Generator;
       Luc.Array.findAllNotEmpty([false, true, null, undefined, 0, '', [], [1]])
       &gt; [true, 0, [1]]
 
-      Luc.Array.findAllNotFalsy([false, true, null, undefined, 0, '', [], [1]])
-      &gt; [true, 0, [], [1]]
+      //Or remove all empty items
+      var arr = ['', 0 , [], {a:1}, true, {}, [1]]
+      Luc.Array.removeAllEmpty(arr)
+      &gt;['', [], {}]
+      arr
+      &gt;[0, {a:1}, true, [1]]
      
       Luc.Array.findFirstNotString([1,2,3,'5'])
       &gt;1

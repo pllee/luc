@@ -60,13 +60,13 @@ function _createIteratorNotFn(fn, config) {
  * found.  \*First functions will return the first item and stop iterating after that, if none
  *  is found false is returned.  remove\* functions will directly change the passed in array.
  *  \*Not functions only do the following actions if the comparison is not true.
- *  All remove\* / find\* take the following api: array, objectToCompareOrIterator, compareConfigOrThisArg for example:
+ *  All remove\* / find\* take the following api: array, objectToCompareOrIterator, compareConfigOrThisArg &lt;br&gt;for example:
  *
     //most common use case
     Luc.Array.findFirst([1,2,3, {}], {});
     &gt;Object {}
 
-    //pass in option config for a strict === comparison
+    //pass in optional config for a strict === comparison
     Luc.Array.findFirst([1,2,3,{}], {}, {type: 'strict'});
     &gt;false
 
@@ -247,7 +247,7 @@ function insert(firstArrayOrArgs, secondArrayOrArgs, indexOrAppend) {
 }
 
 <span id='Luc-Array-method-removeAtIndex'>/**
-</span> * Remove an item from an the passed in arr
+</span> * Remove an item from the passed in arr
  * from the index.
  * @param  {Array} arr
  * @param  {Number} index
