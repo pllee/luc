@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="resources/css/app-0b2d94a756da271cc9ed4a65f4837560.css" type="text/css" />
 
   <script type="text/javascript" src="extjs/ext-all.js"></script>
-  <script type="text/javascript" src="data-fd3bd9da66757d6fbe236377d74d2802.js"></script>
+  <script type="text/javascript" src="data-d8f3db6f70e5b58570aeeb313b638f4b.js"></script>
 
   <script type="text/javascript" src="app-2a09dc1c9acadab58e390b770a9565d0.js"></script>
 
@@ -26,17 +26,16 @@
   <div id="header-content">Luc</div>
   <div id='welcome-content' style='display:none'><div class="markdown"><h1>Luc</h1>
 
-<p><a href="https://ci.testling.com/pllee/luc"><img src="https://ci.testling.com/pllee/luc.png" alt="browser support" /></a></p>
+<!--
+[![browser support](https://ci.testling.com/pllee/luc.png)](https://ci.testling.com/pllee/luc)
+-->
+
 
 <p><a href="http://travis-ci.org/pllee/luc"><img src="https://secure.travis-ci.org/pllee/luc.png" alt="Build Status" /></a></p>
 
 <h1>What is Luc?</h1>
 
-<p>Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to <a href="https://github.com/substack/node-browserify">Browserify</a>.   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  Along with that it comes with the ability to add EventEmmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight and unobtrusive it has zero dependencies and currently sits at 650 SLOC and it is less than 8Kb minified and gzipped.</p>
-
-<h1>Getting started</h1>
-
-<p>Check out our <a href="http://pllee.github.io/luc/pages/docs/">docs</a>, they show everything that Luc as to offer and they are loaded with examples.    <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.define">Luc.define</a> covers the class system while <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array">Luc.Array</a>, <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Object">Luc.Object</a>, <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function">Luc.Function</a>  cover most of the utils.  Luc also comes packed with node's EventEmitter for browser code.</p>
+<p>Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to <a href="https://github.com/substack/node-browserify">Browserify</a>.   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  Along with that it comes with the ability to add EventEmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight and unobtrusive it has zero dependencies and currently sits at less than 650 SLOC and it is less than 8Kb minified and gzipped.</p>
 
 <h1>Node</h1>
 
@@ -46,9 +45,21 @@
 
 <p><a href="http://pllee.github.io/luc/luc.zip">Download</a> the zip or check out the hosted build files <a href="http://pllee.github.io/luc/build/luc.js">luc</a>, <a href="http://pllee.github.io/luc/build/luc-es5-shim.js">luc-es5-shim</a>.  Source maps come packaged with the non minified versions.</p>
 
+<h1>Supported Browsers</h1>
+
+<ul>
+<li>IE8 - latest with tentative support for IE6/7 (Our tests currently pass in them now)</li>
+<li>FF3 - latest</li>
+<li>Chrome</li>
+<li>Opera</li>
+<li>Safari 5.1 - latest</li>
+<li>Tentative support for mobile (Our tests pass for the platforms that we are <a href="https://ci.testling.com/pllee/luc">testing</a>)</li>
+</ul>
+
+
 <h1>Where does Luc sit now?</h1>
 
-<p>Luc is now in its first official release.  It still sits at version 0.* and follows the http://semver.org/ versioning spec.  We want to get input on what you guys think about the API and functionality Luc provides.  Luc will officially release an unchanging API after taking account for everyone's input.  Once input has been gathered a 1.* version will be released.</p>
+<p>Luc is now in its first official release.  It still sits at version 0.* and follows the http://semver.org/ versioning spec.  We want to get input on what the community thinks about the API and functionality Luc provides.  Luc will officially release an unchanging API after taking account for everyone's input.  Once input has been gathered a 1.* version will be released.</p>
 
 <h1>The future</h1>
 
@@ -56,7 +67,43 @@
 
 <h1>Issues/Discussion</h1>
 
-<p>Log <a href="https://github.com/pllee/luc/issue">issues</a> with the appropriate tag.  For discussions about the API or documentation use the discussion tag.  Please read the known caveats of <a href="https://github.com/kriskowal/es5-shim/issues/114">es5-shim</a>.</p>
+<p>Log <a href="https://github.com/pllee/luc/issues">issues</a> with the appropriate tag.  For discussions about the API or documentation use the discussion tag.  Please read the known caveats of <a href="https://github.com/kriskowal/es5-shim/issues/114">es5-shim</a>.</p>
+
+<h1>FAQ</h1>
+
+<ul>
+<li>How does Luc support Node and IE6?
+
+<ul>
+<li>Luc uses <a href="https://github.com/kriskowal/es5-shim">es5-shim</a> and <a href="https://github.com/substack/node-browserify">browserify</a> to write pure node code with all of its es5 goodness and it just works on all browsers.</li>
+</ul>
+</li>
+<li>Can I run the tests and see code coverage?
+
+<ul>
+<li>Feel free to run the <a href="http://pllee.github.io/luc/pages/testRunner/">tests</a> in your favorite or least favorite browser.  <a href="http://pllee.github.io/luc/pages/coverage/">Coverage</a></li>
+</ul>
+</li>
+<li>Why do some tests show failing in <a href="https://ci.testling.com/pllee/luc">testling</a>
+
+<ul>
+<li>Not sure we are talking to them for support.  There are currently only two failure but they are timing out or all the tests pass but they show as failed.</li>
+</ul>
+</li>
+<li>How do you pronounce Luc?
+
+<ul>
+<li>It is pronounced like the name Luke</li>
+</ul>
+</li>
+<li>What is Luc named after?
+
+<ul>
+<li>Everyone's favorite former Milwaukee Bucks Forward and Cameroonian Prince <a href="http://en.wikipedia.org/wiki/Luc_Mbah_a_Moute">Luc Richard Mbah a Moute</a></li>
+</ul>
+</li>
+</ul>
+
 </div></div>
           <div id='categories-content' style='display:none'>
             <div class='section'>
@@ -110,7 +157,7 @@
 
   
   
-  <div id='footer-content' style='display: none'>Generated on Wed 10 Jul 2013 23:54:23 by <a href='https://github.com/senchalabs/jsduck'>JSDuck</a> 4.10.4.</div>
+  <div id='footer-content' style='display: none'>Generated on Thu 11 Jul 2013 22:41:02 by <a href='https://github.com/senchalabs/jsduck'>JSDuck</a> 4.10.4.</div>
 
   
 
