@@ -9,7 +9,7 @@ Luc
 
 What is Luc?
 ====
-Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to [Browserify](https://github.com/substack/node-browserify).   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  It also comes with the ability to add EventEmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight it has zero dependencies and currently sits at less than 650 SLOC and it is less than 7.5Kb minified and gzipped.
+Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.   Luc provides a class system that can add compositions, mixins and statics functionality to any class without messing up the inheritance chain.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar. It also comes with the ability to add EventEmiter and Plugin functionality to any pre existing class.  Luc has zero dependencies and currently sits at less than 650 SLOC and it is less than 7.5Kb minified and gzipped.
 
 
 Node
@@ -126,6 +126,30 @@ standalone class.
 ###Default Compositions
 Luc comes with two default composition objects.
 
+##[Luc.compositionEnums.EventEmitter](http://pllee.github.io/luc/pages/docs/#!/api/Luc.compositionEnums-property-EventEmitter)
+
+Luc.EventEmitter is preferred as a composition over a mixin because it adds a state "_events" to the this instance when on is called.
+
+```js
+
+    var C = Luc.define({
+            $compositions: Luc.compositionEnums.EventEmitter
+    });
+
+    var c = new C();
+
+    c.on('hey', function() {
+        console.log(arguments);
+    });
+
+    c.emit('hey', 1,2,3, 'a');
+    >[1, 2, 3, "a"]
+    c instanceof Luc.EventEmitter
+    >false
+    c._events
+    >undefined
+```
+
 ##[Luc.compositionEnums.PluginManager](http://pllee.github.io/luc/pages/docs/#!/api/Luc.compositionEnums-property-PluginManager)
 
 The PluginManager adds a plugin functionality to any Class.  Check out the methods that get added to
@@ -216,30 +240,6 @@ Plugins can also be destroyed individually or all of them at once.
 
     c.destroyAllPlugins();
     >destroyed : 2
-```
-
-##[Luc.compositionEnums.EventEmitter](http://pllee.github.io/luc/pages/docs/#!/api/Luc.compositionEnums-property-EventEmitter)
-
-Luc.EventEmitter is preferred as a composition over a mixin because it adds a state "_events" to the this instance when on is called.
-
-```js
-
-    var C = Luc.define({
-            $compositions: Luc.compositionEnums.EventEmitter
-    });
-
-    var c = new C();
-
-    c.on('hey', function() {
-        console.log(arguments);
-    });
-
-    c.emit('hey', 1,2,3, 'a');
-    >[1, 2, 3, "a"]
-    c instanceof Luc.EventEmitter
-    >false
-    c._events
-    >undefined
 ```
 
 ###[Mixins](http://pllee.github.io/luc/pages/docs/#!/api/Luc.define-cfg-S-mixins)
