@@ -24,7 +24,7 @@ module.exports = function(grunt) {
         cmd: 'node_modules/.bin/browserify --debug --im test/lib/luc.js > pages/testRunner/build/tests.js'
       },
       runTest: {
-        cmd: 'mocha -R list'
+        cmd: 'node_modules/.bin/mocha -R list'
       }
     },
     uglify: {
