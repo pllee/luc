@@ -408,6 +408,23 @@ describe('Luc Class', function() {
         c.destroyAllPlugins();
         expect(testValue).to.be(true);
     });
+
+    it('after define', function() {
+        var testValue = false,
+            hasBeenCalled = false,
+            afterDefine = function(Constructor) {
+                expect(Constructor.a).to.be.eql([1]);
+                hasBeenCalled = true;
+            },
+            C = Luc.define({
+                $statics: {
+                    a: [1]
+                }
+            }, afterDefine);
+
+
+        expect(hasBeenCalled).to.be(true);
+    });
 });
 
 
