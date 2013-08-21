@@ -230,14 +230,6 @@ function compare(val1, val2, config) {
     return getCompareFn(val1, config)(val1, val2, config);
 }
 
-
-function createBoundCompareFn(object, c) {
-    var compareFn = getCompareFn(object, c);
-
-    return _createBoundCompare(object, compareFn);
-}
-
-exports.compare = compare;
-exports.createBoundCompareFn = createBoundCompareFn;</pre>
+exports.compare = compare;</pre>
 </body>
 </html>

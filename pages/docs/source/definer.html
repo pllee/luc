@@ -63,10 +63,11 @@ ClassDefiner = {
         $super: '_applySuper'
     },
 
-    define: function(opts) {
+    define: function(opts, after) {
         var options = opts || {},
             //if super is a falsy value besides undefined that means no superclass
             Super = options.$super || (options.$super === undefined ? this.defaultType : false),
+            afterDefine = after || emptyFn,
             Constructor;
 
         options.$super = Super;
@@ -74,6 +75,8 @@ ClassDefiner = {
         Constructor = this._createConstructor(options);
 
         this._processAfterCreate(Constructor, options);
+
+        afterDefine.call(Constructor, Constructor);
 
         return Constructor;
     },
@@ -377,6 +380,9 @@ module.exports = ClassDefiner;
  * @param {Object} config config object used when creating the class.  Any property that
  * is not apart of the special configs will be applied to the prototype.  Check out
  * Luc.define for all the config options.   No configs are needed to define a class.
+ *
+ * @param {Function} afterDefine (optional) function to run after the Constructor has been created.
+ * The first an only argument is the newly created Constructor.
  * 
  * @return {Function} the defined class
  *

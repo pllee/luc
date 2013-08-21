@@ -9,12 +9,13 @@
   
 
   <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
-  <link rel="stylesheet" href="resources/css/app-0b2d94a756da271cc9ed4a65f4837560.css" type="text/css" />
+  <link rel="stylesheet" href="resources/css/app-939e5db2bc2809b47493559f1001ebbd.css" type="text/css" />
+  <link rel="stylesheet" href="styles-525691307b15838e2e658b95f38cc075.css" type="text/css" />
 
   <script type="text/javascript" src="extjs/ext-all.js"></script>
-  <script type="text/javascript" src="data-d8f3db6f70e5b58570aeeb313b638f4b.js"></script>
+  <script type="text/javascript" src="data-6fb30b87e544f07d420a81cacad62367.js"></script>
 
-  <script type="text/javascript" src="app-2a09dc1c9acadab58e390b770a9565d0.js"></script>
+  <script type="text/javascript" src="app-b895bbbc1ef610321296135e5054108f.js"></script>
 
   <link rel='stylesheet' type='text/css' href='../docsResources/index.css' /><script src= 'http://pllee.github.io/luc/build/luc-es5-shim.js'></script><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');ga('create', 'UA-42059845-1', 'pllee.github.io');ga('send', 'pageview');</script>
 
@@ -35,7 +36,7 @@
 
 <h1>What is Luc?</h1>
 
-<p>Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.  To node devs Luc should look like any purely node library.  To devs targeting the browser Luc should just look something written in CommonJS, just a single file and source map support thanks to <a href="https://github.com/substack/node-browserify">Browserify</a>.   Everything is written in es5 and to support older browsers Luc comes with an es5 shim version.  If we had to pick a single defining feature about Luc it would be its class system that doesn't box you in and can work with preexisting code not written in Luc.  We also have great utilities to help keep your and our source small.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar.  It also comes with the ability to add EventEmiter and Plugin functionality to any class without using inheritance, even ones not defined with Luc's class system.  Luc is lightweight it has zero dependencies and currently sits at less than 650 SLOC and it is less than 7.5Kb minified and gzipped.</p>
+<p>Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.   Luc provides a class system that can add compositions, mixins and statics functionality to any class without messing up the inheritance chain.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar. It also comes with the ability to add EventEmiter and Plugin functionality to any pre existing class.  Luc has zero dependencies and currently sits at less than 650 SLOC and it is less than 7.5Kb minified and gzipped.</p>
 
 <h1>Node</h1>
 
@@ -56,6 +57,975 @@
 <li>Tentative support for mobile (Our tests pass for the platforms that we are <a href="https://ci.testling.com/pllee/luc">testing</a>)</li>
 </ul>
 
+
+<h1>Examples/Code</h1>
+
+<p>For in depth examples and API documentation check out our <a href="http://pllee.github.io/luc/pages/docs/">docs</a>.</p>
+
+<h2><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.define">Class System</a></h2>
+
+<h3>Simple define</h3>
+
+<p><a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a> just takes the passed in config and puts the properties on the prototype and returns a Constructor.
+```js
+var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+    a: 1,
+    doLog: true,
+    logA: function() {
+        if (this.doLog) {
+            console.log(this.a);
+        }
+    }
+});
+var c = new C();
+c.logA();</p>
+
+<blockquote><p>1
+c.a = 45;
+c.logA();
+45
+c.doLog = false;
+c.logA();</p></blockquote>
+
+<p>new C().logA()</p>
+
+<blockquote><p>1
+```
+Simple super class</p></blockquote>
+
+<p>```js
+function Counter() {
+    this.count = 0;
+ };</p>
+
+<p> Counter.prototype = {
+    getCount: function() {
+        return this.count;
+    },
+    increaseCount: function() {
+        this.count++;
+    }
+ }</p>
+
+<p> var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+    $super:Counter
+});</p>
+
+<p>var c = new C()</p>
+
+<p>c instanceof Counter</p>
+
+<blockquote><p>true
+c.increaseCount();
+c.getCount();
+1
+c.count
+1
+```</p></blockquote>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.define-cfg-S-compositions">Compositions</a></h3>
+
+<p>Compositions allow the ability to add functionality
+to any class without changing or messing up the inheritance chain.
+They are more powerful than mixins because they don't have to worry about putting a
+state on classes using them or have to know that they may be a mixin or a
+standalone class.</p>
+
+<p>```js
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+        $compositions: {
+            Constructor: <a href="#!/api/Luc.EventEmitter" rel="Luc.EventEmitter" class="docClass">Luc.EventEmitter</a>,
+            name: 'emitter',
+            methods: 'allMethods'
+        }
+    });</p>
+
+<pre><code>var c = new C();
+
+c.on('hey', function() {
+    console.log(arguments);
+});
+
+c.emit('hey', 1,2,3, 'a');
+&gt;[1, 2, 3, "a"]
+c instanceof <a href="#!/api/Luc.EventEmitter" rel="Luc.EventEmitter" class="docClass">Luc.EventEmitter</a>
+&gt;false
+</code></pre>
+
+<pre><code>###Default Compositions
+Luc comes with two default composition objects.
+
+##[<a href="#!/api/Luc.compositionEnums-property-EventEmitter" rel="Luc.compositionEnums-property-EventEmitter" class="docClass">Luc.compositionEnums.EventEmitter</a>](http://pllee.github.io/luc/pages/docs/#!/api/<a href="#!/api/Luc.compositionEnums" rel="Luc.compositionEnums" class="docClass">Luc.compositionEnums</a>-property-EventEmitter)
+
+<a href="#!/api/Luc.EventEmitter" rel="Luc.EventEmitter" class="docClass">Luc.EventEmitter</a> is preferred as a composition over a mixin because it adds a state "_events" to the this instance when on is called.
+
+```js
+
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+            $compositions: <a href="#!/api/Luc.compositionEnums-property-EventEmitter" rel="Luc.compositionEnums-property-EventEmitter" class="docClass">Luc.compositionEnums.EventEmitter</a>
+    });
+
+    var c = new C();
+
+    c.on('hey', function() {
+        console.log(arguments);
+    });
+
+    c.emit('hey', 1,2,3, 'a');
+    &gt;[1, 2, 3, "a"]
+    c instanceof <a href="#!/api/Luc.EventEmitter" rel="Luc.EventEmitter" class="docClass">Luc.EventEmitter</a>
+    &gt;false
+    c._events
+    &gt;undefined
+</code></pre>
+
+<h2><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.compositionEnums-property-PluginManager">Luc.compositionEnums.PluginManager</a></h2>
+
+<p>The PluginManager adds a plugin functionality to any Class.  Check out the methods that get added to
+the instance and more info in the <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.PluginManager">docs</a></p>
+
+<p>A plugin follows the following life-cycle:
+<br>
+plugin is added to the instance -> plugin is created -> plugin init is called with instance -> if needed destroy called by instance -> destroy called on plugin
+<br> Here is the most basic example using the default plugin.</p>
+
+<p>```js</p>
+
+<pre><code>var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+    $compositions: <a href="#!/api/Luc.compositionEnums-property-PluginManager" rel="Luc.compositionEnums-property-PluginManager" class="docClass">Luc.compositionEnums.PluginManager</a>
+});
+
+var c = new C({
+    plugins: [{
+            init: function() {
+                console.log('im getting initted')
+            },
+            myCoolName: 'cool'
+        }
+    ]
+});
+
+&gt;im getting initted
+
+c.getPlugin({myCoolName: 'coo'}) instanceof <a href="#!/api/Luc.Plugin" rel="Luc.Plugin" class="docClass">Luc.Plugin</a>
+&gt; true
+</code></pre>
+
+<pre><code>Plugins can be of any class and can be added with addPlugin
+
+```js
+
+    function MyPlugin(){}
+
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+        $compositions: <a href="#!/api/Luc.compositionEnums-property-PluginManager" rel="Luc.compositionEnums-property-PluginManager" class="docClass">Luc.compositionEnums.PluginManager</a>
+    });
+
+    var c = new C();
+
+    c.addPlugin({Constructor: MyPlugin});
+    //getPlugin takes a Constructor or match object
+    c.getPlugin(MyPlugin) instanceof MyPlugin
+    &gt;true
+    c.getPlugin(<a href="#!/api/Luc.Plugin" rel="Luc.Plugin" class="docClass">Luc.Plugin</a>)
+    &gt;false
+</code></pre>
+
+<p>Plugins can also be destroyed individually or all of them at once.</p>
+
+<p>```js</p>
+
+<pre><code>var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+    $compositions: <a href="#!/api/Luc.compositionEnums-property-PluginManager" rel="Luc.compositionEnums-property-PluginManager" class="docClass">Luc.compositionEnums.PluginManager</a>
+});
+
+var c = new C({
+    plugins: [{
+        init: function() {
+            console.log('im getting initted ' + this.name)
+        },
+        destroy: function() {
+            console.log('destroyed : ' + this.name)
+        },
+        name: '1'
+    },{
+        init: function() {
+            console.log('im getting initted ' + this.name)
+        },
+        destroy: function() {
+            console.log('destroyed : ' + this.name)
+        },
+        name: '2'
+    }]
+});
+
+&gt;im getting initted 1
+&gt;im getting initted 2
+
+c.destroyPlugin({name: '1'});
+&gt;destroyed : 1
+&gt;Plugin {init: function, destroy: function, name: "1", owner: Object, init: function…}
+
+c.destroyPlugin({name: '1'});
+&gt;false
+
+c.destroyAllPlugins();
+&gt;destroyed : 2
+</code></pre>
+
+<pre><code>
+###[Mixins](http://pllee.github.io/luc/pages/docs/#!/api/<a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>-cfg-S-mixins)
+
+Mixins are a way to add functionality to a class that should not add state to the instance unknowingly.  Mixins can be either objects or Constructors.
+
+```js
+    function Logger() {}
+    Logger.prototype.log = function() {
+        console.log(arguments)
+    }
+
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+        $mixins: [Logger, {
+            warn: function() {
+                console.warn(arguments)
+            }
+        }]
+    });
+
+    var c = new C();
+
+    c.log(1,2)
+    &gt;[1,2]
+
+    c.warn(3,4)
+    &gt;[3,4]
+</code></pre>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.define-cfg-S-statics">Statics</a></h3>
+
+<p>Statics are good for defining default configs.</p>
+
+<p>```js
+var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+        $statics: {
+            number: 1
+        }
+    });</p>
+
+<pre><code>var c = new C();
+c.number
+&gt;undefined
+C.number
+&gt;1
+</code></pre>
+
+<pre><code>
+Using statics prevent subclasses and instances from unknowingly modifying
+all instances.
+
+```js
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+        cfg: {
+            a: 1
+        }
+    });
+
+    var c = new C();
+    c.cfg.a
+    &gt;1
+    c.cfg.a = 5
+    new C().cfg.a
+    &gt;5
+</code></pre>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.define-property-S-class">$class</a></h3>
+
+<p>Every class defined with <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a> will get a reference to the instance's own constructor.</p>
+
+<p><code>js
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>()
+    var c = new C()
+    c.$class === C
+    &gt;true
+</code></p>
+
+<p> There are some really good use cases to have a reference to it's
+own constructor.  <br> Add functionality to an instance in a simple
+and generic way:</p>
+
+<p>```js
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+        add: function(a,b) {
+            return a + b;
+        }
+    });</p>
+
+<pre><code>//<a href="#!/api/Luc.Base" rel="Luc.Base" class="docClass">Luc.Base</a> applies first 
+//arg to the instance
+
+var c = new C({
+    add: function(a,b,c) {
+        return this.$class.prototype.add.call(this, a,b) + c;
+    }
+});
+
+c.add(1,2,3)
+&gt;6
+new C().add(1,2,3)
+&gt;3
+</code></pre>
+
+<pre><code>Or have a simple generic clone method :
+
+```js
+    var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+        clone: function() {
+            var myOwnProps = {};
+            <a href="#!/api/Luc.Object-method-each" rel="Luc.Object-method-each" class="docClass">Luc.Object.each</a>(this, function(key, value) {
+                myOwnProps[key] = value;
+            });
+
+            return new this.$class(myOwnProps);
+        }
+    });
+
+    var c = new C({a:1,b:2,c:3});
+    c.d = 4;
+    var clone = c.clone();
+
+    clone === c
+    &gt;false
+
+    clone.a
+    &gt;1
+    clone.b
+    &gt;2
+    clone.c
+    &gt;3
+    clone.d
+    &gt;4
+</code></pre>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Base">Luc.Base</a></h3>
+
+<p><a href="#!/api/Luc.Base" rel="Luc.Base" class="docClass">Luc.Base</a> is the default class of for define.  It is a simple class that by default applies the first argument to the instance and then calls <a href="#!/api/Luc.Base-method-init" rel="Luc.Base-method-init" class="docClass">Luc.Base.init</a>, init is just an emptyFn which is meant to be overwritten by the defining
+class.
+```js
+var b = new <a href="#!/api/Luc.Base" rel="Luc.Base" class="docClass">Luc.Base</a>({
+    a: 1,
+    init: function() {
+        console.log('hey')
+    }
+})
+b.a</p>
+
+<blockquote><p>hey
+1
+```</p></blockquote>
+
+<p>We found that most of our classes do this so we made it the default. Having a config object as the first and only param keeps a clean api as well.</p>
+
+<p>```js
+var C = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+    init: function() {
+        <a href="#!/api/Luc.Array-method-each" rel="Luc.Array-method-each" class="docClass">Luc.Array.each</a>(this.items, this.logItems)
+    },</p>
+
+<pre><code>logItems: function(item) {
+    console.log(item);
+}
+</code></pre>
+
+<p>});</p>
+
+<p>var c = new C({items: [1,2,3]});</p>
+
+<blockquote><p>1
+2
+3
+var d = new C({items: 'A'});
+'A'
+var e = new C();
+```
+If you don't like the applying of the config to the instance it can always be "disabled"</p></blockquote>
+
+<p>```js
+var NoApply = <a href="#!/api/Luc.define" rel="Luc.define" class="docClass">Luc.define</a>({
+    beforeInit: function() {</p>
+
+<pre><code>},
+init: function() {
+    <a href="#!/api/Luc.Array-method-each" rel="Luc.Array-method-each" class="docClass">Luc.Array.each</a>(this.items, this.logItems)
+},
+
+logItems: function(item) {
+    console.log(item);
+}
+</code></pre>
+
+<p>});</p>
+
+<p>var c = new NoApply({items: [1,2,3]});</p>
+
+<pre><code>Array, Object, Function and other utility functions
+---
+
+Luc.is\*
+---
+*  [<a href="#!/api/Luc-method-isArguments" rel="Luc-method-isArguments" class="docClass">Luc.isArguments</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isArguments)
+*  [<a href="#!/api/Luc-method-isArray" rel="Luc-method-isArray" class="docClass">Luc.isArray</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isArray)
+*  [<a href="#!/api/Luc-method-isDate" rel="Luc-method-isDate" class="docClass">Luc.isDate</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isDate)
+*  [<a href="#!/api/Luc-method-isEmpty" rel="Luc-method-isEmpty" class="docClass">Luc.isEmpty</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isEmpty)
+*  [<a href="#!/api/Luc-method-isFalsy" rel="Luc-method-isFalsy" class="docClass">Luc.isFalsy</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isFalsy)
+*  [<a href="#!/api/Luc-method-isNumber" rel="Luc-method-isNumber" class="docClass">Luc.isNumber</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isNumber)
+*  [<a href="#!/api/Luc-method-isObject" rel="Luc-method-isObject" class="docClass">Luc.isObject</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isObject)
+*  [<a href="#!/api/Luc-method-isRegExp" rel="Luc-method-isRegExp" class="docClass">Luc.isRegExp</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isRegExp)
+*  [<a href="#!/api/Luc-method-isString" rel="Luc-method-isString" class="docClass">Luc.isString</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isString)
+*  [<a href="#!/api/Luc-method-isFunction" rel="Luc-method-isFunction" class="docClass">Luc.isFunction</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isFunction)
+
+###[<a href="#!/api/Luc-method-isFalsy" rel="Luc-method-isFalsy" class="docClass">Luc.isFalsy</a>](http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isFalsy)
+Return true if the object is falsy but not zero.
+```js
+    <a href="#!/api/Luc-method-isFalsy" rel="Luc-method-isFalsy" class="docClass">Luc.isFalsy</a>(false)
+    &gt;true
+    <a href="#!/api/Luc-method-isFalsy" rel="Luc-method-isFalsy" class="docClass">Luc.isFalsy</a>(0)
+    &gt;false
+</code></pre>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-isEmpty">Luc.isEmpty</a></h3>
+
+<p>Return true if the object is empty.
+{}, [], '',false, null, undefined, NaN  are all treated as empty.</p>
+
+<p>```js
+<a href="#!/api/Luc-method-isEmpty" rel="Luc-method-isEmpty" class="docClass">Luc.isEmpty</a>(true)</p>
+
+<blockquote><p>false
+<a href="#!/api/Luc-method-isEmpty" rel="Luc-method-isEmpty" class="docClass">Luc.isEmpty</a>([])
+true
+```</p></blockquote>
+
+<p>The native js type methods work as you think they should.<br/>
+```js
+<a href="#!/api/Luc-method-isObject" rel="Luc-method-isObject" class="docClass">Luc.isObject</a>([])</p>
+
+<blockquote><p>false
+<a href="#!/api/Luc-method-isArray" rel="Luc-method-isArray" class="docClass">Luc.isArray</a>([])
+true
+<code>
+You can see that we don't have an
+  isNull isUndefined or isNaN.  We prefer to use:
+</code>js
+obj === null
+obj === undefined
+isNaN(obj)
+```</p></blockquote>
+
+<h2><a href="#!/api/Luc.Object" rel="Luc.Object" class="docClass">Luc.Object</a></h2>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Object-method-apply">Luc.Object.apply</a> / <a href="#!/api/Luc-method-apply" rel="Luc-method-apply" class="docClass">Luc.apply</a></h3>
+
+<p>Apply the properties from fromObject to the toObject. fromObject will overwrite any shared keys. It can also be used as a simple shallow clone.
+```js
+var to = {a:1, c:1}, from = {a:2, b:2}
+<a href="#!/api/Luc.Object-method-apply" rel="Luc.Object-method-apply" class="docClass">Luc.Object.apply</a>(to, from)</p>
+
+<blockquote><p>Object {a: 2, c: 1, b: 2}
+to === to
+true
+var clone = <a href="#!/api/Luc.Object-method-apply" rel="Luc.Object-method-apply" class="docClass">Luc.Object.apply</a>({}, from)
+undefined
+clone
+Object {a: 2, b: 2}
+clone === from
+false
+```
+No null checks are needed.</p></blockquote>
+
+<p>```js
+<a href="#!/api/Luc-method-apply" rel="Luc-method-apply" class="docClass">Luc.apply</a>(undefined, {a:1})</p>
+
+<blockquote><p>{a:1}
+<a href="#!/api/Luc-method-apply" rel="Luc-method-apply" class="docClass">Luc.apply</a>({a: 1})
+{a:1}
+```</p></blockquote>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Object-method-mix">Luc.Object.mix</a> / <a href="#!/api/Luc-method-mix" rel="Luc-method-mix" class="docClass">Luc.mix</a></h3>
+
+<p>Similar to <a href="#!/api/Luc.Object-method-apply" rel="Luc.Object-method-apply" class="docClass">Luc.Object.apply</a> except that the fromObject will NOT overwrite the keys of the toObject if they are defined.
+```js
+<a href="#!/api/Luc-method-mix" rel="Luc-method-mix" class="docClass">Luc.mix</a>({a:1,b:2}, {a:3,b:4,c:5})</p>
+
+<blockquote><p>{a: 1, b: 2, c: 5}
+```</p></blockquote>
+
+<p>No null checks are needed.</p>
+
+<p>```js
+<a href="#!/api/Luc-method-mix" rel="Luc-method-mix" class="docClass">Luc.mix</a>(undefined, {a:1})</p>
+
+<blockquote><p>{a:1}
+<a href="#!/api/Luc-method-mix" rel="Luc-method-mix" class="docClass">Luc.mix</a>({a: 1})
+{a:1}
+```</p></blockquote>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Object-method-each">Luc.Object.each</a></h3>
+
+<p>Iterate over an objects properties as key value "pairs" with the passed in function.
+```js
+var thisArg = {val:'c'};
+<a href="#!/api/Luc.Object-method-each" rel="Luc.Object-method-each" class="docClass">Luc.Object.each</a>({
+    u: 'L'
+}, function(key, value) {
+    console.log(value + key + this.val)
+}, thisArg)</p>
+
+<blockquote><p>"Luc"
+```</p></blockquote>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Object-method-filter">Luc.Object.filter</a></h3>
+
+<p>Return key value pairs from the object if the filterFn returns a truthy value.
+```js
+<a href="#!/api/Luc.Object-method-filter" rel="Luc.Object-method-filter" class="docClass">Luc.Object.filter</a>({
+    a: false,
+    b: true,
+    c: false
+}, function(key, value) {
+    return key === 'a' || value
+})</p>
+
+<blockquote><p>[{key: 'a', value: false}, {key: 'b', value: true}]</p></blockquote>
+
+<p><a href="#!/api/Luc.Object-method-filter" rel="Luc.Object-method-filter" class="docClass">Luc.Object.filter</a>({
+    a: false,
+    b: true,
+    c: false
+}, function(key, value) {
+    return key === 'a' || value
+}, undefined, {
+    keys: true
+})</p>
+
+<blockquote><p>['a', 'b']
+```</p>
+
+<h2><a href="#!/api/Luc.Array" rel="Luc.Array" class="docClass">Luc.Array</a></h2></blockquote>
+
+<p>Luc is optionally packaged with es5 shim so you can write es5 code in non es5 browsers.
+It comes with your favorite <a href="http://pllee.github.io/luc/pages/docs/#!/api/Array">Array</a> methods such as <a href="#!/api/Array-method-forEach" rel="Array-method-forEach" class="docClass">Array.forEach</a>, <a href="#!/api/Array-method-filter" rel="Array-method-filter" class="docClass">Array.filter</a>, <a href="#!/api/Array-method-some" rel="Array-method-some" class="docClass">Array.some</a>, <a href="#!/api/Array-method-every" rel="Array-method-every" class="docClass">Array.every</a> <a href="#!/api/Array-method-reduceRight" rel="Array-method-reduceRight" class="docClass">Array.reduceRight</a> ..</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-toArray">Luc.Array.toArray</a></h3>
+
+<p>Take an object and turn it into an array if it isn't one.
+<code>js
+    <a href="#!/api/Luc.Array-method-toArray" rel="Luc.Array-method-toArray" class="docClass">Luc.Array.toArray</a>()
+    &gt;[]
+    <a href="#!/api/Luc.Array-method-toArray" rel="Luc.Array-method-toArray" class="docClass">Luc.Array.toArray</a>(null)
+    &gt;[]
+    <a href="#!/api/Luc.Array-method-toArray" rel="Luc.Array-method-toArray" class="docClass">Luc.Array.toArray</a>(1)
+    &gt;[1]
+    <a href="#!/api/Luc.Array-method-toArray" rel="Luc.Array-method-toArray" class="docClass">Luc.Array.toArray</a>([1,2])
+    &gt;[1, 2]
+</code></p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-each">Luc.Array.forEach</a></h3>
+
+<p>Runs an <a href="#!/api/Array-method-forEach" rel="Array-method-forEach" class="docClass">Array.forEach</a> after calling <a href="#!/api/Luc.Array-method-toArray" rel="Luc.Array-method-toArray" class="docClass">Luc.Array.toArray</a> on the item.
+It is very useful for setting up flexible API's that can handle none one or many.</p>
+
+<p>```js
+    <a href="#!/api/Luc.Array-method-each" rel="Luc.Array-method-each" class="docClass">Luc.Array.each</a>(this.items, function(item) {
+        this._addItem(item);
+    });</p>
+
+<pre><code>vs.
+
+if(<a href="#!/api/Array-static-method-isArray" rel="Array-static-method-isArray" class="docClass">Array.isArray</a>(this.items)){
+    this.items.forEach(function(item) {
+        this._addItem(item);
+    })
+}
+else if(this.items !== undefined) {
+    this._addItem(this.items);
+}
+</code></pre>
+
+<pre><code>
+
+###[<a href="#!/api/Luc.Array-method-pluck" rel="Luc.Array-method-pluck" class="docClass">Luc.Array.pluck</a>](http://pllee.github.io/luc/pages/docs/#!/api/<a href="#!/api/Luc.Array" rel="Luc.Array" class="docClass">Luc.Array</a>-method-pluck)
+Flatten out an array of objects based of their value for the passed in key. This also takes account for null/undefined values.
+
+```js
+<a href="#!/api/Luc.Array-method-pluck" rel="Luc.Array-method-pluck" class="docClass">Luc.Array.pluck</a>([undefined, {a:'1', b:2}, {b:3}, {b:4}], 'b')
+&gt;[undefined, 2, 3, 4]
+</code></pre>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-insert">Luc.Array.insert</a></h3>
+
+<p>Insert or append the second array/arguments into the first array/arguments. This method does not alter the passed in array/arguments.
+```js
+<a href="#!/api/Luc.Array-method-insert" rel="Luc.Array-method-insert" class="docClass">Luc.Array.insert</a>([0,4], [1,2,3], 1);</p>
+
+<blockquote><p>[0, 1, 2, 3, 4]
+<a href="#!/api/Luc.Array-method-insert" rel="Luc.Array-method-insert" class="docClass">Luc.Array.insert</a>([0,4], [1,2,3], true);
+[0, 4, 1, 2, 3]
+<a href="#!/api/Luc.Array-method-insert" rel="Luc.Array-method-insert" class="docClass">Luc.Array.insert</a>([0,4], [1,2,3], 0);
+[1, 2, 3, 0, 4]
+```</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-last">Luc.Array.last</a></h3>
+
+<p>Return the last item of the array
+```js
+var myLongArrayNameForThingsThatIWantToKeepTrackOf = [1,2,3]</p></blockquote>
+
+<p><a href="#!/api/Luc.Array-method-last" rel="Luc.Array-method-last" class="docClass">Luc.Array.last</a>(myLongArrayNameForThingsThatIWantToKeepTrackOf);
+vs.
+myLongArrayNameForThingsThatIWantToKeepTrackOf[myLongArrayNameForThingsThatIWantToKeepTrackOf.length -1]
+```</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeAtIndex">Luc.Array.removeAtIndex</a></h3>
+
+<p>Remove an item from the passed in arr from the index.
+```js
+var arr = [1,2,3];
+<a href="#!/api/Luc.Array-method-removeAtIndex" rel="Luc.Array-method-removeAtIndex" class="docClass">Luc.Array.removeAtIndex</a>(arr, 1);</p>
+
+<blockquote><p>2
+arr;
+[1,3]
+```</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-fromIndex">Luc.Array.fromIndex</a></h3>
+
+<p>Return the items in between the passed in index and the end of the array.
+<code>js
+<a href="#!/api/Luc.Array-method-fromIndex" rel="Luc.Array-method-fromIndex" class="docClass">Luc.Array.fromIndex</a>([1,2,3,4,5], 1)
+[2, 3, 4, 5]
+</code></p></blockquote>
+
+<h3>Iterator and Matching functions</h3>
+
+<ul>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-findAll">Luc.Array.findAll</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-findAllNot">Luc.Array.findAllNot</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-findFirst">Luc.Array.findFirst</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-findFirstNot">Luc.Array.findFirstNot</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-findLast">Luc.Array.findLast</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-findLastNot">Luc.Array.findLastNot</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeAll">Luc.Array.removeAll</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeAllNot">Luc.Array.removeAllNot</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeFirst">Luc.Array.removeFirst</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeFirstNot">Luc.Array.removeFirstNot</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeLast">Luc.Array.removeLast</a></li>
+<li><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Array-method-removeLastNot">Luc.Array.removeLastNot</a></li>
+</ul>
+
+
+<p>All remove* / find* methods follow the same api. *All functions will return an array of removed or found items. The items will be added to the array in the order they are found. *First functions will return the first item and stop iterating after that, if none is found false is returned. remove* functions will directly change the passed in array. *Not functions only do the following actions if the comparison is not true. All remove* / find* take the following api: array, objectToCompareOrIterator, compareConfigOrThisArg <br> for example:</p>
+
+<p>```js
+//most common use case
+<a href="#!/api/Luc.Array-method-findFirst" rel="Luc.Array-method-findFirst" class="docClass">Luc.Array.findFirst</a>([1,2,3, {}], {});</p>
+
+<blockquote><p>Object {}</p></blockquote>
+
+<p>//pass in optional config for a strict === comparison
+<a href="#!/api/Luc.Array-method-findFirst" rel="Luc.Array-method-findFirst" class="docClass">Luc.Array.findFirst</a>([1,2,3,{}], {}, {type: 'strict'});</p>
+
+<blockquote><p>false</p></blockquote>
+
+<p>//pass in an iterator and thisArg
+<a href="#!/api/Luc.Array-method-findFirst" rel="Luc.Array-method-findFirst" class="docClass">Luc.Array.findFirst</a>([1,2,3,{}], function(val, index, array){
+    return val === 3 || this.num === val;
+}, {num: 1});</p>
+
+<blockquote><p>1</p></blockquote>
+
+<p>//you can see remove modifies the passed in array.
+var arr = [1,2,{a:1},1, {a:1}];
+<a href="#!/api/Luc.Array-method-removeFirst" rel="Luc.Array-method-removeFirst" class="docClass">Luc.Array.removeFirst</a>(arr, {a:1})</p>
+
+<blockquote><p>{a:1}
+arr;
+[1, 2, 1, {a:1}]
+<a href="#!/api/Luc.Array-method-removeLast" rel="Luc.Array-method-removeLast" class="docClass">Luc.Array.removeLast</a>(arr, 1)
+1
+arr;
+[1,2, {a:1}]</p></blockquote>
+
+<p><a href="#!/api/Luc.Array-method-findAll" rel="Luc.Array-method-findAll" class="docClass">Luc.Array.findAll</a>([1,2,3, {a:1,b:2}], function() {return true;})</p>
+
+<blockquote><p>[1,2,3, {a:1,b:2}]
+//show how not works with an iterator
+<a href="#!/api/Luc.Array-method-findAllNot" rel="Luc.Array-method-findAllNot" class="docClass">Luc.Array.findAllNot</a>([1,2,3, {a:1,b:2}], function() {return true;})
+[]
+```</p></blockquote>
+
+<p>The Array functions are also combined with the Luc.is* functions.  There are over 150 matching functions.
+Almost every public method of Luc.is* is available it uses the following grammar <a href="#!/api/Luc.Array" rel="Luc.Array" class="docClass">Luc.Array</a>["methodName""isMethodName"]
+These functions have a consistent api that should make sense what they do from the function name.  <a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.ArrayFns">Docs</a></p>
+
+<p>```js
+//compact like function
+Luc.Array.findAllNotFalsy([false, true, null, undefined, 0, '', [], [1]])</p>
+
+<blockquote><p>[true, 0, [], [1]]</p></blockquote>
+
+<pre><code>//Or remove all empty items
+var arr = ['', 0 , [], {a:1}, true, {}, [1]]
+Luc.Array.removeAllEmpty(arr)
+&gt;['', [], {}]
+arr
+&gt;[0, {a:1}, true, [1]]
+</code></pre>
+
+<p>  Luc.Array.findFirstNotString([1,2,3,'5'])</p>
+
+<blockquote><p>1
+  var arr = [1,2,3,'5'];
+  Luc.Array.removeAllNotString(arr);
+[1,2,3]
+  arr
+["5"]
+```</p></blockquote>
+
+<p>As of right now there are two function sets which differ from the is api.</p>
+
+<p>InstanceOf
+```js
+Luc.Array.findAllInstanceOf([1,2, new Date(), {}, []], Object)</p>
+
+<blockquote><p>[date, {}, []]
+Luc.Array.findAllNotInstanceOf([1,2, new Date(), {}, []], Object)
+[1, 2]
+```</p></blockquote>
+
+<p>In</p>
+
+<p>```js
+Luc.Array.findAllIn([1,2,3], [1,2])</p>
+
+<blockquote><p>[1, 2]
+Luc.Array.findFirstIn([1,2,3], [1,2])
+1</p></blockquote>
+
+<p>//defaults to loose comparison
+Luc.Array.findAllIn([1,2,3, {a:1, b:2}], [1,{a:1}])</p>
+
+<blockquote><p>[1, {a:1,b:2}]</p></blockquote>
+
+<p>Luc.Array.findAllIn([1,2,3, {a:1, b:2}], [1,{a:1}], {type: 'deep'})</p>
+
+<blockquote><p>[1]
+```</p></blockquote>
+
+<h2><a href="#!/api/Luc.Function" rel="Luc.Function" class="docClass">Luc.Function</a></h2>
+
+<p>Most of these functions follow the same api: function or function[], relevant args ... with an optional config to Luc.Function.createAutmenter as the last argument.</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createAugmenter">Luc.Function.createAugmenter</a></h3>
+
+<p>Augment the passed in function's thisArg and or arguments object based on the passed in config.  Read the docs to understand all of the config options.
+```js
+function fn() {
+    console.log(this)
+    console.log(arguments)
+}</p>
+
+<p>//<a href="#!/api/Luc.Array-method-insert" rel="Luc.Array-method-insert" class="docClass">Luc.Array.insert</a>([4], [1,2,3], 0)
+<a href="#!/api/Luc.Function-method-createAugmenter" rel="Luc.Function-method-createAugmenter" class="docClass">Luc.Function.createAugmenter</a>(fn, {
+    thisArg: {configedThisArg: true},
+    args: [1,2,3],
+    index:0
+})(4)</p>
+
+<blockquote><p>Object {configedThisArg: true}
+[1, 2, 3, 4]</p></blockquote>
+
+<p>//<a href="#!/api/Luc.Array-method-insert" rel="Luc.Array-method-insert" class="docClass">Luc.Array.insert</a>([1,2,3], [4], 0)
+<a href="#!/api/Luc.Function-method-createAugmenter" rel="Luc.Function-method-createAugmenter" class="docClass">Luc.Function.createAugmenter</a>(fn, {
+    thisArg: {configedThisArg: true},
+    args: [1,2,3],
+    index:0,
+    argumentsFirst:false
+})(4)</p>
+
+<blockquote><p>Object {configedThisArg: true}
+[4, 1, 2, 3]</p></blockquote>
+
+<p><a href="#!/api/Luc.Array-method-insert" rel="Luc.Array-method-insert" class="docClass">Luc.Array.insert</a>([4], [1,2,3],  true)
+var f = <a href="#!/api/Luc.Function-method-createAugmenter" rel="Luc.Function-method-createAugmenter" class="docClass">Luc.Function.createAugmenter</a>(fn, {
+    args: [1,2,3],
+    index: true
+});</p>
+
+<p>f.apply({config: false}, [4])</p>
+
+<blockquote><p>Object {config: false}
+[4, 1, 2, 3]
+```</p></blockquote>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createThrottled">Luc.Function.createThrottled</a></h3>
+
+<p>Create a throttled function from the passed in function that will only get called once the number of milliseconds have been exceeded.
+Read the docs to understand all of the config options.
+```js
+var logArgs  = function() {
+    console.log(arguments)
+};</p>
+
+<p>var a = <a href="#!/api/Luc.Function-method-createThrottled" rel="Luc.Function-method-createThrottled" class="docClass">Luc.Function.createThrottled</a>(logArgs, 1);</p>
+
+<p>for(var i = 0; i &lt; 100; ++i) {
+    a(1,2,3);
+}</p>
+
+<p>setTimeout(function() {
+    a(1)
+}, 100)
+setTimeout(function() {
+    a(2)
+}, 400)</p>
+
+<blockquote><p>[1, 2, 3]
+[1]
+[2]
+```</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createRelayer">Luc.Function.createRelayer</a></h3>
+
+<p>Return a functions that runs the passed in functions the result of each function will be the the call args for the next function. The value of the last function return will be returned.
+Read the docs to understand all of the config options.
+```js
+<a href="#!/api/Luc.Function-method-createRelayer" rel="Luc.Function-method-createRelayer" class="docClass">Luc.Function.createRelayer</a>([
+    function(str) {
+        return str + 'b'
+    },
+    function(str) {
+        return str + 'c'
+    },
+    function(str) {
+        return str + 'd'
+    }
+])('a')</p>
+
+<p>"abcd"
+```</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createSequence">Luc.Function.createSequence</a></h3>
+
+<p>Return a function that runs the passed in functions and returns the result of the last function called.
+Read the docs to understand all of the config options.
+<code>js
+<a href="#!/api/Luc.Function-method-createSequence" rel="Luc.Function-method-createSequence" class="docClass">Luc.Function.createSequence</a>([
+    function() {
+        console.log(1)
+    },
+    function() {
+        console.log(2)
+    },
+    function() {
+        console.log(3)
+        console.log('finished logging')
+        return 4;
+    }
+])()
+1
+2
+3
+finished logging
+4
+</code></p></blockquote>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createSequenceIf">Luc.Function.createSequenceIf</a></h3>
+
+<p>Return a function that runs the passed in functions if one of the functions returns false the rest of the functions won't run and false will be returned.
+Read the docs to understand all of the config options.
+```js
+<a href="#!/api/Luc.Function-method-createSequenceIf" rel="Luc.Function-method-createSequenceIf" class="docClass">Luc.Function.createSequenceIf</a>([
+    function() {
+        console.log(1)
+    },
+    function() {
+        console.log(2)
+    },
+    function() {
+        console.log(3)
+        console.log('finished logging')
+        return 4;
+    }, function() {
+        return false;
+    }, function() {
+        console.log('i cant log')
+    }
+])()</p>
+
+<blockquote><p>1
+2
+3
+finished logging
+false
+```</p></blockquote>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-createDeferred">Luc.Function.createDeferred</a></h3>
+
+<p>Defer a function's execution for the passed in milliseconds.  Read the docs to understand all of the config options.</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-emptyFn">Luc.Function.emptyFn</a> / <a href="#!/api/Luc-method-emptyFn" rel="Luc-method-emptyFn" class="docClass">Luc.emptyFn</a></h3>
+
+<p>A reusable empty function</p>
+
+<h3><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc.Function-method-abstractFn">Luc.Function.abstractFn</a>  / <a href="#!/api/Luc-method-abstractFn" rel="Luc-method-abstractFn" class="docClass">Luc.abstractFn</a></h3>
+
+<p>A function that throws an error when called. Useful when defining abstract like classes</p>
+
+<h2><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-compare">Luc.compare</a></h2>
+
+<p>Return true if the values are equal to each other. By default a deep comparison is done on arrays, dates and objects and a strict comparison is done on other types.  Pass in 'shallow' for a shallow comparison, 'deep' (default) for a deep comparison 'strict' for a strict === comparison for all objects or 'loose' for a loose comparison on objects. A loose comparison will compare the keys and values of val1 to val2 and does not check if keys from val2 are equal to the keys in val1.
+```js
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>('1', 1)</p>
+
+<blockquote><p>false
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>({a: 1}, {a: 1})
+true
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>({a: 1, b: {}}, {a: 1, b: {} }, {type:'shallow'})
+false
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>({a: 1, b: {}}, {a: 1, b: {} }, {type: 'deep'})
+true
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>({a: 1, b: {}}, {a: 1, b: {} }, {type: 'strict'})
+false
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>({a: 1}, {a:1,b:1})
+false
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>({a: 1}, {a:1,b:1}, {type: 'loose'})
+true
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>({a: 1}, {a:1,b:1}, {type: 'loose'})
+true
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>([{a: 1}], [{a:1,b:1}], {type: 'loose'})
+true
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>([{a: 1}, {}], [{a:1,b:1}], {type: 'loose'})
+false
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>([{a: 1}, {}], [{a:1,b:1}, {}], {type: 'loose'})
+true
+<a href="#!/api/Luc-method-compare" rel="Luc-method-compare" class="docClass">Luc.compare</a>([{a:1,b:1}], [{a: 1}], {type: 'loose'})
+false
+```</p></blockquote>
+
+<h2><a href="http://pllee.github.io/luc/pages/docs/#!/api/Luc-method-id">Luc.id</a></h2>
+
+<p>Return a unique id.  A prefix is an optional argument</p>
+
+<p><code>js
+ <a href="#!/api/Luc-method-id" rel="Luc-method-id" class="docClass">Luc.id</a>()
+    &gt;"luc-0"
+    <a href="#!/api/Luc-method-id" rel="Luc-method-id" class="docClass">Luc.id</a>()
+    &gt;"luc-1"
+    <a href="#!/api/Luc-method-id" rel="Luc-method-id" class="docClass">Luc.id</a>('my-prefix')
+    &gt;"my-prefix0"
+    <a href="#!/api/Luc-method-id" rel="Luc-method-id" class="docClass">Luc.id</a>('')
+    &gt;"0"
+</code></p>
 
 <h1>Where does Luc sit now?</h1>
 
@@ -105,7 +1075,7 @@
 </ul>
 
 </div></div>
-          <div id='categories-content' style='display:none'>
+            <div id='categories-content' style='display:none'>
             <div class='section'>
 <h1>Luc</h1>
 <div class='left-column'>
@@ -153,11 +1123,11 @@
 </div>
 <div style='clear:both'></div>
 </div>
-        </div>
+          </div>
 
   
   
-  <div id='footer-content' style='display: none'>Generated on Thu 11 Jul 2013 23:10:43 by <a href='https://github.com/senchalabs/jsduck'>JSDuck</a> 4.10.4.</div>
+  <div id='footer-content' style='display: none'>Generated on Wed 21 Aug 2013 18:32:04 by <a href='https://github.com/senchalabs/jsduck'>JSDuck</a> 5.1.0.</div>
 
   
 

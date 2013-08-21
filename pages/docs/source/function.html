@@ -16,7 +16,7 @@
 </head>
 <body onload="prettyPrint(); highlight();">
   <pre class="prettyprint lang-js">var is = require('./is'),
-    aInsert = require('./array').insert;
+    aInsert = require('./array').insert,
     aEach = require('./array').each;
 
 <span id='Luc-Function'>/**
@@ -180,13 +180,13 @@ exports.createSequence = function(fns, config) {
 
     return function() {
         var i = 0,
-            len = functions.length;
+            lastFnIndex = functions.length -1;
 
-        for(;i &lt; len -1; ++i) {
+        for(;i &lt; lastFnIndex; ++i) {
             functions[i].apply(this, arguments);
         }
 
-        return functions[len -1 ].apply(this, arguments);
+        return functions[lastFnIndex].apply(this, arguments);
     };
 };
 
