@@ -1,6 +1,6 @@
 gruntTasks
 pages
-test
+versions
 Gruntfile.js
 .travis.yml
 jsduck.json
