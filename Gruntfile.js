@@ -12,6 +12,8 @@ module.exports = function(grunt) {
     tasks.buildDocs(done);
   });
 
+  grunt.registerTask('publish', 'publish version', tasks.publishVersion);
+
   grunt.initConfig({ 
     exec: {
       buildSrc: {

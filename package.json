@@ -9,7 +9,14 @@
   "version": "0.1.0",
   "description": "a small javascript framework",
   "main": "lib/luc.js",
-  "keywords": ["framework", "utils", "class", "browser", "client", "server"],
+  "keywords": [
+    "framework",
+    "utils",
+    "class",
+    "browser",
+    "client",
+    "server"
+  ],
   "devDependencies": {
     "grunt-exec": "~0.4.2",
     "grunt-contrib-uglify": "~0.2.2",
@@ -19,7 +26,8 @@
     "es5-shim-sham": "0.0.0",
     "wrench": "~1.5.1",
     "grunt-cli": "~0.1.9",
-    "grunt-devtools": "0.1.0-7"
+    "grunt-devtools": "0.1.0-7",
+    "adm-zip": "~0.4.3"
   },
   "testling": {
     "browsers": [

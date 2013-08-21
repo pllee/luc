@@ -1,7 +1,8 @@
 var exec = require('child_process').exec,
     wrench = require('wrench'),
     Luc = require('../lib/luc'),
-    fs = require('fs');
+    fs = require('fs'),
+    publishVersion = require('./publishVersion');
 
 function clean(dirs) {
     Luc.Array.each(dirs, function(dir) {
@@ -42,3 +43,5 @@ module.exports.buildDocs = function(done) {
         done();
     });
 };
+
+module.exports.publishVersion = publishVersion;
