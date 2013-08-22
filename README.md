@@ -1,4 +1,4 @@
-Luc
+# ![Luc](http://pllee.github.io/luc/pages/docsResources/luc.png)
 ====
 
 <!--
