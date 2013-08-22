@@ -18,7 +18,7 @@ npm install luc
 
 Browser
 ====
-[Download](http://pllee.github.io/luc/luc.zip) the zip or check out the hosted build files [luc](http://pllee.github.io/luc/build/luc.js), [luc-es5-shim](http://pllee.github.io/luc/build/luc-es5-shim.js).  Source maps come packaged with the non minified versions.
+[Download](http://pllee.github.io/luc/versions/luc-latest.zip) the latest zip or check out the hosted build files [luc](http://pllee.github.io/luc/build/luc.js), [luc-es5-shim](http://pllee.github.io/luc/build/luc-es5-shim.js).  Source maps come packaged with the non minified versions.
 
 Supported Browsers
 ===
