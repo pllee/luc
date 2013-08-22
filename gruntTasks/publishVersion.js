@@ -6,13 +6,15 @@ var AdmZip = require('adm-zip'),
 
 
 function zipDir(name) {
-    var zip = new AdmZip();
-    wrench.copyDirSyncRecursive(inputDir, name, {
+    var zip = new AdmZip(),
+        folderName = 'luc-' + name;
+
+    wrench.copyDirSyncRecursive(inputDir, folderName, {
         forceDelete: true
     });
-    zip.addLocalFolder(name);
-    zip.writeZip(outputDir + name +'.zip');
-    wrench.rmdirSyncRecursive(name, true);
+    zip.addLocalFolder(folderName);
+    zip.writeZip(outputDir + folderName +'.zip');
+    wrench.rmdirSyncRecursive(folderName, true);
 }
 
 module.exports = function() {
