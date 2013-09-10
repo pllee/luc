@@ -83,4 +83,15 @@ describe('Luc Object functions', function() {
 
         expect(filtered).to.eql([{key: 'c', value: 3}]);
     });
+
+    it('merge', function() {
+        var merge = Luc.Object.merge;
+
+        expect(merge({}, {a:1})).to.eql({a:1});
+        expect(merge({a:false}, {a:1})).to.eql({a:false});
+        expect(merge({a:[]}, {a:{a:1}})).to.eql({a:[]});
+        expect(merge({a:1,b:2, c:null}, {a:2, b:3, c: {a:[]}})).to.eql({a:1,b:2, c:{a:[]}});
+        expect(merge({a:{a:{a:{a:1}}}}, {a:{a:{a:{a:2, b:2}}}})).to.eql({a:{a:{a:{a:1, b:2}}}});
+        expect(merge({a:{a:{a:{a:1}}}}, {a:{a:{a:{a:2, b:2}}}})).to.eql({a:{a:{a:{a:1, b:2}}}});
+    });
 });

@@ -5,3 +5,4 @@ require('../class');
 require('../is');
 require('../function');
 require('../compare');
+require('../submodule');
