@@ -93,6 +93,38 @@ c.count
 >1
 ```
 
+Call a super's method:
+
+```js
+    var C = Luc.define({
+        $super:Counter,
+        increaseCount: function () {
+            this.count += 2;
+            this.callSuper();
+        }
+    });
+```
+
+
+It can also be done this way:
+
+```js
+     var C = Luc.define({
+        $super:Counter,
+        increaseCount: function () {
+            this.count += 2;
+            C.$superclass.increaseCount.call(this);
+        }
+    });
+```
+<br>
+
+```js
+    var c = new C();
+    c.increaseCount();
+    c.count
+    >3
+```
 
 
 
