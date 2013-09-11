@@ -9,7 +9,7 @@ function defineClassWithAllOptions() {
     Adder.prototype.add = function(a, b) {
         return a + b;
     };
-    return Luc.define({
+    var A = Luc.define({
         $super: Adder,
         $statics: {
             total: 0
@@ -25,7 +25,7 @@ function defineClassWithAllOptions() {
             methods: 'allMethods'
         },
         add: function(a, b, c) {
-            var two = this.$superclass.add.call(this, a, b),
+            var two = A.$superclass.add.call(this, a, b),
                 ret = two + c;
 
             this.emit('toString', this.makeString(ret));
@@ -35,6 +35,8 @@ function defineClassWithAllOptions() {
             return ret;
         }
     });
+
+    return A;
 }
 
 describe('Luc Class', function() {
@@ -151,7 +153,7 @@ describe('Luc Class', function() {
             $super: Luc.EventEmitter,
             emit: function() {
                 i = 0;
-                this.$superclass.emit.apply(this, arguments);
+                C.$superclass.emit.apply(this, arguments);
             }
         });
 
