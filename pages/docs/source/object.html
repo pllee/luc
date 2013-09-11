@@ -15,7 +15,9 @@
   </script>
 </head>
 <body onload="prettyPrint(); highlight();">
-  <pre class="prettyprint lang-js"><span id='Luc-Object'>/**
+  <pre class="prettyprint lang-js">var is = require('./is');
+
+<span id='Luc-Object'>/**
 </span> * @class Luc.Object
  * Package for Object methods.  Luc.Object.apply and Luc.Object.each
  * are used very often.  mix and apply are aliased to Luc.apply and Luc.mix.
@@ -248,6 +250,36 @@ exports.filter = function(obj, filterFn, thisArg, c) {
     }, thisArg, config);
 
     return values;
-};</pre>
+};
+
+<span id='Luc-Object-method-merge'>/**
+</span> * Merge the values from object2 into object1.  The values will only be
+ * merged in if object1's value for the key is null or undefined.  Nested objects
+ * are handled in the same way.  Array values will not be merged.
+ * 
+    Luc.Object.merge({a: 1}, {b: 2})
+    &gt;{a: 1, b: 2}
+    
+    Luc.Object.merge({a: {a: 1} }, {b:2, a: {b: 2}})
+    &gt;{b: 2, a: {a:1, b:2} }
+
+ * @param  {Object} object1
+ * @param  {Object} object2
+ * @return {Object}
+ */
+function merge(obj1, obj2) {
+    exports.each(obj2, function(key, value) {
+        var obj1Value = obj1[key];
+        if (obj1Value == undefined) {
+            obj1[key] = value;
+        } else if (is.isObject(obj1Value)) {
+            merge(obj1[key], obj2[key]);
+        }
+    });
+
+    return obj1;
+}
+
+exports.merge = merge;</pre>
 </body>
 </html>

@@ -260,13 +260,57 @@ ClassDefiner = {
     },
 
     _applySuper: function($class, $super) {
-        var proto;
+        var proto,
+            superObj;
+
         //super can be falsy to signify no superclass
         if ($super) {
+            superObj = {
+                $super: $super,
+                $superclass: $super.prototype
+            };
+
             proto = $class.prototype;
-            proto.$super = $super;
-            proto.$superclass = $super.prototype;
+
+            apply(proto, superObj);
+            apply($class, superObj);
+
+            this._addSuperMethod(proto);
         }
+    },
+
+    _addSuperMethod: function(proto) {
+
+        function getSuperMethod(callee, sp) {
+            var $super = sp || proto,
+                key;
+
+            for (key in $super) {
+                if ($super[key] === callee) {
+
+                    return $super.$superclass[key];
+
+                    //we could be caching this here on the fn
+                    //but then devs would have to know the edge cases
+                    //of how to invalidate it
+                }
+            }
+
+            return getSuperMethod(callee, $super.$superclass);
+        }
+
+        function callSuper(args) {
+            var superMethod = getSuperMethod(callSuper.caller);
+
+            if(superMethod) {
+                return superMethod.apply(this, args);
+            }
+
+            throw new Error('super method not found.');
+            
+        }
+
+        proto.callSuper = callSuper;
     },
 
     _createComposerProtoFn: function(methodName, compositionName) {
@@ -478,10 +522,12 @@ module.exports = ClassDefiner;
     &gt;true
  */
 
-<span id='Luc-define-property-S-superclass'>/**
-</span> * @property {Function} [$superclass] If $super is defined it
- * will be the prototype of $super.  It can be used to call a parent's
- * method
+<span id='Luc-define-property-callSuper'>/**
+</span> * @property {Function} [callSuper] If $super is defined it
+ * will be on the prototype of $super.  It can be used to call a super's
+ * method.  This can be used instead of the class's static $superclass reference.
+ * Check out {@link Luc.define#callSuper callSuper} for more extensive documentation.
+ * 
  * 
     function MyCoolClass() {}
     MyCoolClass.prototype.addNums = function(a,b) {
@@ -491,7 +537,7 @@ module.exports = ClassDefiner;
     var MyOtherCoolClass = Luc.define({
         $super: MyCoolClass,
         addNums: function(a, b, c) {
-            return this.$superclass.addNums.call(this, a, b) + c;
+            return this.callSuper([a, b]) + c;
         }
     })
 
@@ -499,6 +545,95 @@ module.exports = ClassDefiner;
     m.addNums(1,2,3);
     &gt;6
  */
+
+<span id='Luc-define-method-callSuper'>/**
+</span> * @method callSuper If $super is defined it
+ * will be on the prototype of $super.  It can be used to call a super's
+ * method.
+ *
+ * @param {Array/Arguments} args(optional) The arguments for the super methods apply call.
+ * 
+ * 
+    function MyCoolClass() {}
+    MyCoolClass.prototype.addNums = function(a,b) {
+        return a + b;
+    }
+
+    var MC = Luc.define({
+        $super: MyCoolClass,
+        addNums: function(a, b, c) {
+            return this.callSuper([a, b]) + c;
+        }
+    });
+    
+    *
+    * produces the same code as :
+    * 
+    var MC = Luc.define({
+        $super: MyCoolClass,
+        addNums: function(a, b, c) {
+            return MC.$superclass.addNums.apply(this, [a, b]) + c;
+        }
+    });
+
+    function Counter() {
+        this.count = 0;
+     };
+
+     Counter.prototype = {
+        getCount: function() {
+            return this.count;
+        },
+        increaseCount: function() {
+            this.count++;
+        }
+     }
+    
+    var C = Luc.define({
+        $super:Counter,
+        increaseCount: function () {
+            this.count += 2;
+            this.callSuper();
+        }
+    });
+
+    *
+    * is the same as
+    * 
+
+    var C = Luc.define({
+        $super:Counter,
+        increaseCount: function () {
+            this.count += 2;
+            C.$superclass.increaseCount.call(this);
+        }
+    });
+
+    *
+    * Caveats &lt;br&gt;
+    *
+    * callSuper can not be used as an instance method or inside of method
+    * that is overwritten for a particular instance.
+    *
+    var c = new C();
+    //this will throw an error with the message of method not found.
+    c.callSuper()
+    *
+    * What callSuper makes up for in terseness it loses it in
+    * efficiency.
+    * 
+    this.count += 2;
+    C.$superclass.increaseCount
+
+    *
+    * is much faster and more efficient that :
+    * 
+    this.count += 2;
+    this.callSuper();
+
+
+ */
+
 
 <span id='Luc-define-property-getStaticValue'>/**
 </span> * @property {Function} getStaticValue this method
@@ -594,28 +729,6 @@ module.exports = ClassDefiner;
  *
  */
 
-<span id='Luc-define-property-S-superclass'>/**
-</span> * @property {Function} [$superclass] If $super is defined it
- * will be the prototype of $super.  It can be used to call parent's
- * method
- * 
-    function MyCoolClass() {}
-    MyCoolClass.prototype.addNums = function(a,b) {
-        return a + b;
-    }
-
-    var MyOtherCoolClass = Luc.define({
-        $super: MyCoolClass,
-        addNums: function(a, b, c) {
-            return this.$superclass.addNums.call(this, a, b) + c;
-        }
-    })
-
-    var m = new MyOtherCoolClass();
-    m.addNums(1,2,3);
-    &gt;6
- */
-
 <span id='Luc-define-cfg-S-mixins'>/**
 </span> * @cfg {Object/Constructor/Object[]/Constructor[]} $mixins (optional)  Mixins are a way to add functionality
  * to a class that should not add state to the instance unknowingly.  Mixins can be either objects or Constructors.
@@ -673,6 +786,24 @@ module.exports = ClassDefiner;
     &gt;1
     c.count
     &gt;1
+
+ * A reference to the superclass's methods can be obtained through
+ * the defined class's property $superclass.  Similar functionality 
+ * can be done with {@link Luc.define#callSuper callSuper} but callSuper
+ * is much less efficient.
+ *
+     var C = Luc.define({
+        $super:Counter,
+        increaseCount: function () {
+            this.count += 2;
+            C.$superclass.increaseCount.call(this);
+        }
+    });
+
+    var c = new C();
+    c.increaseCount();
+    c.count
+    &gt;3
  *
  * Check out Luc.Base to see why we have it as the default.
  * 
@@ -728,7 +859,7 @@ module.exports = ClassDefiner;
  * also shouldn't have to know that it may be instantiated alone or mixed into classes
  * so the initing of state is not done in the constructor like it probably should.
  * It is not terrible practice by any means but it is not good to have a standalone class
- * that knows that it may be mixin.  Even worse than that would be a mixin that needs
+ * that knows that it may be mixing.  Even worse than that would be a mixin that needs
  * to be inited by the defining class.  Encapsulating logic in a class
  * and using it anywhere seamlessly is where compositions shine. Luc comes with two common 
  * {@link Luc#compositionEnums enums} that we expect will be used often.
