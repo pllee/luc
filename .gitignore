@@ -4,3 +4,4 @@ pages/*
 !pages/docsResources
 gruntTasks/generatedDocs/*
 lib-cov/
+READMEDocs.md

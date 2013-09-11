@@ -29,6 +29,7 @@ Supported Browsers
 * Safari 5.1 - latest
 * Tentative support for mobile (Our tests pass for the platforms that we are [testing](https://ci.testling.com/pllee/luc))
 
+<!--- DOCIGNORE --> 
 
 Examples/Code
 ===
@@ -935,6 +936,8 @@ Return a unique id.  A prefix is an optional argument
     Luc.id('')
     >"0"
 ```
+
+<!--- DOCIGNORE -->
 
 Where does Luc sit now?
 ====

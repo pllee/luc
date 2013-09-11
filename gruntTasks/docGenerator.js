@@ -2,6 +2,9 @@ var Luc = require('../lib/luc'),
     arrayFns = Luc.Array,
     fs = require('fs'),
     commonDocs,
+    readmeLocation = __dirname + '/../README.md',
+    readmeToSave = __dirname + '/../READMEDocs.md',
+    docIgnore = '<!--- DOCIGNORE -->',
     docInjector = require('./docInjector'),
     common =
         '/**\n' +
@@ -96,6 +99,14 @@ function _generateDoc(docKey, methodName) {
     return str;
 }
 
+function _createReadmeForDocs(){
+    var readmeContents = fs.readFileSync(readmeLocation, 'utf8');
+    var readMeSplit = readmeContents.split(docIgnore);
+
+    fs.writeFileSync(readmeToSave, readMeSplit[0] + readMeSplit[2]);
+    
+}
+
 
 function _getDocsToGen(methodName) {
     var doc;
@@ -122,4 +133,5 @@ Luc.Object.each(arrayFns, function(key) {
     }
 });
 
+_createReadmeForDocs();
 fs.writeFileSync(__dirname + '/generatedDocs/docs.js', buffer);
