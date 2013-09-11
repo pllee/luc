@@ -425,6 +425,69 @@ describe('Luc Class', function() {
 
         expect(hasBeenCalled).to.be(true);
     });
+
+    describe('callSuperMethod', function(){
+
+        it('callSuperMethod', function() {
+            var A = Luc.define({
+                add: function(a, b, c) {
+                    return a + b + c;
+                }
+            });
+
+            var B = Luc.define({
+                $super: A,
+                add: function(a, b, c) {
+                    return this.callSuper(arguments) + 5;
+                }
+            });
+
+            var C = Luc.define({
+                $super: B,
+                add: function(a, b, c) {
+                    return this.callSuper(arguments);
+                }
+            });
+
+            var D = Luc.define({
+                $super: A,
+                add: function(a, b, c) {
+                    return this.callSuper(arguments);
+                }
+            });
+
+            var E = Luc.define({
+                $super: C,
+                add: function(a, b, c) {
+                    return this.callSuper(arguments) + 10;
+                },
+                noSuper: function() {
+                    this.callSuper();
+                }
+            });
+
+           
+            var c = new C();
+            var d = new D();
+            var e = new E();
+
+            expect(d.add(1, 2, 3)).to.be(6);
+            expect(c.add(1, 2, 3)).to.be(11);
+            expect(e.add(1, 2, 3)).to.be(21);
+
+
+            B.prototype.add = function() {
+                return this.callSuper(arguments);
+            };
+
+            expect(e.add(1, 2, 3)).to.be(16);
+
+            expect(function() {
+                e.noSuper();
+            }).to.throwException();
+        });
+
+    });
 });
 
 
