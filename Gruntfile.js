@@ -1,4 +1,6 @@
-var tasks = require('./gruntTasks');
+var tasks = require('./gruntTasks'),
+    browsers = tasks.browsers,
+    port = 8888;
 
 module.exports = function(grunt) {
 
@@ -43,12 +45,38 @@ module.exports = function(grunt) {
                    ' */\n'
         }
       }
-    }
+    },
+    connect: {
+      server: {
+        options: {
+          base: "",
+          port: port
+        }
+      }
+    },
+    'saucelabs-mocha': {
+            all: {
+                options: {
+                    urls: ['http://localhost:' + port + '/pages/testRunner/'],
+                    tunnelTimeout: 5,
+                    build: process.env.TRAVIS_JOB_ID,
+                    concurrency: 3,
+                    browsers: browsers,
+                    testname: "luc tests",
+                    tags: ["master"]
+                }
+            }
+        }
   });
+
   
+  
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-saucelabs');
   grunt.loadNpmTasks('grunt-devtools');
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.registerTask('default', ['exec', 'uglify']);
+  grunt.registerTask('test', ['default', 'connect', 'saucelabs-mocha']);
 
 };

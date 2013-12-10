@@ -5,3 +5,4 @@ pages/*
 gruntTasks/generatedDocs/*
 lib-cov/
 READMEDocs.md
+sauce_connect.log

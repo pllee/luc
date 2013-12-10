@@ -14,7 +14,7 @@ function buildCoverage(done) {
     var tempDir = 'tempTestCoverage';
     fs.mkdirSync('pages/coverage');
     wrench.copyDirSyncRecursive('test', tempDir);
-    fs.writeFileSync(tempDir +'/lucTestLib.js', "module.exports = require('../lib-cov/luc');",{
+    fs.writeFileSync(tempDir +'/lucTestLib.js', "exports = require('../lib-cov/luc');",{
         forceDelete: true
     });
 
@@ -30,12 +30,12 @@ function buildCoverage(done) {
     });
 }
 
-module.exports.buildCoverage = function(done) {
+exports.buildCoverage = function(done) {
     clean(['lib-cov', 'pages/coverage']);
     buildCoverage(done);
 };
 
-module.exports.buildDocs = function(done) {
+exports.buildDocs = function(done) {
     require('./docGenerator');
 
     exec('jsduck gruntTasks/generatedDocs', function() {
@@ -44,4 +44,5 @@ module.exports.buildDocs = function(done) {
     });
 };
 
-module.exports.publishVersion = publishVersion;
+exports.publishVersion = publishVersion;
+exports.browsers = require('./browsers');
