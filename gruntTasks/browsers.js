@@ -21,12 +21,6 @@ browsers = {
     }, {
         name: ie,
         version: 8
-    }, {
-        name: ff,
-        version: 25
-    }, {
-        name: ff,
-        version: 24
     },{
         name: ff,
         version: 4
@@ -68,10 +62,10 @@ browsers = {
         name: ip,
         version: 4
     }],
-    'linux': [/*{
+    'linux': [{
         name: an,
         version: 4
-    },*/{
+    },{
         name: ch
     }],
     'Windows 2008': [{
