@@ -7,6 +7,8 @@
 
 [![Build Status](https://secure.travis-ci.org/pllee/luc.png)](http://travis-ci.org/pllee/luc)
 
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/pllee.svg)](https://saucelabs.com/u/pllee)
+
 What is Luc?
 ====
 Luc is a lightweight JavaScript framework that is built from the ground up targeting all browsers and Node.js.   Luc provides a class system that can add compositions, mixins and statics functionality to any class without messing up the inheritance chain.  Luc comes with over 40 utility Array/Object/Function methods along with over 150 Array utility methods that follow the same API and grammar. It also comes with the ability to add EventEmiter and Plugin functionality to any pre existing class.  Luc has zero dependencies and currently sits at less than 650 SLOC and it is less than 7.5Kb minified and gzipped.
