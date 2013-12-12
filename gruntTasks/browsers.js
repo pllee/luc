@@ -63,9 +63,6 @@ browsers = {
         version: 4
     }],
     'linux': [{
-        name: an,
-        version: 4
-    },{
         name: ch
     }],
     'Windows 2008': [{
