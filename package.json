@@ -25,7 +25,7 @@
     "browserify": "2.23.1",
     "expect.js": "0.2.0",
     "mocha": "~1.11.0",
-    "es5-shim-sham": "0.0.0",
+    "es5-shim-sham": "*",
     "wrench": "~1.5.1",
     "grunt-cli": "~0.1.9",
     "grunt-devtools": "0.1.0-7",

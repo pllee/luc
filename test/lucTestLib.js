@@ -1,1 +1,1 @@
- module.exports = require('../lib/luc-es5-shim');
+ module.exports = require('../lib/luc');
