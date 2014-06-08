@@ -42,6 +42,7 @@ module.exports = function(grunt) {
           preserveComments: 'some',
           banner:  '/**\n' +
                    ' * @license https://github.com/pllee/luc/blob/master/LICENSE\n' +
+                   ' * @version ' + require('./package').version + '\n' + 
                    ' */\n'
         }
       }

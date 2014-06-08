@@ -1,9 +1,7 @@
 var AdmZip = require('adm-zip'),
     wrench = require('wrench'),
     outputDir = __dirname + '/../versions/',
-    inputDir = __dirname + '/../build/',
-    version = require(__dirname + '/../package.json').version;
-
+    inputDir = __dirname + '/../build/';
 
 function zipDir(name) {
     var zip = new AdmZip(),
@@ -18,7 +16,6 @@ function zipDir(name) {
 }
 
 module.exports = function() {
-    zipDir(version);
     zipDir('latest');
 };
 
