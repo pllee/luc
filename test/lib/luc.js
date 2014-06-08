@@ -6,3 +6,4 @@ require('../is');
 require('../function');
 require('../compare');
 require('../submodule');
+require('../override');
