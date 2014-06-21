@@ -32,6 +32,7 @@ describe('Luc is', function() {
     it('isNumber', function() {
         expect(Luc.isNumber({})).to.be(false);
         expect(Luc.isNumber(0)).to.be(true);
+        expect(Luc.isNumber(NaN)).to.be(false);
     });
 
     it('isFunction', function() {
