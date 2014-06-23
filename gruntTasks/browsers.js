@@ -48,9 +48,6 @@ browsers = {
         version: 6
     },{
         name: ip,
-        version: 6
-    },{
-        name: ip,
         version: 5
     }],    
     'OSX 10.6': [{
