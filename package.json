@@ -6,7 +6,7 @@
     "url": "https://github.com/pllee/luc.git"
   },
   "license": "MIT",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "a small javascript framework",
   "main": "lib/luc.js",
   "keywords": [
